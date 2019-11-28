@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "473496795798",
+    "firebase_url": "https://endometriosismonitoring.firebaseio.com",
+    "project_id": "endometriosismonitoring",
+    "storage_bucket": "endometriosismonitoring.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473496795798:android:52fd7fb00da911402fe0b7",
+        "android_client_info": {
+          "package_name": "com.benlefevre.endometriosismonitoring"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "473496795798-cckgch1pc2qg7lc0sujmu2u7nap9f9c0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.benlefevre.endometriosismonitoring",
+            "certificate_hash": "d4ed552491be0ea0077a711c62d570351973c23a"
+          }
+        },
+        {
+          "client_id": "473496795798-chcakg9hj1ilo0mvfigqn8118d291g5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrYPmZk06Qszdb5lzovdsmfMkOXUIBHrM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "473496795798-chcakg9hj1ilo0mvfigqn8118d291g5h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
