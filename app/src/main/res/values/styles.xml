@@ -21,4 +21,12 @@
         <item name="android:navigationBarColor">@color/colorPrimaryVariant</item>
     </style>
 
+    <style name="LoginTheme" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorOnSurface</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryVariant</item>
+        <item name="colorAccent">@color/colorSecondary</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+    </style>
+
 </resources>
