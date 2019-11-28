@@ -17,11 +17,8 @@ public interface PainDao {
     @Query("SELECT * FROM Pain")
     LiveData<List<Pain>> getAllPains();
 
-    @Query("SELECT * FROM Pain WHERE date BETWEEN :begin AND :end ORDER BY id DESC")
-    LiveData<List<Pain>> get7LastPain(Date begin, Date end);
-
     @Query("SELECT * FROM Pain WHERE date BETWEEN :dateBegin AND :dateEnd")
-    LiveData<List<Pain>> getPainsByDate(long dateBegin, long dateEnd);
+    LiveData<List<Pain>> getPainsByPeriod(Date dateBegin, Date dateEnd);
 
     @Insert
     long insertPain(Pain pain);

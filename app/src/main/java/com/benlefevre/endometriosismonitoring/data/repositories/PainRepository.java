@@ -24,6 +24,6 @@ public class PainRepository {
         return mPainDao.getAllPains();
     }
 
-    public LiveData<List<Pain>> get7LastPain(Date begin, Date end){return mPainDao.get7LastPain(begin, end);}
+    public LiveData<List<Pain>> getPainByPeriod(Date begin, Date end){return mPainDao.getPainsByPeriod(begin, end);}
 }
 
