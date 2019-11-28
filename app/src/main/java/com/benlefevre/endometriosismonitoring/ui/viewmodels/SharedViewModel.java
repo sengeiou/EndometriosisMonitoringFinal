@@ -18,6 +18,7 @@ import com.benlefevre.endometriosismonitoring.models.Pain;
 import com.benlefevre.endometriosismonitoring.models.Result;
 import com.benlefevre.endometriosismonitoring.models.Symptom;
 import com.benlefevre.endometriosismonitoring.models.Temperature;
+import com.benlefevre.endometriosismonitoring.models.User;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -129,6 +130,9 @@ public class SharedViewModel extends ViewModel {
         mFirestoreRepository.createFirestoreAction(actions);
     }
 
+    public void createFirestoreUser(User user){
+        mFirestoreRepository.createFirestoreUser(user);
+    }
 
 //    ----------------------------------------READ--------------------------------------------------
 

@@ -2,6 +2,7 @@ package com.benlefevre.endometriosismonitoring.data.repositories;
 
 import com.benlefevre.endometriosismonitoring.models.Action;
 import com.benlefevre.endometriosismonitoring.models.FirestorePain;
+import com.benlefevre.endometriosismonitoring.models.User;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 import static com.benlefevre.endometriosismonitoring.utils.Constants.ACTIONS;
 import static com.benlefevre.endometriosismonitoring.utils.Constants.FIRESTORE_PAIN;
+import static com.benlefevre.endometriosismonitoring.utils.Constants.USERS;
 
 public class FirestoreRepository {
 
@@ -28,6 +30,10 @@ public class FirestoreRepository {
     public void createFirestoreAction(List<Action> actions){
         for (Action action : actions)
         mFirestore.collection(ACTIONS).add(action);
+    }
+
+    public void createFirestoreUser(User user){
+        mFirestore.collection(USERS).document(user.getId()).set(user);
     }
 
     public CollectionReference getAllFirestorePain(){
