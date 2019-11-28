@@ -3,5 +3,11 @@
 
     <string name="facebook_application_id">2480841702131407</string>
     <string name="fb_login_protocol_scheme">fb2480841702131407</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="treatment">Treatment</string>
+    <string name="fertility">Fertility</string>
+    <string name="doctor">Doctor</string>
+    <string name="settings">Settings</string>
+    <string name="log_out">Log Out</string>
 
 </resources>

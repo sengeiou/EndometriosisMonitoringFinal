@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboard"
+        android:title="@string/dashboard"
+        android:icon="@drawable/clipboard"/>
+
+    <item
+        android:id="@+id/treatment"
+        android:title="@string/treatment"
+        android:icon="@drawable/medicine"/>
+
+    <item
+        android:id="@+id/baby"
+        android:title="@string/fertility"
+        android:icon="@drawable/bear"/>
+
+    <item
+        android:id="@+id/doctor"
+        android:title="@string/doctor"
+        android:icon="@drawable/doctor"/>
+</menu>

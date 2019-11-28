@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.benlefevre.endometriosismonitoring.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
             this.finish();
         } else {
             setContentView(R.layout.activity_main);
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         }
     }
 }
