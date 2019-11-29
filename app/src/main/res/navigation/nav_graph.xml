@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.DashboardFragment"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/treatmentFragment"
+        android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.TreatmentFragment"
+        tools:layout="@layout/fragment_treatment" />
+    <fragment
+        android:id="@+id/fertilityFragment"
+        android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.FertilityFragment"
+        tools:layout="@layout/fragment_fertility" />
+    <fragment
+        android:id="@+id/doctorFragment"
+        android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.DoctorFragment"
+        tools:layout="@layout/fragment_doctor" />
+    <fragment
+        android:id="@+id/doctorDetailsFragment"
+        android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.DoctorDetailsFragment"
+        tools:layout="@layout/fragment_doctor_details" />
+    <fragment
+        android:id="@+id/painFragment"
+        android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.PainFragment"
+        tools:layout="@layout/fragment_pain" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.SettingFragment"
+        tools:layout="@layout/fragment_setting" />
+</navigation>

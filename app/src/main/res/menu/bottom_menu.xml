@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/dashboard"
+        android:id="@+id/dashboardFragment"
         android:title="@string/dashboard"
         android:icon="@drawable/clipboard"/>
 
     <item
-        android:id="@+id/treatment"
+        android:id="@+id/treatmentFragment"
         android:title="@string/treatment"
         android:icon="@drawable/medicine"/>
 
     <item
-        android:id="@+id/baby"
+        android:id="@+id/fertilityFragment"
         android:title="@string/fertility"
         android:icon="@drawable/bear"/>
 
     <item
-        android:id="@+id/doctor"
+        android:id="@+id/doctorFragment"
         android:title="@string/doctor"
         android:icon="@drawable/doctor"/>
 </menu>
