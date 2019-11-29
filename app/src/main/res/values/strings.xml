@@ -85,6 +85,11 @@
     <string name="others_treatments">Others treatments</string>
     <string name="a_tablet_of_pills">a tablet of pills</string>
     <string name="an_add_button_image">An add button image</string>
+    <string name="delete_hour">Delete the hour</string>
+    <string name="forget_pill">Don\'t forget, it\'s time to take your pill</string>
+    <string name="check_pill">Check the according pill in the Treatment screen</string>
+    <string name="forget_treatment">Don\'t forget, it\'s time to take %1$s</string>
+    <string name="you_must_take">You must take %1$s %2$s</string>
 
 
     <string-array name="sport">

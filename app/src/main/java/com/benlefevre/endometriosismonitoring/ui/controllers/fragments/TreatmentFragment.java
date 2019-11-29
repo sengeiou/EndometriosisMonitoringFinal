@@ -3,13 +3,16 @@ package com.benlefevre.endometriosismonitoring.ui.controllers.fragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -118,6 +121,7 @@ public class TreatmentFragment extends Fragment {
     private SharedPreferences mSharedPreferences;
     private Calendar mCalendar;
     private SimpleDateFormat mDateFormat;
+    private SimpleDateFormat mTimeFormat;
 
     public TreatmentFragment() {
         // Required empty public constructor
@@ -141,6 +145,7 @@ public class TreatmentFragment extends Fragment {
         mCheckBoxList = new ArrayList<>();
         mCalendar = Calendar.getInstance();
         mDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+        mTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         initCheckBoxList();
         checkCheckbox();
         updateDayAndHourPill();
@@ -229,8 +234,33 @@ public class TreatmentFragment extends Fragment {
             mSharedPreferences.edit().putString(LAST_CYCLE_DAY,mFirstDayTxt.getText().toString()).apply();
     }
 
+    /**
+     * Sets a OnTimeSetListener with updateAndSavePillTimeLabel() and shows a TimePickerDialog
+     */
     private void openPillTimePicker(){
+        TimePickerDialog.OnTimeSetListener timeSetListener = (view, hourOfDay, minute) -> {
+            mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            mCalendar.set(Calendar.MINUTE, minute);
+            updateAndSavePillTimeLabel();
+        };
+        TimePickerDialog timePickerDialog = new TimePickerDialog(mActivity,timeSetListener,
+                mCalendar.get(Calendar.HOUR_OF_DAY),mCalendar.get(Calendar.MINUTE),true);
+        timePickerDialog.setButton(DialogInterface.BUTTON_NEUTRAL, getString(R.string.delete_hour), (dialog, which) -> {
+            mHourPillsTxt.setText("");
+            mSharedPreferences.edit().remove(PILL_HOUR).apply();
+        });
+    }
 
+    /**
+     * Fetches the chosen time by user, updates the corresponding field and saves the value in Shared
+     * Preferences.
+     */
+    private void updateAndSavePillTimeLabel(){
+        mHourPillsTxt.setText(mTimeFormat.format(mCalendar.getTime()));
+        if (mHourPillsTxt.getText() != null){
+            String hour = mHourPillsTxt.getText().toString();
+            mSharedPreferences.edit().putString(PILL_HOUR,hour).apply();
+        }
     }
 
     @OnClick({R.id.first_day_txt, R.id.treatment_hour_pills_txt, R.id.treatment_add_btn})
@@ -240,7 +270,7 @@ public class TreatmentFragment extends Fragment {
                 openDatePicker();
                 break;
             case R.id.treatment_hour_pills_txt:
-
+                openPillTimePicker();
                 break;
             case R.id.treatment_add_btn:
                 break;
