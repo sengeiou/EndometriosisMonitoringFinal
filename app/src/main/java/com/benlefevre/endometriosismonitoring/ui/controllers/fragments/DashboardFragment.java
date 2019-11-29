@@ -3,7 +3,6 @@ package com.benlefevre.endometriosismonitoring.ui.controllers.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -143,9 +142,8 @@ public class DashboardFragment extends Fragment {
         Date end = calendar.getTime();
         calendar.add(Calendar.DAY_OF_YEAR, -7);
         Date begin = calendar.getTime();
-
+        List<Pain> painList = new ArrayList<>();
         mViewModel.getPainByPeriod(begin, end).observe(getViewLifecycleOwner(), pains -> {
-            List<Pain> painList = new ArrayList<>();
             painList.addAll(pains);
             Collections.reverse(painList);
             if (!painList.isEmpty()) {
@@ -163,9 +161,9 @@ public class DashboardFragment extends Fragment {
      * @param painList the fetched pain in locale DB with ViewModel
      */
     private void getPainSymptom(List<Pain> painList) {
+        List<Symptom> symptomList = new ArrayList<>();
         for (Pain pain : painList) {
             mViewModel.getSymptomByPainId(pain.getId()).observe(getViewLifecycleOwner(), symptoms -> {
-                List<Symptom> symptomList = new ArrayList<>();
                 symptomList.addAll(symptoms);
                 if (!symptomList.isEmpty())
                     setupSymptomChart(symptomList);
@@ -202,11 +200,11 @@ public class DashboardFragment extends Fragment {
      * @param painList all pain fetched in locale Db for a given period
      */
     private void getPainMood(List<Pain> painList) {
-//        TODO verifier le bon retour des moods
         List<Mood> moodList = new ArrayList<>();
         for (Pain pain : painList) {
             mViewModel.getMoodByPainId(pain.getId()).observe(getViewLifecycleOwner(), mood -> {
-                moodList.add(mood);
+                if(mood != null)
+                    moodList.add(mood);
                 if (!moodList.isEmpty()) {
                     float[] moods = computePercentMood(moodList);
                     setupMoodChart(moods);
@@ -225,9 +223,7 @@ public class DashboardFragment extends Fragment {
         float moodSize = moodList.size();
         float sadPercent = 0, sickPercent = 0, irritatedPercent = 0, happyPercent = 0,
                 veryHappyPercent = 0;
-        Log.i("info", "computeMood: " + moodSize);
         for (Mood mood : moodList) {
-            Log.i("info", "computeMood: " + mood);
             if (mood.getValue().equals(getString(R.string.sad)))
                 sad++;
             if (mood.getValue().equals(getString(R.string.sick)))
@@ -591,7 +587,6 @@ public class DashboardFragment extends Fragment {
         BarDataSet tiredDataSet = new BarDataSet(Collections.singletonList(tiredEntry), tiredName);
         tiredDataSet.setColor(getResources().getColor(R.color.graph7));
         tiredDataSet.setDrawValues(false);
-
 
         List<IBarDataSet> dataSet = new ArrayList<>();
         dataSet.add(burnsDataSet);

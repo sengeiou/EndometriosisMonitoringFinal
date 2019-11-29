@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -21,6 +22,7 @@ import androidx.navigation.Navigation;
 import com.benlefevre.endometriosismonitoring.R;
 import com.benlefevre.endometriosismonitoring.injection.Injection;
 import com.benlefevre.endometriosismonitoring.injection.ViewModelFactory;
+import com.benlefevre.endometriosismonitoring.models.Action;
 import com.benlefevre.endometriosismonitoring.models.FirestorePain;
 import com.benlefevre.endometriosismonitoring.models.Mood;
 import com.benlefevre.endometriosismonitoring.models.Pain;
@@ -29,6 +31,7 @@ import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialAutoCompleteTextView;
@@ -51,7 +54,7 @@ public class PainFragment extends Fragment {
     @BindView(R.id.pain_slider)
     Slider mPainSlider;
     @BindView(R.id.pain_value)
-    MaterialTextView mPainValue;
+    MaterialTextView mPainValueTxt;
     @BindView(R.id.pain_chip_abdo)
     Chip mChipAbdo;
     @BindView(R.id.pain_chip_bladder)
@@ -116,8 +119,6 @@ public class PainFragment extends Fragment {
     MaterialTextView mMaterialTextView8;
     @BindView(R.id.slider_pain_legend)
     MaterialTextView mSliderPainLegend;
-    @BindView(R.id.pain_value)
-    MaterialTextView mPainValueTxt;
     @BindView(R.id.materialTextView2)
     MaterialTextView mMaterialTextView2;
     @BindView(R.id.chipGroup_pain_location)
@@ -146,14 +147,12 @@ public class PainFragment extends Fragment {
     private FirestorePain mFirestorePain;
     private Mood mUserMood;
     private String mUserActivityChoice;
+    private List<Action> mActionList;
 
     private View mCustomDialog;
-    private TextInputLayout mActionTxt ;
     private MaterialAutoCompleteTextView mActionName;
     private MaterialTextView mDurationTxt;
-    private MaterialTextView mDurationLegend;
     private MaterialTextView mIntensityTxt;
-    private MaterialTextView mIntensityLegend;
     private Slider mIntensitySlider;
     private Slider mDurationSlider;
 
@@ -176,6 +175,7 @@ public class PainFragment extends Fragment {
         mActivity = getActivity();
         if (mActivity != null)
             mNavController = Navigation.findNavController(mActivity, R.id.nav_host_fragment);
+        mActionList = new ArrayList<>();
         configureViewModel();
         configureSlider();
     }
@@ -241,12 +241,42 @@ public class PainFragment extends Fragment {
         long rowId = mViewModel.createPain(mPain);
         if (rowId != -1){
             saveSymptomsInDb(rowId);
+            saveActionsInDb(rowId);
+            if (mUserMood != null){
+                saveMoodInDb(rowId);
+            }
         }
         saveUserInputinFirestore();
     }
 
+    /**
+     * Saves the FirestorePain set with the use's input in FireStore
+     */
     private void saveUserInputinFirestore() {
+        mViewModel.createFirestorePain(mFirestorePain);
+    }
 
+    /**
+     * Saves the user mood in Room after sets the painId into the mood. Sets the mood to the Firestore
+     * Pain to save it in FireStore
+     * @param rowId the id of the saved pain in Room
+     */
+    private void saveMoodInDb(long rowId){
+        mUserMood.setPainId(rowId);
+        mViewModel.createMood(mUserMood);
+        mFirestorePain.setMood(mUserMood.getValue());
+    }
+
+    /**
+     * Saves all user's Actions in Room and FireStore
+     * @param rowId the id of the user pain saved in Room
+     */
+    private void saveActionsInDb(long rowId){
+        for (Action action : mActionList){
+            action.setPainId(rowId);
+        }
+        mViewModel.createActions(mActionList);
+        mViewModel.createFirestoreAction(mActionList);
     }
 
     /**
@@ -317,6 +347,23 @@ public class PainFragment extends Fragment {
 
     private void openCustomDialog(int viewId){
         configureCustomDialog(viewId);
+
+        ArrayAdapter<CharSequence> sportAdapter = new ArrayAdapter<>(mActivity,R.layout.support_simple_spinner_dropdown_item,getResources().getStringArray(R.array.sport));
+        mActionName.setAdapter(sportAdapter);
+        mActionName.setOnItemClickListener((parent, view, position, id) -> mUserActivityChoice = parent.getItemAtPosition(position).toString());
+        mIntensitySlider.setOnChangeListener((slider, value) -> mIntensityTxt.setText(String.valueOf(value)));
+        mDurationSlider.setOnChangeListener((slider, value) -> mDurationTxt.setText(String.valueOf(value)));
+
+        new MaterialAlertDialogBuilder(mActivity)
+                .setCancelable(false)
+                .setView(mCustomDialog)
+                .setPositiveButton(R.string.save, (dialog, which) -> {
+                    Action action = new Action (0, mUserActivityChoice,(int)mDurationSlider.getValue(),(int)mIntensitySlider.getValue());
+                    mActionList.add(action);
+                })
+                .setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.cancel())
+                .show();
+
     }
 
     /**
@@ -324,12 +371,57 @@ public class PainFragment extends Fragment {
      * @param viewId the pressed view id
      */
     private void configureCustomDialog(int viewId) {
-        
+        mCustomDialog = mActivity.getLayoutInflater().inflate(R.layout.dialog_action,null);
+        TextInputLayout actionTxt = mCustomDialog.findViewById(R.id.action_legend);
+        mActionName = mCustomDialog.findViewById(R.id.action_text);
+
+        mDurationTxt = mCustomDialog.findViewById(R.id.duration_txt);
+        MaterialTextView durationLegend = mCustomDialog.findViewById(R.id.duration_legend);
+        mDurationTxt.setText("0");
+
+        mIntensityTxt = mCustomDialog.findViewById(R.id.intensity_txt);
+        MaterialTextView intensityLegend = mCustomDialog.findViewById(R.id.intensity_legend);
+        mIntensityTxt.setText("0");
+
+        mIntensitySlider = mCustomDialog.findViewById(R.id.intensity_slider);
+        mDurationSlider = mCustomDialog.findViewById(R.id.duration_slider);
+
+        if (viewId == R.id.pain_card_sleep || viewId == R.id.pain_card_stress){
+            actionTxt.setVisibility(View.GONE);
+            mActionName.setVisibility(View.GONE);
+            durationLegend.setVisibility(View.GONE);
+            mDurationSlider.setVisibility(View.GONE);
+            mDurationTxt.setVisibility(View.GONE);
+            mIntensityTxt.setVisibility(View.VISIBLE);
+            mIntensitySlider.setVisibility(View.VISIBLE);
+            intensityLegend.setVisibility(View.VISIBLE);
+        }else if (viewId == R.id.pain_card_sport){
+            actionTxt.setVisibility(View.VISIBLE);
+            mActionName.setVisibility(View.VISIBLE);
+            durationLegend.setVisibility(View.VISIBLE);
+            mDurationSlider.setVisibility(View.VISIBLE);
+            mDurationTxt.setVisibility(View.VISIBLE);
+            mIntensityTxt.setVisibility(View.VISIBLE);
+            mIntensitySlider.setVisibility(View.VISIBLE);
+            intensityLegend.setVisibility(View.VISIBLE);
+            intensityLegend.setText(R.string.stress_intensity_scale);
+        }else {
+            actionTxt.setVisibility(View.GONE);
+            mActionName.setVisibility(View.GONE);
+            mIntensityTxt.setVisibility(View.GONE);
+            mIntensitySlider.setVisibility(View.GONE);
+            intensityLegend.setVisibility(View.GONE);
+        }
+
+        if (viewId == R.id.pain_card_sleep)
+            intensityLegend.setText(R.string.sleep_quality_rate);
+        if (viewId == R.id.pain_card_stress)
+            intensityLegend.setText(R.string.stress_intensity_scale);
     }
 
 
     @OnClick({R.id.pain_card_sport, R.id.pain_card_sleep, R.id.pain_card_zen, R.id.pain_card_stress, R.id.pain_card_sex, R.id.pain_save_btn})
-    public void onViewClicked(View view) {
+    void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.pain_card_sport:
                 openCustomDialog(view.getId());
