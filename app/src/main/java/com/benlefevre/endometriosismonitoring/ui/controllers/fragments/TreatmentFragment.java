@@ -20,12 +20,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.Data;
 import androidx.work.WorkManager;
 
 import com.benlefevre.endometriosismonitoring.R;
 import com.benlefevre.endometriosismonitoring.models.Treatment;
+import com.benlefevre.endometriosismonitoring.ui.adapters.TreatmentAdapter;
+import com.benlefevre.endometriosismonitoring.ui.viewholders.TreatmentViewHolder;
 import com.benlefevre.endometriosismonitoring.utils.NotificationWorker;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -147,6 +150,7 @@ public class TreatmentFragment extends Fragment {
     private String mAfternoon;
     private String mEvening;
     private List<Treatment> mTreatmentList;
+    private TreatmentAdapter mTreatmentAdapter;
 
 //    Views of custom dialog
     private View mCustomDialog;
@@ -192,6 +196,7 @@ public class TreatmentFragment extends Fragment {
         checkCheckbox();
         updateDayAndHourPill();
         getTreatment();
+        configureRecyclerView();
     }
 
 
@@ -260,6 +265,22 @@ public class TreatmentFragment extends Fragment {
             mFirstDayTxt.setText(firstDay);
         if (hourPill != null)
             mHourPillsTxt.setText(hourPill);
+    }
+
+    /**
+     * Configures the RecyclerView with the right Adapter and sets an OnClickListener
+     */
+    private void configureRecyclerView(){
+        mTreatmentAdapter = new TreatmentAdapter(mTreatmentList);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, RecyclerView.VERTICAL, false));
+        mRecyclerView.setAdapter(mTreatmentAdapter);
+        mTreatmentAdapter.setOnClickListener(v -> {
+            TreatmentViewHolder holder = (TreatmentViewHolder) v.getTag();
+            int position = holder.getAdapterPosition();
+            WorkManager.getInstance(mActivity).cancelAllWorkByTag(mTreatmentList.get(position).getName());
+            mTreatmentList.remove(position);
+            mTreatmentAdapter.notifyDataSetChanged();
+        });
     }
 
     /**
@@ -390,6 +411,7 @@ public class TreatmentFragment extends Fragment {
                 Treatment treatment = new Treatment(treatmentName,duration,treatmentDosage, treatmentCondi,
                         mMorning, mNoon, mAfternoon, mEvening);
                 mTreatmentList.add(treatment);
+                mTreatmentAdapter.notifyDataSetChanged();
                 dialog.cancel();
             }else{
                 if (TextUtils.isEmpty(mTreatmentNameTxt.getText()))

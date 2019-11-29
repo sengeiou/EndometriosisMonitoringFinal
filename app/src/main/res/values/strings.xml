@@ -103,6 +103,12 @@
     <string name="enter_medicament_name">Please enter the medicament name</string>
     <string name="enter_medicament_dosage">Please enter the medicament dosage</string>
     <string name="enter_medicament_conditioning">Please enter the medicament conditioning</string>
+    <string name="delete_button_icon">Delete button icon</string>
+    <string name="dosage">Dosage</string>
+    <string name="duration">Duration</string>
+    <string name="picking_hours">Picking hours</string>
+    <string name="dosage_condi">%1$s %2$s</string>
+    <string name="until_the">Until the %1$s</string>
 
 
     <string-array name="sport">
