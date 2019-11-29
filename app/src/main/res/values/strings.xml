@@ -13,5 +13,29 @@
     <string name="doctor_info">Doctor\'s information</string>
     <string name="my_pain">My pain</string>
     <string name="anonymous">Anonymous</string>
+    <string name="cancel_auth">You have cancelled the authentification process. Please try again.</string>
+    <string name="no_network">You need a network access to login</string>
+    <string name="unknown_error">An unknwown error has occurred. Please try again</string>
+    <string name="evolution_of_pain_over_the_last_7_days">Evolution of pain over the last 7 days</string>
+    <string name="recurrence_of_symptoms_over_the_last_7_days">Recurrence of symptoms over the last 7 days</string>
+    <string name="practiced_activities_over_last_7_days">Practiced activities over last 7 days</string>
+    <string name="sleep_quality_over_the_7_last_days">Sleep quality over the 7 last days</string>
+    <string name="mood_repartition_over_the_7_last_days">Mood repartition over the 7 last days</string>
+    <string name="pain_history">Your pain history will appear here</string>
+    <string name="symptoms_history">Your symptoms history will appear here</string>
+    <string name="action_history">Your activities history will appear here</string>
+    <string name="sleep_history">Your sleep quality will appear here</string>
+    <string name="mood_history">Your mood history will appear here</string>
+    <string name="burns">Burns</string>
+    <string name="cramps">Cramps</string>
+    <string name="bleeding">Bleeding</string>
+    <string name="fever">Fever</string>
+    <string name="chills">Chills</string>
+    <string name="bloating">Bloating</string>
+    <string name="hot_flush">HotFlush</string>
+    <string name="diarrhea">Diarrhea</string>
+    <string name="constipation">Constipation</string>
+    <string name="nausea">Nausea</string>
+    <string name="tired">Tired</string>
 
 </resources>

@@ -21,6 +21,7 @@ import com.benlefevre.endometriosismonitoring.models.Temperature;
 import com.benlefevre.endometriosismonitoring.models.User;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.lang.invoke.MutableCallSite;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +46,7 @@ public class SharedViewModel extends ViewModel {
 
     private MutableLiveData<List<FirestorePain>> mFirestorePainLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Action>> mFirestoreActionLiveData = new MutableLiveData<>();
+    private MutableLiveData<User> mCurrentUserLiveData = new MutableLiveData<>();
 
     public SharedViewModel(ActionRepository actionRepository, DoctorRepository doctorRepository, FirestoreRepository firestoreRepository, MoodRepository moodRepository, PainRepository painRepository, SymptomRepository symptomRepository, TemperatureRepository temperatureRepository, Executor executor) {
         mActionRepository = actionRepository;
@@ -173,6 +175,16 @@ public class SharedViewModel extends ViewModel {
 
     public LiveData<Result> getDoctor(Map<String, String> map){
         return mDoctorRepository.getDoctor(map);
+    }
+
+
+//    ---------------------------PASS DATA BETWEEN FRAGMENT-----------------------------------------
+    public void setCurrentUser(User user){
+        mCurrentUserLiveData.setValue(user);
+    }
+
+    public LiveData<User> getCurrentUser(User user){
+        return mCurrentUserLiveData;
     }
 
 }

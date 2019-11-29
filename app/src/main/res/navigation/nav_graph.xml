@@ -33,4 +33,8 @@
         android:id="@+id/settingFragment"
         android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.SettingFragment"
         tools:layout="@layout/fragment_setting" />
+    <activity
+        android:id="@+id/logOut"
+        android:name="com.benlefevre.endometriosismonitoring.ui.controllers.activities.LoginActivity"
+        tools:layout="@layout/activity_login" />
 </navigation>

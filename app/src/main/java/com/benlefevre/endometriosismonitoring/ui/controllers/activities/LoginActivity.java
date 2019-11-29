@@ -33,14 +33,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             AuthUI.getInstance().signOut(this);
         }
         configureViewModel();
         createSignInIntent();
     }
 
-//    Gets viewmodel to handle the user save in Firestore
+    //    Gets viewmodel to handle the user save in Firestore
     private void configureViewModel() {
         ViewModelFactory viewModelFactory = Injection.providerViewModelFactory(this);
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(SharedViewModel.class);
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 .enableAnonymousUsersAutoUpgrade()
                 .setAuthMethodPickerLayout(authMethodPickerLayout)
                 .setTheme(R.style.LoginTheme)
-                .build(),RC_SIGN_IN);
+                .build(), RC_SIGN_IN);
     }
 
     @Override
@@ -77,32 +77,34 @@ public class LoginActivity extends AppCompatActivity {
         handleResponseAfterSignIn(requestCode, resultCode, data);
     }
 
-//    If Auth process is Ok, the user is save in Firestore and the MainActivity is launched
+    //    If Auth process is Ok, the user is save in Firestore and the MainActivity is launched
     private void handleResponseAfterSignIn(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
             IdpResponse idpResponse = IdpResponse.fromResultIntent(data);
-            if (resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
                 createUserInFirestoreAfterSignIn();
-                if (idpResponse != null && idpResponse.getProviderType() != null){
-                    startActivity(new Intent(this,MainActivity.class));
+                if (idpResponse != null && idpResponse.getProviderType() != null) {
+                    startActivity(new Intent(this, MainActivity.class));
                     finish();
                 }
-            }else{
+            } else {
                 if (idpResponse == null)
-                    Toast.makeText(this,"You have cancelled the authentification process. Please try again.",
-                            Toast.LENGTH_SHORT).show();
-                else if(idpResponse.getError() != null &&
+                    Toast.makeText(this, R.string.cancel_auth,Toast.LENGTH_SHORT).show();
+                else if (idpResponse.getError() != null &&
                         idpResponse.getError().getErrorCode() == ErrorCodes.NO_NETWORK)
-                    Toast.makeText(this,"You need a network access to login",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.no_network, Toast.LENGTH_SHORT).show();
                 else if (idpResponse.getError() != null &&
                         idpResponse.getError().getErrorCode() == ErrorCodes.UNKNOWN_ERROR)
-                    Toast.makeText(this,"An unknwown error has occured. Please try again",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.unknown_error, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void createUserInFirestoreAfterSignIn(){
-        if (FirebaseAuth.getInstance().getCurrentUser() != null && !FirebaseAuth.getInstance().getCurrentUser().isAnonymous()){
+    /**
+     * If user is logged and he isn't logged with anonymous provider then we record User in Firestore
+     */
+    private void createUserInFirestoreAfterSignIn() {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null && !FirebaseAuth.getInstance().getCurrentUser().isAnonymous()) {
             String id = null, name = null, mail = null, photoUrl = null;
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             if (!TextUtils.isEmpty(firebaseUser.getDisplayName()))

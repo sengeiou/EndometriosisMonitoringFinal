@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        Checks if the current User is logged. Start LoginActivity if it's not the case.
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(this, LoginActivity.class));
             this.finish();
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(SharedViewModel.class);
     }
 
+    /**
+     * Binds user information into the nav header views
+     */
     private void updateHeaderWithUser(FirebaseUser firebaseUser) {
         User currentUser = new User();
         View header = mNavView.getHeaderView(0);
@@ -94,8 +98,13 @@ public class MainActivity extends AppCompatActivity {
         } else {
             userMail.setVisibility(View.GONE);
         }
+        mViewModel.setCurrentUser(currentUser);
     }
 
+    /**
+     * Configures the NavigationDrawer, the Toolbar and the BottomNavigation with the NavController
+     *  that navigate to destinations defined into the nav_graph.xml
+     */
     private void setupNavigation() {
         mNavController = Navigation.findNavController(this,R.id.nav_host_fragment);
         mToolbar.setTitle(R.string.dashboard);
@@ -151,5 +160,11 @@ public class MainActivity extends AppCompatActivity {
             mDrawer.closeDrawer(GravityCompat.START);
         else
             super.onBackPressed();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        this.finish();
     }
 }

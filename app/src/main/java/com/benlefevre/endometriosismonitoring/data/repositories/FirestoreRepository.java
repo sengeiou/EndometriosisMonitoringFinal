@@ -23,6 +23,7 @@ public class FirestoreRepository {
         return sFirestoreRepository;
     }
 
+//    ------------------------------------CREATE----------------------------------------------------
     public void createFirestorePain(FirestorePain firestorePain){
         mFirestore.collection(FIRESTORE_PAIN).add(firestorePain);
     }
@@ -36,6 +37,8 @@ public class FirestoreRepository {
         mFirestore.collection(USERS).document(user.getId()).set(user);
     }
 
+
+//    ----------------------------------------READ--------------------------------------------------
     public CollectionReference getAllFirestorePain(){
         return mFirestore.collection(FIRESTORE_PAIN);
     }
@@ -43,4 +46,7 @@ public class FirestoreRepository {
     public CollectionReference getAllFirestoreAction(){
         return mFirestore.collection(ACTIONS);
     }
+
+
+
 }

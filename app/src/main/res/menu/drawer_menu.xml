@@ -29,7 +29,7 @@
         android:icon="@drawable/ic_settings_black_24dp"/>
 
     <item
-        android:id="@+id/logout"
+        android:id="@+id/logOut"
         android:title="@string/log_out"
         android:icon="@drawable/logout"/>
 </menu>
