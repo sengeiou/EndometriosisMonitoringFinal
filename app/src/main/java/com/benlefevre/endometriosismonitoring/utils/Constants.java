@@ -13,6 +13,12 @@ public class Constants {
     public static final String TREATMENT_NAME = "treatmentName";
     public static final String DOSAGE = "dosage";
     public static final String CONDI = "condi";
+    public static final String TREATMENT_LIST = "treatmentList";
+
+    public static final String MORNING = "morning";
+    public static final String NOON = "noon";
+    public static final String AFTERNOON = "afternoon";
+    public static final String EVENING = "evening";
 
     public static final String FIRESTORE_PAIN = "FirestorePain";
     public static final String ACTIONS = "Actions";

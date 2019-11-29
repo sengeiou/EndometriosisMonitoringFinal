@@ -90,6 +90,19 @@
     <string name="check_pill">Check the according pill in the Treatment screen</string>
     <string name="forget_treatment">Don\'t forget, it\'s time to take %1$s</string>
     <string name="you_must_take">You must take %1$s %2$s</string>
+    <string name="add_a_treatment">Add a treatment</string>
+    <string name="name_of_the_medicament">Name of the medicament</string>
+    <string name="duration_of_the_treatment">Duration of the treatment</string>
+    <string name="what_is_the_dosage">What is the dosage?</string>
+    <string name="conditioning">Conditioning</string>
+    <string name="morning">Morning</string>
+    <string name="noon">Noon</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="evening">Evening</string>
+    <string name="permanent">Permanent</string>
+    <string name="enter_medicament_name">Please enter the medicament name</string>
+    <string name="enter_medicament_dosage">Please enter the medicament dosage</string>
+    <string name="enter_medicament_conditioning">Please enter the medicament conditioning</string>
 
 
     <string-array name="sport">
@@ -111,6 +124,33 @@
         <item>Volleyball</item>
         <item>Walking</item>
         <item>Yoga</item>
+    </string-array>
+
+    <string-array name="conditioning">
+        <item>tablets</item>
+        <item>spoon</item>
+        <item>milliliters</item>
+        <item>milligrams</item>
+    </string-array>
+
+    <string-array name="duration">
+        <item>Permanent</item>
+        <item>1 day</item>
+        <item>2 days</item>
+        <item>3 days</item>
+        <item>4 days</item>
+        <item>5 days</item>
+        <item>6 days</item>
+        <item>7 days</item>
+        <item>8 days</item>
+        <item>9 days</item>
+        <item>10 days</item>
+        <item>11 days</item>
+        <item>12 days</item>
+        <item>13 days</item>
+        <item>14 days</item>
+        <item>15 days</item>
+        <item>Permanent</item>
     </string-array>
 
 </resources>
