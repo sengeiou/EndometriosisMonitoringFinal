@@ -79,6 +79,12 @@
     <string name="stress_intensity_scale">With what intensity on a scale of 1 to 10</string>
     <string name="sleep_quality_rate">How you rate your sleep quality today</string>
     <string name="cancel">Cancel</string>
+    <string name="your_contraceptive_pill">Your contraceptive pill</string>
+    <string name="the_first_day_of_your_last_menstruation">The first day of your last menstruation</string>
+    <string name="the_time_you_want_to_be_notified_of_taking_your_pill">The time you want to be notified of taking your pill</string>
+    <string name="others_treatments">Others treatments</string>
+    <string name="a_tablet_of_pills">a tablet of pills</string>
+    <string name="an_add_button_image">An add button image</string>
 
 
     <string-array name="sport">

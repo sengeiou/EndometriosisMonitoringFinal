@@ -351,8 +351,8 @@ public class PainFragment extends Fragment {
         ArrayAdapter<CharSequence> sportAdapter = new ArrayAdapter<>(mActivity,R.layout.support_simple_spinner_dropdown_item,getResources().getStringArray(R.array.sport));
         mActionName.setAdapter(sportAdapter);
         mActionName.setOnItemClickListener((parent, view, position, id) -> mUserActivityChoice = parent.getItemAtPosition(position).toString());
-        mIntensitySlider.setOnChangeListener((slider, value) -> mIntensityTxt.setText(String.valueOf(value)));
-        mDurationSlider.setOnChangeListener((slider, value) -> mDurationTxt.setText(String.valueOf(value)));
+        mIntensitySlider.setOnChangeListener((slider, value) -> mIntensityTxt.setText(String.valueOf((int)value)));
+        mDurationSlider.setOnChangeListener((slider, value) -> mDurationTxt.setText(String.valueOf((int)value)));
 
         new MaterialAlertDialogBuilder(mActivity)
                 .setCancelable(false)
