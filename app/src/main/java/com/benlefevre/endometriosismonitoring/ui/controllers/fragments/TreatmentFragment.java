@@ -390,6 +390,9 @@ public class TreatmentFragment extends Fragment {
         mPositiveButton.setOnClickListener(v -> {
             if (!TextUtils.isEmpty(mTreatmentNameTxt.getText()) && !TextUtils.isEmpty(mTreamentDosageTxt.getText()) && !TextUtils.isEmpty(mTreatmentCondiTxt.getText())
                     && !TextUtils.isEmpty(mTreatmentDuration.getText())) {
+                mNameLegend.setError("");
+                mDosageLegend.setError("");
+                mCondiLegend.setError("");
                 Data.Builder data = new Data.Builder();
                 String treatmentName = mTreatmentNameTxt.getText().toString();
                 data.putString(TREATMENT_NAME, treatmentName);
