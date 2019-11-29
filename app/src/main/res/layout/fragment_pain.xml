@@ -1,9 +1,678 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.controllers.fragments.PainFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <!--_____________________________________________________________________________________-->
+        <!--        Pain card   -->
+        <!--_____________________________________________________________________________________-->
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="25dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:id="@+id/frameLayout2"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimaryVariant"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/materialTextView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_pain"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/frameLayout2"
+                    app:layout_constraintEnd_toEndOf="@+id/frameLayout2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/frameLayout2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/slider_pain_legend"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/on_a_scale_of_0_to_10_how_do_you_rate_the_pain_today"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/pain_slider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:stepSize="1"
+                    android:value="5f"
+                    android:valueFrom="0f"
+                    android:valueTo="10f"
+                    app:layout_constraintEnd_toStartOf="@+id/pain_value"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/slider_pain_legend" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/pain_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/pain_slider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/pain_slider"
+                    app:layout_constraintTop_toTopOf="@+id/pain_slider" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/materialTextView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/where_do_you_mainly_find_pain"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pain_slider" />
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView2">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroup_pain_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView2"
+                        app:singleLine="false"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_abdo"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lower_abdomen" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_bladder"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bladder" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_back"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/back" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_head"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/head" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_intestine"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/intestine" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_breast"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/breast" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_vagina"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/vagina" />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/materialTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/what_are_the_main_symptoms"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialTextView">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroup_symptoms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialTextView"
+                        app:singleLine="false">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_burns"
+                            style="@style/CustomChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/burns" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_cramps"
+                            style="@style/CustomChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cramps" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_bleeding"
+                            style="@style/CustomChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bleeding" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_fever"
+                            style="@style/CustomChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fever" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_chills"
+                            style="@style/CustomChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chills" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_bloating"
+                            style="@style/CustomChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bloating" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_hot_flush"
+                            style="@style/CustomChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/hot_flush" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_diarrhea"
+                            style="@style/CustomChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/diarrhea" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_constipation"
+                            style="@style/CustomChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/constipation" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_nausea"
+                            style="@style/CustomChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/nausea" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_chip_tired"
+                            style="@style/CustomChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tired" />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!--_____________________________________________________________________________________-->
+        <!--        Activities card     -->
+        <!--_____________________________________________________________________________________-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="25dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:id="@+id/frameLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimaryVariant"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activities"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/frameLayout3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/frameLayout3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/activity_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/what_have_you_done_today_and_what_are_the_factors_that_can_cause_pain"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/frameLayout3" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/pain_card_sport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="25dp"
+                    app:layout_constraintEnd_toStartOf="@+id/pain_card_sleep"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_txt">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            style="@style/Widget.AppCompat.ActionButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/sport" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/sport"
+                            android:textColor="@android:color/white" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/pain_card_sleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="25dp"
+                    app:layout_constraintEnd_toStartOf="@+id/pain_card_stress"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/pain_card_sport"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_txt">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            style="@style/Widget.AppCompat.ActionButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/sleep" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/sleep"
+                            android:textColor="@android:color/white" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/pain_card_zen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/pain_card_sex"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pain_card_sleep">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            style="@style/Widget.AppCompat.ActionButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/zen" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/relaxation"
+                            android:textColor="@android:color/white" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/pain_card_stress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/pain_card_sleep"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_txt">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            style="@style/Widget.AppCompat.ActionButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/stressed" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/stress"
+                            android:textColor="@android:color/white" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/pain_card_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/pain_card_zen"
+                    app:layout_constraintTop_toBottomOf="@+id/pain_card_stress">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            style="@style/Widget.AppCompat.ActionButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/sex" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/sex"
+                            android:textColor="@android:color/white" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!--_____________________________________________________________________________________-->
+        <!--        Mood card     -->
+        <!--_____________________________________________________________________________________-->
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="25dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:id="@+id/frameLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimaryVariant"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/materialTextView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mood"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/frameLayout4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/frameLayout4"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/frameLayout4">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroup_mood"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/frameLayout4"
+                        app:singleLine="false"
+                        app:singleSelection="true">
+
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_sad_chip"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/sad"
+                            app:checkedIconEnabled="false"
+                            app:chipIcon="@drawable/sad"
+                            app:chipIconSize="40dp"
+                            app:chipIconTint="@color/text_color_chip"
+                            app:chipIconVisible="true" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_sick_chip"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/sick"
+                            app:checkedIconEnabled="false"
+                            app:chipIcon="@drawable/sick"
+                            app:chipIconSize="40dp"
+                            app:chipIconTint="@color/text_color_chip"
+                            app:chipIconVisible="true" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_irritated_chip"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/irritated"
+                            app:checkedIconEnabled="false"
+                            app:chipIcon="@drawable/irritated"
+                            app:chipIconSize="40dp"
+                            app:chipIconTint="@color/text_color_chip"
+                            app:chipIconVisible="true" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_happy_chip"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/happy"
+                            app:checkedIconEnabled="false"
+                            app:chipIcon="@drawable/happy"
+                            app:chipIconSize="40dp"
+                            app:chipIconTint="@color/text_color_chip"
+                            app:chipIconVisible="true" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/pain_very_happy_chip"
+                            style="@style/CustomChipChoice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/very_happy"
+                            app:checkedIconEnabled="false"
+                            app:chipIcon="@drawable/very_happy"
+                            app:chipIconSize="40dp"
+                            app:chipIconTint="@color/text_color_chip"
+                            app:chipIconVisible="true" />
+
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/pain_save_btn"
+            style="@style/customButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/save" />
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

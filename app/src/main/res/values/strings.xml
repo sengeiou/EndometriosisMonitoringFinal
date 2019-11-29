@@ -15,7 +15,7 @@
     <string name="anonymous">Anonymous</string>
     <string name="cancel_auth">You have cancelled the authentification process. Please try again.</string>
     <string name="no_network">You need a network access to login</string>
-    <string name="unknown_error">An unknwown error has occurred. Please try again</string>
+    <string name="unknown_error">An unknown error has occurred. Please try again</string>
     <string name="evolution_of_pain_over_the_last_7_days">Evolution of pain over the last 7 days</string>
     <string name="recurrence_of_symptoms_over_the_last_7_days">Recurrence of symptoms over the last 7 days</string>
     <string name="practiced_activities_over_last_7_days">Practiced activities over last 7 days</string>
@@ -58,6 +58,24 @@
     <string name="irritated">Irritated</string>
     <string name="happy">Happy</string>
     <string name="very_happy">Very happy</string>
+    <string name="save">Save</string>
+    <string name="mood">Mood</string>
+    <string name="vagina">Vagina</string>
+    <string name="breast">Breast</string>
+    <string name="intestine">Intestine</string>
+    <string name="head">Head</string>
+    <string name="back">Back</string>
+    <string name="bladder">Bladder</string>
+    <string name="lower_abdomen">Lower abdomen</string>
+    <string name="on_a_scale_of_0_to_10_how_do_you_rate_the_pain_today">On a scale of 0 to 10, how do you rate the pain today?</string>
+    <string name="where_do_you_mainly_find_pain">Where do you mainly find pain</string>
+    <string name="what_are_the_main_symptoms">What are the main symptoms</string>
+    <string name="activities">Activities</string>
+    <string name="what_have_you_done_today_and_what_are_the_factors_that_can_cause_pain">What have you done today and what are the factors that can cause pain?</string>
+    <string name="with_what_intensity_on_a_scale_to_0_from_10">With what intensity on a scale to 0 from 10</string>
+    <string name="how_long_in_minutes">How long in minutes</string>
+    <string name="what_activities_did_you_practiced">What activities did you practiced</string>
+    <string name="some_precisions_please">Some precisions please</string>
 
 
     <string-array name="sport">

@@ -34,4 +34,56 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
+    <style name="CustomChip" parent="@style/Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/background_color_chip</item>
+        <item name="chipStrokeColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/text_color_chip</item>
+        <item name="checkedIcon">@drawable/ic_check</item>
+        <item name="checkedIconVisible">true</item>
+        <item name="rippleColor">@color/colorSecondary</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="chipMinHeight">35dp</item>
+    </style>
+
+    <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/background_color_chip</item>
+        <item name="chipStrokeColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/text_color_chip</item>
+        <item name="checkedIcon">@drawable/ic_check</item>
+        <item name="checkedIconVisible">true</item>
+        <item name="rippleColor">@color/colorSecondary</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="chipMinHeight">35dp</item>
+    </style>
+
+    <style name="customTextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="errorTextColor">@color/colorSecondary</item>
+        <item name="errorIconTint">@color/colorSecondary</item>
+        <item name="hintTextColor">@color/colorPrimary</item>
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="boxCornerRadiusBottomEnd">15dp</item>
+        <item name="boxCornerRadiusBottomStart">15dp</item>
+        <item name="boxCornerRadiusTopEnd">15dp</item>
+        <item name="boxCornerRadiusTopStart">15dp</item>
+    </style>
+
+    <style name="customTextInputLayoutDropDown" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="errorTextColor">@color/colorSecondary</item>
+        <item name="errorIconTint">@color/colorSecondary</item>
+        <item name="hintTextColor">@color/colorPrimary</item>
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="boxCornerRadiusBottomEnd">15dp</item>
+        <item name="boxCornerRadiusBottomStart">15dp</item>
+        <item name="boxCornerRadiusTopEnd">15dp</item>
+        <item name="boxCornerRadiusTopStart">15dp</item>
+    </style>
+
+    <style name="customButton" parent="@style/Widget.MaterialComponents.Button">
+        <item name="cornerRadius">15dp</item>
+    </style>
+
+
+
 </resources>
