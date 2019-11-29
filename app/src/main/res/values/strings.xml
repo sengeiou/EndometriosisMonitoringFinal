@@ -37,5 +37,48 @@
     <string name="constipation">Constipation</string>
     <string name="nausea">Nausea</string>
     <string name="tired">Tired</string>
+    <string name="sleep">Sleep</string>
+    <string name="sleep_quality">Sleep quality</string>
+    <string name="sport">Sport</string>
+    <string name="stress">Stress</string>
+    <string name="relaxation">Relaxation</string>
+    <string name="sex">Sex</string>
+    <string name="sex_duration">Sex duration</string>
+    <string name="nb_sex">Number of sexual intercourse</string>
+    <string name="sex_intensity">Sex intensity</string>
+    <string name="stress_intensity">Stress Intensity</string>
+    <string name="stress_exposure">Number of stress exposure</string>
+    <string name="relax_duration">Relaxation duration</string>
+    <string name="nb_relax">Number of relaxing activities performed</string>
+    <string name="sport_duration">Sport duration</string>
+    <string name="sport_intensity">Sport intensity</string>
+    <string name="nb_sport">number of sports activities practiced</string>
+    <string name="sad">Sad</string>
+    <string name="sick">Sick</string>
+    <string name="irritated">Irritated</string>
+    <string name="happy">Happy</string>
+    <string name="very_happy">Very happy</string>
+
+
+    <string-array name="sport">
+        <item>BasketBall</item>
+        <item>Bike</item>
+        <item>Climbing</item>
+        <item>Combat sport</item>
+        <item>Dance</item>
+        <item>Fencing</item>
+        <item>Fitness</item>
+        <item>Football</item>
+        <item>Gymnastic</item>
+        <item>HandBall</item>
+        <item>Horse riding</item>
+        <item>Rugby</item>
+        <item>Running</item>
+        <item>Swimming</item>
+        <item>Tennis</item>
+        <item>Volleyball</item>
+        <item>Walking</item>
+        <item>Yoga</item>
+    </string-array>
 
 </resources>

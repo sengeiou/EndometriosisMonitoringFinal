@@ -3,6 +3,7 @@ package com.benlefevre.endometriosismonitoring.ui.controllers.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import androidx.navigation.Navigation;
 import com.benlefevre.endometriosismonitoring.R;
 import com.benlefevre.endometriosismonitoring.injection.Injection;
 import com.benlefevre.endometriosismonitoring.injection.ViewModelFactory;
+import com.benlefevre.endometriosismonitoring.models.Action;
 import com.benlefevre.endometriosismonitoring.models.Mood;
 import com.benlefevre.endometriosismonitoring.models.Pain;
 import com.benlefevre.endometriosismonitoring.models.Symptom;
@@ -35,7 +37,11 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -98,10 +104,10 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         mActivity = getActivity();
         mDateFormat = new SimpleDateFormat("dd/MM", Locale.getDefault());
-        mNavController = Navigation.findNavController(mActivity,R.id.nav_host_fragment);
+        mNavController = Navigation.findNavController(mActivity, R.id.nav_host_fragment);
         configureViewModel();
         initializeChart();
         getUserPainForLast7Days();
@@ -135,43 +141,29 @@ public class DashboardFragment extends Fragment {
     private void getUserPainForLast7Days() {
         Calendar calendar = Calendar.getInstance();
         Date end = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR,-7);
+        calendar.add(Calendar.DAY_OF_YEAR, -7);
         Date begin = calendar.getTime();
 
-        mViewModel.getPainByPeriod(begin,end).observe(getViewLifecycleOwner(), pains -> {
+        mViewModel.getPainByPeriod(begin, end).observe(getViewLifecycleOwner(), pains -> {
             List<Pain> painList = new ArrayList<>();
             painList.addAll(pains);
             Collections.reverse(painList);
-            if (!painList.isEmpty()){
+            if (!painList.isEmpty()) {
                 setupPainChart(painList);
                 getPainSymptom(painList);
                 getPainMood(painList);
+                getPainActions(painList);
             }
         });
     }
 
-    private void getPainMood(List<Pain> painList) {
-//        TODO verifier le bon retour des moods
-        List<Mood> moodList = new ArrayList<>();
-        for (Pain pain : painList){
-            mViewModel.getMoodByPainId(pain.getId()).observe(getViewLifecycleOwner(), mood -> {
-                moodList.add(mood);
-                if (!moodList.isEmpty())
-                    setupMoodChart(moodList);
-            });
-        }
-    }
-
-    private void setupMoodChart(List<Mood> moodList) {
-
-    }
-
     /**
      * Fetches the saved symptoms in DB for the given pain
-     * @param painList the fetched pain in locale DB with viewmodel
+     *
+     * @param painList the fetched pain in locale DB with ViewModel
      */
     private void getPainSymptom(List<Pain> painList) {
-        for (Pain pain : painList){
+        for (Pain pain : painList) {
             mViewModel.getSymptomByPainId(pain.getId()).observe(getViewLifecycleOwner(), symptoms -> {
                 List<Symptom> symptomList = new ArrayList<>();
                 symptomList.addAll(symptoms);
@@ -182,8 +174,319 @@ public class DashboardFragment extends Fragment {
     }
 
     /**
+     * Fetches all saved action that corresponding to a painId
+     *
+     * @param painList all pain fetched in locale DB for a given period
+     */
+    private void getPainActions(List<Pain> painList) {
+        List<Action> sleepList = new ArrayList<>();
+        List<Action> actionList = new ArrayList<>();
+        for (Pain pain : painList) {
+            mViewModel.getActionByPainId(pain.getId()).observe(getViewLifecycleOwner(), actions -> {
+                for (Action action : actions) {
+                    if (action.getName().equals(getString(R.string.sleep)))
+                        sleepList.add(action);
+                    else
+                        actionList.add(action);
+                }
+                setupSleepChart(sleepList, painList);
+                setupActionChart(actionList);
+            });
+        }
+    }
+
+
+    /**
+     * Fetches all saved mood that corresponding to a painId
+     *
+     * @param painList all pain fetched in locale Db for a given period
+     */
+    private void getPainMood(List<Pain> painList) {
+//        TODO verifier le bon retour des moods
+        List<Mood> moodList = new ArrayList<>();
+        for (Pain pain : painList) {
+            mViewModel.getMoodByPainId(pain.getId()).observe(getViewLifecycleOwner(), mood -> {
+                moodList.add(mood);
+                if (!moodList.isEmpty()) {
+                    float[] moods = computePercentMood(moodList);
+                    setupMoodChart(moods);
+                }
+            });
+        }
+    }
+
+    /**
+     * Computes the repartition of user's mood of 7 days
+     * @param moodList the fetched mood in locale DB with ViewModel
+     * @return an array of float that contains the computed percent
+     */
+    private float[] computePercentMood(List<Mood> moodList) {
+        float sad = 0, sick = 0, irritated = 0, happy = 0, veryHappy = 0;
+        float moodSize = moodList.size();
+        float sadPercent = 0, sickPercent = 0, irritatedPercent = 0, happyPercent = 0,
+                veryHappyPercent = 0;
+        Log.i("info", "computeMood: " + moodSize);
+        for (Mood mood : moodList) {
+            Log.i("info", "computeMood: " + mood);
+            if (mood.getValue().equals(getString(R.string.sad)))
+                sad++;
+            if (mood.getValue().equals(getString(R.string.sick)))
+                sick++;
+            if (mood.getValue().equals(getString(R.string.irritated)))
+                irritated++;
+            if (mood.getValue().equals(getString(R.string.happy)))
+                happy++;
+            if (mood.getValue().equals(getString(R.string.very_happy)))
+                veryHappy++;
+        }
+        if (moodSize != 0) {
+            sadPercent = sad / moodSize;
+            sickPercent = sick / moodSize;
+            irritatedPercent = irritated / moodSize;
+            happyPercent = happy / moodSize;
+            veryHappyPercent = veryHappy / moodSize;
+        }
+        return new float[]{sadPercent, sickPercent, irritatedPercent, happyPercent, veryHappyPercent};
+    }
+
+    /**
+     * Setup the pie chart that represented the mood repartition for over last 7 days
+     * @param moodList the fetched mood in locale DB with ViewModel
+     */
+    private void setupMoodChart(float[] moodList) {
+        mMoodChart.setDescription(null);
+        mMoodChart.setUsePercentValues(true);
+        mMoodChart.setDrawEntryLabels(false);
+        mMoodChart.setDrawHoleEnabled(false);
+
+        Legend legend = mMoodChart.getLegend();
+        legend.setWordWrapEnabled(true);
+
+        List<PieEntry> entries = new ArrayList<>();
+        List<Integer> colorList = new ArrayList<>();
+
+        if (moodList[0] != 0) {
+            entries.add(new PieEntry(moodList[0], getString(R.string.sad)));
+            colorList.add(getResources().getColor(R.color.graph6));
+        }
+        if (moodList[1] != 0) {
+            entries.add(new PieEntry(moodList[1], getString(R.string.sick)));
+            colorList.add(getResources().getColor(R.color.graph3));
+        }
+        if (moodList[2] != 0) {
+            entries.add(new PieEntry(moodList[2], getString(R.string.irritated)));
+            colorList.add(getResources().getColor(R.color.graph7));
+        }
+        if (moodList[3] != 0) {
+            entries.add(new PieEntry(moodList[3], getString(R.string.happy)));
+            colorList.add(getResources().getColor(R.color.graph2));
+        }
+        if (moodList[4] != 0){
+            entries.add(new PieEntry(moodList[4], getString(R.string.very_happy)));
+            colorList.add(getResources().getColor(R.color.graph1));
+        }
+
+        PieDataSet pieDataSet = new PieDataSet(entries, "");
+        pieDataSet.setColors(colorList);
+        pieDataSet.setValueFormatter(new PercentFormatter());
+        pieDataSet.setValueTextColor(getResources().getColor(R.color.colorOnPrimary));
+        pieDataSet.setValueTextSize(10);
+
+        PieData moodData = new PieData(pieDataSet);
+        mMoodChart.setData(moodData);
+        mMoodChart.invalidate();
+    }
+
+    /**
+     * Setup the multiBar chart that represented all practiced activities by user for the given pain
+     *
+     * @param actionList the fetched pain in locale DB with ViewModel
+     */
+    private void setupActionChart(List<Action> actionList) {
+        mActionChart.setDescription(null);
+        mActionChart.setTouchEnabled(false);
+        mActionChart.setFitBars(true);
+        Legend legend = mActionChart.getLegend();
+        legend.setWordWrapEnabled(true);
+
+        XAxis xAxis = mActionChart.getXAxis();
+        xAxis.setEnabled(false);
+
+        YAxis leftAxis = mActionChart.getAxisLeft();
+        leftAxis.setAxisMinimum(0);
+        leftAxis.setDrawGridLines(false);
+        leftAxis.setGranularity(20);
+        YAxis rightAxis = mActionChart.getAxisRight();
+        rightAxis.setDrawGridLines(false);
+        rightAxis.setAxisMinimum(0);
+
+        String stressName = getString(R.string.stress);
+        String relaxationName = getString(R.string.relaxation);
+        String sexName = getString(R.string.sex);
+        String[] sports = getResources().getStringArray(R.array.sport);
+        String sexDurationName = getString(R.string.sex_duration);
+        String nbSexName = getString(R.string.nb_sex);
+        String stressIntensityName = getString(R.string.stress_intensity);
+        String nbStressName = getString(R.string.stress_exposure);
+        String relaxationDurationName = getString(R.string.relax_duration);
+        String nbRelaxationName = getString(R.string.nb_relax);
+        String sportDurationName = getString(R.string.sport_duration);
+        String sportIntensityName = getString(R.string.sport_intensity);
+        String nbSportName = getString(R.string.nb_sport);
+
+        int sportIntensity = 0, sportDuration = 0, nbSport = 0;
+        int stressIntensity = 0, nbStress = 0;
+        int relaxationDuration = 0, nbRelaxation = 0;
+        int sexDuration = 0, nbSex = 0;
+
+        for (Action action : actionList) {
+            if (action.getName().equals(stressName)) {
+                stressIntensity += action.getIntensity();
+                nbStress++;
+            }
+            if (action.getName().equals(relaxationName)) {
+                relaxationDuration += action.getDuration();
+                nbRelaxation++;
+            }
+            if (action.getName().equals(sexName)) {
+                sexDuration += action.getDuration();
+                nbSex++;
+            }
+            for (String s : sports) {
+                if (action.getName().equals(s)) {
+                    sportIntensity += action.getIntensity();
+                    sportDuration += action.getDuration();
+                    nbSport++;
+                }
+            }
+        }
+
+        if (nbStress != 0)
+            stressIntensity = stressIntensity / nbStress;
+        if (nbRelaxation != 0)
+            relaxationDuration = relaxationDuration / nbRelaxation;
+        if (nbSex != 0)
+            sexDuration = sexDuration / nbSex;
+        if (nbSport != 0) {
+            sportIntensity = sportIntensity / nbSport;
+            sportDuration = sportDuration / nbSport;
+        }
+
+        BarEntry sportDurationEntry = new BarEntry(4, sportDuration);
+        BarEntry sportIntensityEntry = new BarEntry(5, sportIntensity);
+        BarEntry nbSportEntry = new BarEntry(6, nbSport);
+        BarDataSet sportDurationDataSet = new BarDataSet(Collections.singletonList(sportDurationEntry), sportDurationName);
+        sportDurationDataSet.setColor(getResources().getColor(R.color.graph7));
+        sportDurationDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        sportDurationDataSet.setValueTextSize(10);
+        BarDataSet sportIntensityDataSet = new BarDataSet(Collections.singletonList(sportIntensityEntry), sportIntensityName);
+        sportIntensityDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        sportIntensityDataSet.setValueTextSize(10);
+        sportIntensityDataSet.setColor(getResources().getColor(R.color.colorSecondary));
+        BarDataSet nbSportDataSet = new BarDataSet(Collections.singletonList(nbSportEntry), nbSportName);
+        nbSportDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        nbSportDataSet.setValueTextSize(10);
+        nbSportDataSet.setColor(getResources().getColor(R.color.colorPrimary));
+
+        BarEntry sexDurationEntry = new BarEntry(0, sexDuration);
+        BarEntry nbSexEntry = new BarEntry(1, nbSex);
+        BarDataSet sexDurationDataSet = new BarDataSet(Collections.singletonList(sexDurationEntry), sexDurationName);
+        sexDurationDataSet.setColor(getResources().getColor(R.color.graph1));
+        sexDurationDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        sexDurationDataSet.setValueTextSize(10);
+        BarDataSet nbSexDataSet = new BarDataSet(Collections.singletonList(nbSexEntry), nbSexName);
+        nbSexDataSet.setColor(getResources().getColor(R.color.graph2));
+        nbSexDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        nbSexDataSet.setValueTextSize(10);
+
+        BarEntry stressIntensityEntry = new BarEntry(7, stressIntensity);
+        BarEntry nbStressEntry = new BarEntry(8, nbStress);
+        BarDataSet stressDataSet = new BarDataSet(Collections.singletonList(stressIntensityEntry), stressIntensityName);
+        stressDataSet.setColor(getResources().getColor(R.color.graph3));
+        stressDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        stressDataSet.setValueTextSize(10);
+        BarDataSet nbStressDataSet = new BarDataSet(Collections.singletonList(nbStressEntry), nbStressName);
+        nbStressDataSet.setColor(getResources().getColor(R.color.graph4));
+        nbStressDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        nbStressDataSet.setValueTextSize(10);
+
+        BarEntry relaxationDurationEntry = new BarEntry(2, relaxationDuration);
+        BarEntry nbRelaxationEntry = new BarEntry(3, nbRelaxation);
+        BarDataSet relaxationDataSet = new BarDataSet(Collections.singletonList(relaxationDurationEntry), relaxationDurationName);
+        relaxationDataSet.setColor(getResources().getColor(R.color.graph5));
+        relaxationDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        relaxationDataSet.setValueTextSize(10);
+        BarDataSet nbRelaxationDataSet = new BarDataSet(Collections.singletonList(nbRelaxationEntry), nbRelaxationName);
+        nbRelaxationDataSet.setColor(getResources().getColor(R.color.graph6));
+        nbRelaxationDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+        nbRelaxationDataSet.setValueTextSize(10);
+
+        List<IBarDataSet> barDataSet = new ArrayList<>();
+        barDataSet.add(sexDurationDataSet);
+        barDataSet.add(nbSexDataSet);
+        barDataSet.add(relaxationDataSet);
+        barDataSet.add(nbRelaxationDataSet);
+        barDataSet.add(sportDurationDataSet);
+        barDataSet.add(sportIntensityDataSet);
+        barDataSet.add(nbSportDataSet);
+        barDataSet.add(stressDataSet);
+        barDataSet.add(nbStressDataSet);
+        BarData barData = new BarData(barDataSet);
+        mActionChart.setData(barData);
+        mActionChart.invalidate();
+    }
+
+    /**
+     * Setup the line chart that represented the sleep quality over last 7 days
+     *
+     * @param sleepList the fetched action that monitoring the sleep quality
+     * @param painList  the fetched pain in locale DB for a given period
+     */
+    private void setupSleepChart(List<Action> sleepList, List<Pain> painList) {
+        mSleepQualityChart.setDescription(null);
+        mSleepQualityChart.setTouchEnabled(false);
+
+        List<String> dates = new ArrayList<>();
+        int i = 0;
+        List<Entry> entries = new ArrayList<>();
+
+        for (Action action : sleepList) {
+            entries.add(new Entry(i, action.getIntensity()));
+            for (Pain pain : painList) {
+                if (pain.getId() == action.getPainId()) {
+                    dates.add(mDateFormat.format(pain.getDate()));
+                }
+            }
+            i++;
+        }
+
+        XAxis xAxis = mSleepQualityChart.getXAxis();
+        xAxis.setGranularity(1);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(dates));
+
+        YAxis leftAxis = mSleepQualityChart.getAxisLeft();
+        leftAxis.setGranularity(1);
+        leftAxis.setAxisMinimum(0);
+        leftAxis.setAxisMaximum(10);
+
+        YAxis rightAxis = mSleepQualityChart.getAxisRight();
+        rightAxis.setEnabled(false);
+
+        LineDataSet dataSet = new LineDataSet(entries, getString(R.string.sleep_quality));
+        dataSet.setLineWidth(2);
+        dataSet.setColor(getResources().getColor(R.color.colorSecondary));
+        dataSet.setCircleColor(getResources().getColor(R.color.colorSecondary));
+        dataSet.setDrawValues(false);
+
+        LineData lineData = new LineData(dataSet);
+        mSleepQualityChart.setData(lineData);
+        mSleepQualityChart.invalidate();
+    }
+
+    /**
      * Setup the bar chart that represented the recurrence of symptoms over the last 7 days
-     * @param symptomList the fetched symptoms in locale DB with viewmodel
+     *
+     * @param symptomList the fetched symptoms in locale DB with ViewModel
      */
     private void setupSymptomChart(List<Symptom> symptomList) {
         mSymptomsChart.setDescription(null);
@@ -193,13 +496,13 @@ public class DashboardFragment extends Fragment {
         legend.setWordWrapEnabled(true);
 
         String burnsName = getString(R.string.burns), crampsName = getString(R.string.cramps), bleedingName = getString(R.string.bleeding), feverName = getString(R.string.fever),
-                chillsName = getString(R.string.chills), bloatingName = getString(R.string.bloating) , hotFlushName = getString(R.string.hot_flush), diarrheaName = getString(R.string.diarrhea),
+                chillsName = getString(R.string.chills), bloatingName = getString(R.string.bloating), hotFlushName = getString(R.string.hot_flush), diarrheaName = getString(R.string.diarrhea),
                 constipationName = getString(R.string.constipation), nauseaName = getString(R.string.nausea), tiredName = getString(R.string.tired);
 
         int burns = 0, cramps = 0, bleeding = 0, fever = 0, chills = 0, bloating = 0,
                 hotFlush = 0, diarrhea = 0, constipation = 0, nausea = 0, tired = 0;
 
-        for (Symptom symptom : symptomList){
+        for (Symptom symptom : symptomList) {
             String symp = symptom.getName();
             if (symp.equals(burnsName))
                 burns++;
@@ -309,7 +612,8 @@ public class DashboardFragment extends Fragment {
 
     /**
      * Setup the line chart that represented the pain over the last 7 days
-     * @param painList the fetched pain in locale DB with viewmodel
+     *
+     * @param painList the fetched pain in locale DB with ViewModel
      */
     private void setupPainChart(List<Pain> painList) {
         mPainChart.setDescription(null);
