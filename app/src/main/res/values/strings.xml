@@ -134,6 +134,10 @@
     <string name="general_practitioner">General practitioner</string>
     <string name="around_me">Around me</string>
     <string name="doctor_rationale">We need this permissions to locate you and display all doctors around your position</string>
+    <string name="search">Search</string>
+    <string name="view_more_details">View more details</string>
+    <string name="comment_doctor">%1$d commentaries</string>
+    <string name="no_commentaries">There is no commentaries yet</string>
 
 
     <string-array name="sport">
