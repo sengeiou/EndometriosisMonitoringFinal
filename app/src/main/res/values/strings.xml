@@ -129,6 +129,11 @@
     <string name="entre_previous_cycle">Please enter the first day of your previous cycle</string>
     <string name="temp_legend">%1$d °</string>
     <string name="body_temp">My body temperature</string>
+    <string name="in_which_city_are_you_looking_for_a_doctor">In which city are you looking for a doctor?</string>
+    <string name="gynecologist">Gynecologist</string>
+    <string name="general_practitioner">General practitioner</string>
+    <string name="around_me">Around me</string>
+    <string name="doctor_rationale">We need this permissions to locate you and display all doctors around your position</string>
 
 
     <string-array name="sport">

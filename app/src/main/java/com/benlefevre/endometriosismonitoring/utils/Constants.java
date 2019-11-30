@@ -4,6 +4,7 @@ public class Constants {
 
     public static final int RC_SIGN_IN = 1;
     public static final String PREFERENCES = "appPreferences";
+    public static final int ACCESS_LOCATION = 1;
 
     public static final String PILL_CHECK = "pillCheck";
     public static final String LAST_CYCLE_DAY = "lastCycleDay";

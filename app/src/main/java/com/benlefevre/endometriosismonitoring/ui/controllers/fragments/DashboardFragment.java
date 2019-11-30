@@ -145,7 +145,7 @@ public class DashboardFragment extends Fragment {
         List<Pain> painList = new ArrayList<>();
         mViewModel.getPainByPeriod(begin, end).observe(getViewLifecycleOwner(), pains -> {
             painList.addAll(pains);
-            Collections.reverse(painList);
+//            Collections.reverse(painList);
             if (!painList.isEmpty()) {
                 setupPainChart(painList);
                 getPainSymptom(painList);
