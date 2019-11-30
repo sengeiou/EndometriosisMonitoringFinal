@@ -138,6 +138,16 @@
     <string name="view_more_details">View more details</string>
     <string name="comment_doctor">%1$d commentaries</string>
     <string name="no_commentaries">There is no commentaries yet</string>
+    <string name="commentaries">Commentaries</string>
+    <string name="medical_procedures">Medical procedures</string>
+    <string name="types_of_medical_procedures">Types of medical procedures</string>
+    <string name="phone_number">Phone number:</string>
+    <string name="address">Address:</string>
+    <string name="speciality">Speciality:</string>
+    <string name="sex_details">Sex:</string>
+    <string name="write_a_commentary">Write a commentary</string>
+    <string name="call">Call</string>
+    <string name="a_photo_of_the_author">a photo of the author</string>
 
 
     <string-array name="sport">

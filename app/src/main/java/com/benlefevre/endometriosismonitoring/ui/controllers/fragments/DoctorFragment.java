@@ -147,12 +147,21 @@ public class DoctorFragment extends Fragment implements OnMapReadyCallback {
      * Sets a DoctorAdapter to the RecyclerView and defines the behavior of the OnClickListener.
      */
     private void configureRecyclerView() {
+        final int[] i = {-1};
         mDoctorAdapter = new DoctorAdapter(mDoctorList);
         mDoctorAdapter.setOnClickListener(v -> {
             DoctorViewHolder holder = (DoctorViewHolder) v.getTag();
             int position = holder.getAdapterPosition();
             Doctor doctor = mDoctorList.get(position);
             mViewModel.setSelectedDoctor(doctor);
+            if (i[0] == position) {
+                mNavController.navigate(R.id.doctorDetailsFragment);
+            } else {
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(doctor.getCoordonnees().get(0),
+                        doctor.getCoordonnees().get(1)), 18));
+                i[0] = position;
+                holder.setDetailsButtonVisibility();
+            }
         });
         mDoctorRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, RecyclerView.VERTICAL, false));
         mDoctorRecyclerView.setAdapter(mDoctorAdapter);
