@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.controllers.activities.LoginActivity"/>
-        <activity android:name=".ui.controllers.activities.MainActivity">
+        <activity android:name=".ui.controllers.activities.MainActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

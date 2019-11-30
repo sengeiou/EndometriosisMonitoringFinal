@@ -12,6 +12,7 @@ import com.benlefevre.endometriosismonitoring.data.repositories.PainRepository;
 import com.benlefevre.endometriosismonitoring.data.repositories.SymptomRepository;
 import com.benlefevre.endometriosismonitoring.data.repositories.TemperatureRepository;
 import com.benlefevre.endometriosismonitoring.models.Action;
+import com.benlefevre.endometriosismonitoring.models.Doctor;
 import com.benlefevre.endometriosismonitoring.models.FirestorePain;
 import com.benlefevre.endometriosismonitoring.models.Mood;
 import com.benlefevre.endometriosismonitoring.models.Pain;
@@ -47,6 +48,8 @@ public class SharedViewModel extends ViewModel {
     private MutableLiveData<List<FirestorePain>> mFirestorePainLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Action>> mFirestoreActionLiveData = new MutableLiveData<>();
     private MutableLiveData<User> mCurrentUserLiveData = new MutableLiveData<>();
+    private MutableLiveData<Doctor> mCurrentDoctorLiveData = new MutableLiveData<>();
+
 
     public SharedViewModel(ActionRepository actionRepository, DoctorRepository doctorRepository, FirestoreRepository firestoreRepository, MoodRepository moodRepository, PainRepository painRepository, SymptomRepository symptomRepository, TemperatureRepository temperatureRepository, Executor executor) {
         mActionRepository = actionRepository;
@@ -179,6 +182,8 @@ public class SharedViewModel extends ViewModel {
 
 
 //    ---------------------------PASS DATA BETWEEN FRAGMENT-----------------------------------------
+
+//    --------------------------------------User----------------------------------------------------
     public void setCurrentUser(User user){
         mCurrentUserLiveData.setValue(user);
     }
@@ -186,5 +191,13 @@ public class SharedViewModel extends ViewModel {
     public LiveData<User> getCurrentUser(User user){
         return mCurrentUserLiveData;
     }
+
+
+//    --------------------------------------Doctor--------------------------------------------------
+    public void setSelectedDoctor(Doctor doctor){
+        mCurrentDoctorLiveData.setValue(doctor);
+    }
+
+    public LiveData<Doctor> getCurrentDoctor(){ return mCurrentDoctorLiveData;}
 
 }
