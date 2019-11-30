@@ -12,6 +12,7 @@ import com.benlefevre.endometriosismonitoring.data.repositories.PainRepository;
 import com.benlefevre.endometriosismonitoring.data.repositories.SymptomRepository;
 import com.benlefevre.endometriosismonitoring.data.repositories.TemperatureRepository;
 import com.benlefevre.endometriosismonitoring.models.Action;
+import com.benlefevre.endometriosismonitoring.models.Commentary;
 import com.benlefevre.endometriosismonitoring.models.Doctor;
 import com.benlefevre.endometriosismonitoring.models.FirestorePain;
 import com.benlefevre.endometriosismonitoring.models.Mood;
@@ -22,8 +23,9 @@ import com.benlefevre.endometriosismonitoring.models.Temperature;
 import com.benlefevre.endometriosismonitoring.models.User;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.lang.invoke.MutableCallSite;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +49,7 @@ public class SharedViewModel extends ViewModel {
 
     private MutableLiveData<List<FirestorePain>> mFirestorePainLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Action>> mFirestoreActionLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Commentary>> mCommentaryLiveData = new MutableLiveData<>();
     private MutableLiveData<User> mCurrentUserLiveData = new MutableLiveData<>();
     private MutableLiveData<Doctor> mCurrentDoctorLiveData = new MutableLiveData<>();
 
@@ -126,7 +129,7 @@ public class SharedViewModel extends ViewModel {
 
 
 
-//    --------------------------------------Firestore-----------------------------------------------
+//    --------------------------------------FireStore-----------------------------------------------
 
 //    ---------------------------------------CREATE-------------------------------------------------
     public void createFirestorePain(FirestorePain firestorePain){mFirestoreRepository.createFirestorePain(firestorePain);}
@@ -138,6 +141,8 @@ public class SharedViewModel extends ViewModel {
     public void createFirestoreUser(User user){
         mFirestoreRepository.createFirestoreUser(user);
     }
+
+    public void createFirestoreCommentary(Commentary commentary){mFirestoreRepository.createFirestoreCommentary(commentary);}
 
 //    ----------------------------------------READ--------------------------------------------------
 
@@ -169,7 +174,22 @@ public class SharedViewModel extends ViewModel {
         return mFirestoreActionLiveData;
     }
 
-
+    public LiveData<List<Commentary>> getCommentariesByDoctorId(String doctorId){
+        mFirestoreRepository.getCommentariesByDoctorId(doctorId).addSnapshotListener((queryDocumentSnapshots, e) -> {
+            if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()){
+                List<Commentary> commentaryList = new ArrayList<>();
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
+                    Commentary commentary = doc.toObject(Commentary.class);
+                    commentaryList.add(commentary);
+                }
+                Comparator<Commentary> compareComment = (Commentary c1, Commentary c2) ->
+                        c2.getDate().compareTo(c1.getDate());
+                Collections.sort(commentaryList,compareComment);
+                mCommentaryLiveData.setValue(commentaryList);
+            }
+        });
+        return mCommentaryLiveData;
+    }
 
 
 //    --------------------------------------API-----------------------------------------------------
@@ -188,7 +208,7 @@ public class SharedViewModel extends ViewModel {
         mCurrentUserLiveData.setValue(user);
     }
 
-    public LiveData<User> getCurrentUser(User user){
+    public LiveData<User> getCurrentUser(){
         return mCurrentUserLiveData;
     }
 

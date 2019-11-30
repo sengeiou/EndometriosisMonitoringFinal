@@ -148,6 +148,10 @@
     <string name="write_a_commentary">Write a commentary</string>
     <string name="call">Call</string>
     <string name="a_photo_of_the_author">a photo of the author</string>
+    <string name="no_phone_doctor">Sorry but there is no phone number for this doctor</string>
+    <string name="give_us_your_opinion">Give us your opinion</string>
+    <string name="enter_your_commentary">Enter your commentary</string>
+    <string name="how_would_you_rate_this_doctor_s_ability_to_manage_patients_with_endometriosis_on_a_scale_of_0_to_5">How would you rate this doctor\'s ability to manage patients with endometriosis (on a scale of 0 to 5)?</string>
 
 
     <string-array name="sport">
