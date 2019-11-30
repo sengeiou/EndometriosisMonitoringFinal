@@ -254,6 +254,7 @@ public class DashboardFragment extends Fragment {
         mMoodChart.setUsePercentValues(true);
         mMoodChart.setDrawEntryLabels(false);
         mMoodChart.setDrawHoleEnabled(false);
+        mMoodChart.setTouchEnabled(false);
 
         Legend legend = mMoodChart.getLegend();
         legend.setWordWrapEnabled(true);

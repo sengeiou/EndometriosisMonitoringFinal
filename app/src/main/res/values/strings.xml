@@ -109,13 +109,13 @@
     <string name="picking_hours">Picking hours</string>
     <string name="dosage_condi">%1$s %2$s</string>
     <string name="until_the">Until the %1$s</string>
-    <string name="monday">Monday</string>
-    <string name="tuesday">Tuesday</string>
-    <string name="wednesday">Wednesday</string>
-    <string name="thurday">Thurday</string>
-    <string name="friday">Friday</string>
-    <string name="saturday">Saturday</string>
-    <string name="sunday">Sunday</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thurday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
+    <string name="sunday">Sun</string>
     <string name="menstruation">Menstruation</string>
     <string name="ovulation">Ovulation</string>
     <string name="optimal_fertilization">Optimal fertilization</string>
@@ -124,6 +124,11 @@
     <string name="body_temperature_monitoring">Body temperature monitoring</string>
     <string name="for_more_precision_you_have_the_possibility_to_record_your_body_temperature_daily_to_see_precisely_your_ovulation_period">For more precision you have the possibility to record your body temperature daily to see precisely your ovulation period</string>
     <string name="save_my_temperature">Save my temperature</string>
+    <string name="cycle_between">Your cycle must be between 15 and 48 days</string>
+    <string name="enter_duration_cycle">Please enter your duration cycle</string>
+    <string name="entre_previous_cycle">Please enter the first day of your previous cycle</string>
+    <string name="temp_legend">%1$d °</string>
+    <string name="body_temp">My body temperature</string>
 
 
     <string-array name="sport">

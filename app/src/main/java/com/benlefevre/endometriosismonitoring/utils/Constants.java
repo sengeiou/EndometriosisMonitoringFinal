@@ -20,6 +20,9 @@ public class Constants {
     public static final String AFTERNOON = "afternoon";
     public static final String EVENING = "evening";
 
+    public static final String DURATION_CYCLE = "durationCycle";
+    public static final String NEXT_CYCLE_DAY = "nextCycleDay";
+
     public static final String FIRESTORE_PAIN = "FirestorePain";
     public static final String ACTIONS = "Actions";
     public static final String USERS = "Users";
