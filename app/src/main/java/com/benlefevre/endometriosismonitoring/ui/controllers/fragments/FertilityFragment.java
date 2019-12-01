@@ -257,6 +257,11 @@ public class FertilityFragment extends Fragment {
         mTextViewList.add(R.id.box36);
         mTextViewList.add(R.id.box37);
         mTextViewList.add(R.id.box38);
+        mTextViewList.add(R.id.box39);
+        mTextViewList.add(R.id.box40);
+        mTextViewList.add(R.id.box40);
+        mTextViewList.add(R.id.box41);
+        mTextViewList.add(R.id.box42);
     }
 
 
@@ -457,7 +462,7 @@ public class FertilityFragment extends Fragment {
             if (mMonth != 0) {
                 if (mMonth > currentCycleMonth) {
                     if (nextCycleMonth == currentCycleMonth) {
-                        mCalendar.setTime(nextCycleDate);
+                        mCalendar.setTime(Objects.requireNonNull(nextCycleDate));
                         mCalendar.add(Calendar.DAY_OF_WEEK, mLastDayCycle);
                         currentCycle = mDateFormat.format(mCalendar.getTime());
                         mSharedPreferences.edit().putString(LAST_CYCLE_DAY, currentCycle).apply();
@@ -468,7 +473,7 @@ public class FertilityFragment extends Fragment {
             } else {
                 if (mMonth < currentCycleMonth) {
                     if (nextCycleMonth == currentCycleMonth) {
-                        mCalendar.setTime(nextCycleDate);
+                        mCalendar.setTime(Objects.requireNonNull(nextCycleDate));
                         mCalendar.add(Calendar.DAY_OF_WEEK, mLastDayCycle);
                         currentCycle = mDateFormat.format(mCalendar.getTime());
                         mSharedPreferences.edit().putString(LAST_CYCLE_DAY, currentCycle).apply();
@@ -609,6 +614,7 @@ public class FertilityFragment extends Fragment {
      * Sets an OnDateSetListener with updateDateLabel() and shows a DatePicker
      */
     private void openDatePicker(){
+        mCalendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, dayOfMonth) -> {
             mCalendar.set(Calendar.YEAR, year);
             mCalendar.set(Calendar.MONTH, month);

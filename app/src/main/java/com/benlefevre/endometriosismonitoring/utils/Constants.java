@@ -28,4 +28,5 @@ public class Constants {
     public static final String ACTIONS = "Actions";
     public static final String USERS = "Users";
     public static final String COMMENTARY = "Commentaries";
+    public static final String DOCTOR_COMMENTARY_COUNTER = "doctorCommentaryCounter";
 }

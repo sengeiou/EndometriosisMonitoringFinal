@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -159,7 +158,8 @@ public class DoctorDetailsFragment extends Fragment {
     }
 
     /**
-     * Setup and show a custom AlertDialog for allow user to write a commentary
+     * Setup and show a custom AlertDialog for allow user to write a commentary.
+     * If user save a commentary, ViewModel saves it in Firestore and updates a counter in FireStore
      */
     private void openCommentaryDialog(){
         View customDialog = LayoutInflater.from(mActivity).inflate(R.layout.dialog_commentary, null);
@@ -177,6 +177,7 @@ public class DoctorDetailsFragment extends Fragment {
                                 mCurrentUser.getPhotoUrl(),(int) ratingSlider.getValue(), commentaryText.getText().toString(),
                                 new Date());
                         mViewModel.createFirestoreCommentary(commentary);
+                        mViewModel.createFirestoreDoctorCounter(mDoctor.getId(),(int)ratingSlider.getValue());
                     }
                 })
                 .show();

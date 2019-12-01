@@ -1,5 +1,7 @@
 package com.benlefevre.endometriosismonitoring.ui.viewmodels;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -14,6 +16,7 @@ import com.benlefevre.endometriosismonitoring.data.repositories.TemperatureRepos
 import com.benlefevre.endometriosismonitoring.models.Action;
 import com.benlefevre.endometriosismonitoring.models.Commentary;
 import com.benlefevre.endometriosismonitoring.models.Doctor;
+import com.benlefevre.endometriosismonitoring.models.DoctorCommentaryCounter;
 import com.benlefevre.endometriosismonitoring.models.FirestorePain;
 import com.benlefevre.endometriosismonitoring.models.Mood;
 import com.benlefevre.endometriosismonitoring.models.Pain;
@@ -21,7 +24,11 @@ import com.benlefevre.endometriosismonitoring.models.Result;
 import com.benlefevre.endometriosismonitoring.models.Symptom;
 import com.benlefevre.endometriosismonitoring.models.Temperature;
 import com.benlefevre.endometriosismonitoring.models.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,11 +57,15 @@ public class SharedViewModel extends ViewModel {
     private MutableLiveData<List<FirestorePain>> mFirestorePainLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Action>> mFirestoreActionLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Commentary>> mCommentaryLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<DoctorCommentaryCounter>> mCountersLiveData = new MutableLiveData<>();
     private MutableLiveData<User> mCurrentUserLiveData = new MutableLiveData<>();
     private MutableLiveData<Doctor> mCurrentDoctorLiveData = new MutableLiveData<>();
 
 
-    public SharedViewModel(ActionRepository actionRepository, DoctorRepository doctorRepository, FirestoreRepository firestoreRepository, MoodRepository moodRepository, PainRepository painRepository, SymptomRepository symptomRepository, TemperatureRepository temperatureRepository, Executor executor) {
+    public SharedViewModel(ActionRepository actionRepository, DoctorRepository doctorRepository,
+                           FirestoreRepository firestoreRepository, MoodRepository moodRepository,
+                           PainRepository painRepository, SymptomRepository symptomRepository,
+                           TemperatureRepository temperatureRepository, Executor executor) {
         mActionRepository = actionRepository;
         mDoctorRepository = doctorRepository;
         mFirestoreRepository = firestoreRepository;
@@ -144,6 +155,11 @@ public class SharedViewModel extends ViewModel {
 
     public void createFirestoreCommentary(Commentary commentary){mFirestoreRepository.createFirestoreCommentary(commentary);}
 
+    public void createFirestoreDoctorCounter(String doctorId, int rating){
+        mFirestoreRepository.updateFirestoreDoctorCommentaryCounter(doctorId,rating)
+                .addOnFailureListener(e -> mFirestoreRepository.createFirestoreDoctorCommentaryCounter(doctorId,rating));
+    }
+
 //    ----------------------------------------READ--------------------------------------------------
 
     public LiveData<List<FirestorePain>> getFirestorePain(){
@@ -175,9 +191,10 @@ public class SharedViewModel extends ViewModel {
     }
 
     public LiveData<List<Commentary>> getCommentariesByDoctorId(String doctorId){
+        List<Commentary> commentaryList = new ArrayList<>();
+        mCommentaryLiveData.setValue(commentaryList);
         mFirestoreRepository.getCommentariesByDoctorId(doctorId).addSnapshotListener((queryDocumentSnapshots, e) -> {
             if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()){
-                List<Commentary> commentaryList = new ArrayList<>();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
                     Commentary commentary = doc.toObject(Commentary.class);
                     commentaryList.add(commentary);
@@ -189,6 +206,20 @@ public class SharedViewModel extends ViewModel {
             }
         });
         return mCommentaryLiveData;
+    }
+
+    public LiveData<List<DoctorCommentaryCounter>> getDoctorCommentaryCounter(List<String> doctorIdList){
+        mFirestoreRepository.getDoctorCommentaryCounter(doctorIdList).addSnapshotListener((queryDocumentSnapshots, e) -> {
+            if (queryDocumentSnapshots != null && ! queryDocumentSnapshots.isEmpty()){
+                List<DoctorCommentaryCounter> counters = new ArrayList<>();
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
+                    DoctorCommentaryCounter counter = doc.toObject(DoctorCommentaryCounter.class);
+                    counters.add(counter);
+                }
+                mCountersLiveData.setValue(counters);
+            }
+        });
+        return mCountersLiveData;
     }
 
 
