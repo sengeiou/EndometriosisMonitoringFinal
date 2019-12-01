@@ -37,4 +37,9 @@
         android:id="@+id/logOut"
         android:name="com.benlefevre.endometriosismonitoring.ui.controllers.activities.LoginActivity"
         tools:layout="@layout/activity_login" />
+    <fragment
+        android:id="@+id/painDetailFragment"
+        android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.PainDetailFragment"
+        android:label="fragment_pain_detail"
+        tools:layout="@layout/fragment_pain_detail" />
 </navigation>
