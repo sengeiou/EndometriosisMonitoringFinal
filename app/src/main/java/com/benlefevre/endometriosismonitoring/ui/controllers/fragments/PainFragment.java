@@ -284,60 +284,61 @@ public class PainFragment extends Fragment {
      * @param rowId the saved Pain PrimaryKey
      */
     private void saveSymptomsInDb(long rowId) {
+        Date date = new Date();
         List<Symptom> symptomsList = new ArrayList<>();
         List<String> symptomsName = new ArrayList<>();
         if (mChipBurns.isChecked()) {
-            Symptom s1 = new Symptom(rowId, mChipBurns.getText().toString());
+            Symptom s1 = new Symptom(rowId, mChipBurns.getText().toString(),date);
             symptomsList.add(s1);
             symptomsName.add(mChipBurns.getText().toString());
         }
         if (mChipCramps.isChecked()) {
-            Symptom s2 = new Symptom(rowId, mChipCramps.getText().toString());
+            Symptom s2 = new Symptom(rowId, mChipCramps.getText().toString(),date);
             symptomsList.add(s2);
             symptomsName.add(mChipCramps.getText().toString());
         }
         if (mChipBleeding.isChecked()) {
-            Symptom s3 = new Symptom(rowId, mChipBleeding.getText().toString());
+            Symptom s3 = new Symptom(rowId, mChipBleeding.getText().toString(),date);
             symptomsList.add(s3);
             symptomsName.add(mChipBleeding.getText().toString());
         }
         if (mChipFever.isChecked()) {
-            Symptom s4 = new Symptom(rowId, mChipFever.getText().toString());
+            Symptom s4 = new Symptom(rowId, mChipFever.getText().toString(),date);
             symptomsList.add(s4);
             symptomsName.add(mChipFever.getText().toString());
         }
         if (mChipBloating.isChecked()) {
-            Symptom s5 = new Symptom(rowId, mChipBloating.getText().toString());
+            Symptom s5 = new Symptom(rowId, mChipBloating.getText().toString(),date);
             symptomsList.add(s5);
             symptomsName.add(mChipBloating.getText().toString());
         }
         if (mChipChills.isChecked()) {
-            Symptom s6 = new Symptom(rowId, mChipChills.getText().toString());
+            Symptom s6 = new Symptom(rowId, mChipChills.getText().toString(),date);
             symptomsList.add(s6);
             symptomsName.add(mChipChills.getText().toString());
         }
         if (mChipConstipation.isChecked()) {
-            Symptom s7 = new Symptom(rowId, mChipConstipation.getText().toString());
+            Symptom s7 = new Symptom(rowId, mChipConstipation.getText().toString(),date);
             symptomsList.add(s7);
             symptomsName.add(mChipConstipation.getText().toString());
         }
         if (mChipDiarrhea.isChecked()) {
-            Symptom s8 = new Symptom(rowId, mChipDiarrhea.getText().toString());
+            Symptom s8 = new Symptom(rowId, mChipDiarrhea.getText().toString(),date);
             symptomsList.add(s8);
             symptomsName.add(mChipDiarrhea.getText().toString());
         }
         if (mChipHotFlush.isChecked()) {
-            Symptom s9 = new Symptom(rowId, mChipHotFlush.getText().toString());
+            Symptom s9 = new Symptom(rowId, mChipHotFlush.getText().toString(),date);
             symptomsList.add(s9);
             symptomsName.add(mChipHotFlush.getText().toString());
         }
         if (mChipNausea.isChecked()){
-            Symptom s10 = new Symptom(rowId, mChipNausea.getText().toString());
+            Symptom s10 = new Symptom(rowId, mChipNausea.getText().toString(),date);
             symptomsList.add(s10);
             symptomsName.add(mChipNausea.getText().toString());
         }
         if (mChipTired.isChecked()){
-            Symptom s11 = new Symptom(rowId, mChipTired.getText().toString());
+            Symptom s11 = new Symptom(rowId, mChipTired.getText().toString(),date);
             symptomsList.add(s11);
             symptomsName.add(mChipTired.getText().toString());
         }

@@ -148,6 +148,11 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.painDetailFragment:
                     mBottomNav.setVisibility(View.GONE);
                     mToolbar.setTitle(getString(R.string.pain_detail_history));
+                    break;
+                case R.id.symptomDetailFragment:
+                    mBottomNav.setVisibility(View.GONE);
+                    mToolbar.setTitle(getString(R.string.symptom_detail_history));
+                    break;
             }
         });
     }

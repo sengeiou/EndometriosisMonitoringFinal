@@ -696,6 +696,7 @@ public class DashboardFragment extends Fragment {
                 mNavController.navigate(R.id.painDetailFragment);
                 break;
             case R.id.dashboard_card_symptom:
+                mNavController.navigate(R.id.symptomDetailFragment);
                 break;
             case R.id.dashboard_card_action:
                 break;

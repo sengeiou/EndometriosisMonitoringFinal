@@ -166,6 +166,7 @@
     <string name="activity_intensity">Activity intensity</string>
     <string name="pain_detail_history">Pain detail history</string>
     <string name="click_on_chart_to_see_the_symptom_evolution_in_time">Click on chart to see the symptom evolution in time</string>
+    <string name="symptom_detail_history">Symptom detail history</string>
 
     <string-array name="sport">
         <item>BasketBall</item>

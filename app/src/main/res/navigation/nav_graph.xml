@@ -41,4 +41,8 @@
         android:id="@+id/painDetailFragment"
         android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.PainDetailFragment"
         tools:layout="@layout/fragment_pain_detail" />
+    <fragment
+        android:id="@+id/symptomDetailFragment"
+        android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.SymptomDetailFragment"
+        tools:layout="@layout/fragment_symptom_detail" />
 </navigation>
