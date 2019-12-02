@@ -217,4 +217,6 @@
         <item>15 days</item>
         <item>Permanent</item>
     </string-array>
+    
+    <string name="sleep_quality_detail_history">Sleep quality detail history</string>
 </resources>

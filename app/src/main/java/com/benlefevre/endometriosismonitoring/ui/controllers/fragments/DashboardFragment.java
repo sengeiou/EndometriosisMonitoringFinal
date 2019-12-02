@@ -486,8 +486,8 @@ public class DashboardFragment extends Fragment {
 
         LineDataSet dataSet = new LineDataSet(entries, getString(R.string.sleep_quality));
         dataSet.setLineWidth(2);
-        dataSet.setColor(getResources().getColor(R.color.colorSecondary));
-        dataSet.setCircleColor(getResources().getColor(R.color.colorSecondary));
+        dataSet.setColor(getResources().getColor(R.color.graph2));
+        dataSet.setCircleColor(getResources().getColor(R.color.graph2));
         dataSet.setDrawValues(false);
 
         LineData lineData = new LineData(dataSet);
@@ -715,6 +715,7 @@ public class DashboardFragment extends Fragment {
                 mNavController.navigate(R.id.actionDetailFragment);
                 break;
             case R.id.dashboard_card_sleep:
+                mNavController.navigate(R.id.sleepDetailFragment);
                 break;
             case R.id.dashboard_card_mood:
                 break;

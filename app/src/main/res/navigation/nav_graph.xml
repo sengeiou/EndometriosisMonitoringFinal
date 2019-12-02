@@ -48,4 +48,8 @@
     <fragment
         android:id="@+id/actionDetailFragment"
         android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.ActionDetailFragment" />
+    <fragment
+        android:id="@+id/sleepDetailFragment"
+        android:name="com.benlefevre.endometriosismonitoring.ui.controllers.fragments.SleepDetailFragment"
+        android:label="SleepDetailFragment" />
 </navigation>

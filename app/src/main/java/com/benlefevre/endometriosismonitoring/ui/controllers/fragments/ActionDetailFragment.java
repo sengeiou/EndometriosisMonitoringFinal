@@ -66,12 +66,10 @@ public class ActionDetailFragment extends Fragment {
     private SharedViewModel mViewModel;
     private int mDuration = 7;
     private List<Action> mActionList;
-    private SimpleDateFormat mDateFormat;
 
     public ActionDetailFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -177,7 +175,7 @@ public class ActionDetailFragment extends Fragment {
      */
     private void setupActionTimeChart(String actionName) {
         String[] sportNameList = getResources().getStringArray(R.array.sport);
-        mDateFormat = new SimpleDateFormat("dd/MM", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM", Locale.getDefault());
         mActionDetailTimeChart.setDescription(null);
         List<Action> actionTimeList = new ArrayList<>();
         for (Action action : mActionList) {
@@ -205,7 +203,7 @@ public class ActionDetailFragment extends Fragment {
                 actionEntries.add(new Entry(i, 0));
                 painEntries.add(new Entry(i, action.getPainValue()));
             }
-            dates.add(mDateFormat.format(action.getDate()));
+            dates.add(dateFormat.format(action.getDate()));
             i++;
         }
 
