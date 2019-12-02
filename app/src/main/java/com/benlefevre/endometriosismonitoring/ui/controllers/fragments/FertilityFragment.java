@@ -157,13 +157,13 @@ public class FertilityFragment extends Fragment {
     TextInputLayout mDurationLegend;
     @BindView(R.id.fertility_update_calendar_btn)
     MaterialButton mUpdateCalendarBtn;
-    @BindView(R.id.slider)
+    @BindView(R.id.temp_slider)
     Slider mTempSlider;
     @BindView(R.id.temp_txt)
     MaterialTextView mTempTxt;
     @BindView(R.id.fertility_save_btn)
     MaterialButton mFertilitySaveBtn;
-    @BindView(R.id.baby_temp_chart)
+    @BindView(R.id.temp_chart)
     LineChart mTempChart;
 
     private View mView;

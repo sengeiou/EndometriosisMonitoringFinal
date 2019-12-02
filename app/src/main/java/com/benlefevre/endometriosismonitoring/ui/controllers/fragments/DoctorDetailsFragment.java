@@ -148,7 +148,7 @@ public class DoctorDetailsFragment extends Fragment {
                     Toast.makeText(mActivity, R.string.no_phone_doctor, Toast.LENGTH_SHORT).show();
             }else{
                 Log.i("info", "initDoctorNavigationBar: " + mCurrentUser.toString());
-                if (!mCurrentUser.getName().equals("Anonymous"))
+                if (!mCurrentUser.getName().equals(getString(R.string.anonymous)))
                     openCommentaryDialog();
                 else
                     Toast.makeText(mActivity,"You must be logged to write a commentary",Toast.LENGTH_SHORT).show();

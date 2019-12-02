@@ -1,0 +1,222 @@
+<resources>
+    <string name="app_name">EndometriosisMonitoring</string>
+
+    <string name="facebook_application_id">2480841702131407</string>
+    <string name="fb_login_protocol_scheme">fb2480841702131407</string>
+
+    <string name="dashboard">Tableau de bord</string>
+    <string name="treatment">Traitement</string>
+    <string name="fertility">Fertilité</string>
+    <string name="settings">Paramètres</string>
+    <string name="log_out">Se déconnecter</string>
+    <string name="doctor_info">Informations sur le médecin</string>
+    <string name="my_pain">Mes douleurs</string>
+    <string name="anonymous">Anonyme</string>
+    <string name="cancel_auth">Vous avez quitté l\'identification. Veuillez réessayer</string>
+    <string name="no_network">Vous devez être connecté à internet pour vous identiier</string>
+    <string name="unknown_error">Une erreur inconnue est survenue. Merci de réessayer</string>
+    <string name="evolution_of_pain_over_the_last_7_days">Evolution de la douleur sur les 7 derniers jours</string>
+    <string name="recurrence_of_symptoms_over_the_last_7_days">Récurrence des symptômes dur les 7 derniers jours</string>
+    <string name="practiced_activities_over_last_7_days">Activitées pratiquées durant l es 7 derniers jours</string>
+    <string name="sleep_quality_over_the_7_last_days">Qualité du sommeil sur les 7 derniers jours</string>
+    <string name="mood_repartition_over_the_7_last_days">Répartition de vos humeurs sur les 7 derniers jours</string>
+    <string name="pain_history">L\'historique de vos douleurs apparaîtra ici</string>
+    <string name="symptoms_history">L\'historique de vos symptômes apparaîtra ici</string>
+    <string name="action_history">L\'historique de vos activités apparaitra ici</string>
+    <string name="sleep_history">La qualité de votre sommeil apparaîtra ici</string>
+    <string name="mood_history">L\'historique de vos humeur apparaitra ici</string>
+    <string name="burns">Brûlures</string>
+    <string name="cramps">Crampes</string>
+    <string name="bleeding">Saignements</string>
+    <string name="fever">Fièvre</string>
+    <string name="chills">Frissons</string>
+    <string name="bloating">Balonnements</string>
+    <string name="hot_flush">Bouffée de chaleur</string>
+    <string name="diarrhea">Diarrhée</string>
+    <string name="constipation">Constipation</string>
+    <string name="nausea">Nausée</string>
+    <string name="tired">Tired</string>
+    <string name="sleep">Sommeil</string>
+    <string name="sleep_quality">qualité du sommeil</string>
+    <string name="sport">Sport</string>
+    <string name="stress">Stress</string>
+    <string name="relaxation">Relaxation</string>
+    <string name="sex">Sexe</string>
+    <string name="sex_duration">Durée des relations</string>
+    <string name="nb_sex">Nombre de rapports sexuels</string>
+    <string name="sex_intensity">Intensité</string>
+    <string name="stress_intensity">Intensité du stress</string>
+    <string name="stress_exposure">nombre d\'exposition au stress</string>
+    <string name="relax_duration">Durée de la relaxation</string>
+    <string name="nb_relax">Nombres d\'activités relaxantes pratiquées</string>
+    <string name="sport_duration">Durée du  sport</string>
+    <string name="sport_intensity">Intensité du sport</string>
+    <string name="nb_sport">Nombre d\'activités sportives pratiquées</string>
+    <string name="sad">triste</string>
+    <string name="sick">Malade</string>
+    <string name="irritated">Irritable</string>
+    <string name="happy">Heureuse</string>
+    <string name="very_happy">Très heureuse</string>
+    <string name="save">Enregistrer</string>
+    <string name="mood">Humeur</string>
+    <string name="vagina">Vagin</string>
+    <string name="breast">poitrine</string>
+    <string name="intestine">Intestin</string>
+    <string name="head">Tête</string>
+    <string name="back">Dos</string>
+    <string name="bladder">Vessie</string>
+    <string name="lower_abdomen">Bas ventre</string>
+    <string name="on_a_scale_of_0_to_10_how_do_you_rate_the_pain_today">Sur une échelle de 0 à 10, comment évaluez-vous la douleur aujourd\'hui?</string>
+    <string name="where_do_you_mainly_find_pain">Où ressentez-vous principalement la douleur?</string>
+    <string name="what_are_the_main_symptoms">Quels sont les principaux symptômes?</string>
+    <string name="activities">Activités</string>
+    <string name="what_have_you_done_today_and_what_are_the_factors_that_can_cause_pain">Qu\'avez-vous fait aujourd\'hui et quels sont les symptômes pouvant engendre de la douleur?</string>
+    <string name="with_what_intensity_on_a_scale_to_0_from_10">Avec quelle intensité sur une échelle de 0 à 10 ?</string>
+    <string name="how_long_in_minutes">Combien de termps en minutes</string>
+    <string name="what_activities_did_you_practiced">Quelles activités avez-vous pratiquées?</string>
+    <string name="some_precisions_please">Quelques précisions</string>
+    <string name="stress_intensity_scale">Avec quelle intensité sur une échelle de 0 à 10?</string>
+    <string name="sleep_quality_rate">Comment évaluez-vous la qualité de votre sommeil aujourd\'hui</string>
+    <string name="cancel">Annuler</string>
+    <string name="your_contraceptive_pill">Votre pilule contraceptive</string>
+    <string name="the_first_day_of_your_last_menstruation">Le premier jour de votre dernier cycle</string>
+    <string name="the_time_you_want_to_be_notified_of_taking_your_pill">L\'heure à laquelle vous souhaitez être notifié de la prise de votre pilule</string>
+    <string name="others_treatments">Autres traitements</string>
+    <string name="a_tablet_of_pills">une tablette de comprimés</string>
+    <string name="an_add_button_image">Un bouton d\'ajout</string>
+    <string name="delete_hour">Supprimer l\'heure</string>
+    <string name="forget_pill">N\'oubliez pas, il est l\'heure de prendre votre pilule</string>
+    <string name="check_pill">Cliquez sur la pilule correspondante dans l\'écran des traitements</string>
+    <string name="forget_treatment">N\'oubliez pas, il est l\'heure de prendre %1$s</string>
+    <string name="you_must_take">Vous devez prendre %1$s %2$s</string>
+    <string name="add_a_treatment">Ajouter un traitement</string>
+    <string name="name_of_the_medicament">Nom du médicament</string>
+    <string name="duration_of_the_treatment">Durée du traitement</string>
+    <string name="what_is_the_dosage">Quel est le dosage?</string>
+    <string name="conditioning">Conditionnement</string>
+    <string name="morning">Matin</string>
+    <string name="noon">Midi</string>
+    <string name="afternoon">Après-midi</string>
+    <string name="evening">Soir</string>
+    <string name="permanent">Permanent</string>
+    <string name="enter_medicament_name">Merci de renseigner le nom</string>
+    <string name="enter_medicament_dosage">Merci de renseigner le dosage</string>
+    <string name="enter_medicament_conditioning">Merci de rensigner le conditionnement</string>
+    <string name="delete_button_icon">Delete button icon</string>
+    <string name="dosage">Dosage</string>
+    <string name="duration">Durée</string>
+    <string name="picking_hours">Heures de prises</string>
+    <string name="dosage_condi">%1$s %2$s</string>
+    <string name="until_the">Jusqu\'au %1$s</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thurday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
+    <string name="sunday">Sun</string>
+    <string name="menstruation">Menstruation</string>
+    <string name="ovulation">Ovulation</string>
+    <string name="optimal_fertilization">Fécondité optimale</string>
+    <string name="the_duration_of_your_cycle_menstruation">La durée de votre cycle</string>
+    <string name="see_my_cycle">Voir mon cycle</string>
+    <string name="body_temperature_monitoring">Suivi de température</string>
+    <string name="for_more_precision_you_have_the_possibility_to_record_your_body_temperature_daily_to_see_precisely_your_ovulation_period">Pour plus de précision vous avez la possibilité d\'enregistrer votre température quotidiennement afin de définir votre période ovulatoire</string>
+    <string name="save_my_temperature">Enregistrer ma température</string>
+    <string name="cycle_between">Votre cycle doit être compris entre 15 et 48 jours</string>
+    <string name="enter_duration_cycle">Merci d\'entrer la durée de votre cycle</string>
+    <string name="entre_previous_cycle">Merci de renseigner le premier jour de votre dernier cycle</string>
+    <string name="temp_legend">%1$d °</string>
+    <string name="body_temp">Ma température corporelle</string>
+    <string name="in_which_city_are_you_looking_for_a_doctor">"Dans quelle ville recherchez-vous un médecin? "</string>
+    <string name="gynecologist">Gynecologue</string>
+    <string name="general_practitioner">Médecin généraliste</string>
+    <string name="around_me">Autour de moi</string>
+    <string name="doctor_rationale">"Nous avons besoin de ces permissions afin de vous localiser et afficher l'ensemble des médecins présents autour de vous "</string>
+    <string name="search">Rechercher</string>
+    <string name="view_more_details">Voir plus d\'informations</string>
+    <string name="comment_doctor">%1$d commentaires</string>
+    <string name="no_commentaries">Il n\'y a pas encore de commentaires</string>
+    <string name="commentaries">Commentaires</string>
+    <string name="medical_procedures">Actes médicaux</string>
+    <string name="types_of_medical_procedures">Types d\'actes médicaux</string>
+    <string name="phone_number">Numéro de téléphone</string>
+    <string name="address">Adresse:</string>
+    <string name="speciality">Specialité:</string>
+    <string name="sex_details">Sexe :</string>
+    <string name="write_a_commentary">Ecrire un commentaire</string>
+    <string name="call">Appeler</string>
+    <string name="a_photo_of_the_author">une photo de l\'auteur</string>
+    <string name="no_phone_doctor">Désolé mais il n\'y a pas de numéro de téléphone pour ce médecin</string>
+    <string name="give_us_your_opinion">Donnez nous votre opinion</string>
+    <string name="enter_your_commentary">Entrez votre commentaire</string>
+    <string name="how_would_you_rate_this_doctor_s_ability_to_manage_patients_with_endometriosis_on_a_scale_of_0_to_5">Comment évalueriez-vous la capacité de ce médecin à prendre en charge les pateintes atteintes d\'endométriose (sur une échelle de 0 à 5)?</string>
+    <string name="click_on_a_value_to_see_all_information_you_saved_that_day">Cliquez sur une valeur du diagramme ci-dessus pour voir l\'ensemble des données saisies ce jour là</string>
+    <string name="week">Semaine</string>
+    <string name="month">Mois</string>
+    <string name="_6_month">6 mois</string>
+    <string name="year">Année</string>
+    <string name="date">Date</string>
+    <string name="pain_value">Graduation de la douleur</string>
+    <string name="pain_location">Localisation de la douleur</string>
+    <string name="symptoms">Symptômes</string>
+    <string name="activity_name">Nom de l\'activité</string>
+    <string name="activity_duration">Durée de l\'activité</string>
+    <string name="activity_intensity">Intensité de l\'activité</string>
+    <string name="pain_detail_history">Historique détaillé des douleurs</string>
+    <string name="click_on_chart_to_see_the_symptom_evolution_in_time">Cliquez sur une valeur du diagramme ci-dessus pour voir l\'évolution des symptômes dans le temps</string>
+    <string name="symptom_detail_history">Historique détaillé des symptômes</string>
+    <string name="click_on_a_chart_value_to_see_the_evolution_of_pain_and_activities">Cliquez sur une valuer du diagramme ci-dessus pour voir l\'évolution de la douleur en fonction des activités</string>
+    <string name="action_detail_history">Historique détaillé des activités</string>
+
+    <string-array name="sport">
+        <item>BasketBall</item>
+        <item>Bike</item>
+        <item>Climbing</item>
+        <item>Combat sport</item>
+        <item>Dance</item>
+        <item>Fencing</item>
+        <item>Fitness</item>
+        <item>Football</item>
+        <item>Gymnastic</item>
+        <item>HandBall</item>
+        <item>Horse riding</item>
+        <item>Rugby</item>
+        <item>Running</item>
+        <item>Swimming</item>
+        <item>Tennis</item>
+        <item>Volleyball</item>
+        <item>Walking</item>
+        <item>Yoga</item>
+    </string-array>
+
+    <string-array name="conditioning">
+        <item>tablets</item>
+        <item>spoon</item>
+        <item>milliliters</item>
+        <item>milligrams</item>
+    </string-array>
+
+    <string-array name="duration">
+        <item>Permanent</item>
+        <item>1 day</item>
+        <item>2 days</item>
+        <item>3 days</item>
+        <item>4 days</item>
+        <item>5 days</item>
+        <item>6 days</item>
+        <item>7 days</item>
+        <item>8 days</item>
+        <item>9 days</item>
+        <item>10 days</item>
+        <item>11 days</item>
+        <item>12 days</item>
+        <item>13 days</item>
+        <item>14 days</item>
+        <item>15 days</item>
+        <item>Permanent</item>
+    </string-array>
+
+    <string name="sleep_quality_detail_history">Historique de la qualité du sommeil</string>
+    <string name="doctor">Médecins</string>
+</resources>

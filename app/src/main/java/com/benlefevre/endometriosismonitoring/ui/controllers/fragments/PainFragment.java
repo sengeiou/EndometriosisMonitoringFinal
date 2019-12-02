@@ -246,13 +246,13 @@ public class PainFragment extends Fragment {
                 saveMoodInDb(rowId);
             }
         }
-        saveUserInputinFirestore();
+        saveUserInputInFirestore();
     }
 
     /**
      * Saves the FirestorePain set with the use's input in FireStore
      */
-    private void saveUserInputinFirestore() {
+    private void saveUserInputInFirestore() {
         mViewModel.createFirestorePain(mFirestorePain);
     }
 

@@ -32,9 +32,9 @@ public class EndoDatabaseTest {
     private static Date mDate = new Date();
 
     private static Pain painDemo = new Pain(mDate,5,"Bladder");
-    private static Symptom symptomDemo = new Symptom(0,"Fever");
+    private static Symptom symptomDemo = new Symptom(0,"Fever",mDate);
     private static Mood moodDemo = new Mood(0,"Happy");
-    private static Action actionDemo = new Action(0,"Sleep",120,8);
+    private static Action actionDemo = new Action(0,"Sleep",120,8,5,mDate);
     private static Temperature tempDemo = new Temperature(36.8,mDate);
 
     @Rule
@@ -75,6 +75,7 @@ public class EndoDatabaseTest {
         Symptom symptom = symptomList.get(0);
         assertEquals(row,symptom.getPainId());
         assertEquals(symptomDemo.getName(),symptom.getName());
+        assertEquals(symptomDemo.getDate(),symptom.getDate());
 
         Mood mood = LiveDataTestUtil.getValue(mEndoDatabase.mMoodDao().getPainMood(row));
         assertEquals(row,mood.getPainId());
@@ -86,6 +87,8 @@ public class EndoDatabaseTest {
         assertEquals(actionDemo.getName(),action.getName());
         assertEquals(actionDemo.getDuration(),action.getDuration());
         assertEquals(actionDemo.getIntensity(),action.getIntensity());
+        assertEquals(actionDemo.getPainValue(),action.getPainValue());
+        assertEquals(actionDemo.getDate(),action.getDate());
 
         List<Temperature> temperatureList = LiveDataTestUtil.getValue(mEndoDatabase.mTemperatureDao().getAllTemp());
         Temperature temperature = temperatureList.get(0);

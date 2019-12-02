@@ -98,7 +98,11 @@ public class SleepDetailFragment extends Fragment {
         });
     }
 
+    /**
+     * Configures a LineChart to see the sleep evolution in time vs pain value history
+     */
     private void setupSleepChart() {
+        mSleepDetailChart.setDescription(null);
         List<Action> sleepList = new ArrayList<>();
         for (Action action : mSleepList) {
             if (action.getName().equals(getString(R.string.sleep))) {

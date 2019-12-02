@@ -125,7 +125,7 @@ public class TreatmentFragment extends Fragment {
     AppCompatCheckBox mCheck027;
     @BindView(R.id.check028)
     AppCompatCheckBox mCheck028;
-    @BindView(R.id.first_day_txt)
+    @BindView(R.id.treatment_first_day_txt)
     TextInputEditText mFirstDayTxt;
     @BindView(R.id.treatment_first_day_legend)
     TextInputLayout mFirstDayLegend;
@@ -497,10 +497,10 @@ public class TreatmentFragment extends Fragment {
         mEvening = getString(R.string.evening);
     }
 
-    @OnClick({R.id.first_day_txt, R.id.treatment_hour_pills_txt, R.id.treatment_add_btn})
+    @OnClick({R.id.treatment_first_day_txt, R.id.treatment_hour_pills_txt, R.id.treatment_add_btn})
     void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.first_day_txt:
+            case R.id.treatment_first_day_txt:
                 openDatePicker();
                 break;
             case R.id.treatment_hour_pills_txt:
