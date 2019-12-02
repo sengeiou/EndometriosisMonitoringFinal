@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.benlefevre.endometriosismonitoring.R;
@@ -23,6 +24,7 @@ import com.benlefevre.endometriosismonitoring.models.Action;
 import com.benlefevre.endometriosismonitoring.models.Mood;
 import com.benlefevre.endometriosismonitoring.models.Pain;
 import com.benlefevre.endometriosismonitoring.models.Symptom;
+import com.benlefevre.endometriosismonitoring.ui.adapters.ActionAdapter;
 import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
 import com.facebook.share.Share;
 import com.github.mikephil.charting.charts.LineChart;
@@ -82,6 +84,7 @@ public class PainDetailFragment extends Fragment {
     private SimpleDateFormat mDateFormat;
     private Date mToday;
     private long mPainSelectedId = 0;
+    private ActionAdapter mActionAdapter;
 
     public PainDetailFragment() {
         // Required empty public constructor
@@ -107,11 +110,21 @@ public class PainDetailFragment extends Fragment {
         configureViewModel();
         setupChipListener();
         getPainAccordingPeriod();
+        configureRecyclerView();
     }
 
     private void configureViewModel() {
         ViewModelFactory viewModelFactory = Injection.providerViewModelFactory(getActivity());
         mViewModel = ViewModelProviders.of((FragmentActivity) mActivity, viewModelFactory).get(SharedViewModel.class);
+    }
+
+    /**
+     * Sets an ActionAdapter to the RecyclerView to Bind fetched Action in locale Db with ViewModel.
+     */
+    private void configureRecyclerView(){
+        mActionAdapter = new ActionAdapter(mActionList);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity,RecyclerView.VERTICAL,false));
+        mRecyclerView.setAdapter(mActionAdapter);
     }
 
     /**
@@ -191,7 +204,12 @@ public class PainDetailFragment extends Fragment {
         }
 
         XAxis xAxis = mPainDetailChart.getXAxis();
-        xAxis.setGranularity(5);
+        int granularity = 5;
+        if (granularity < mPainList.size())
+            xAxis.setGranularity(granularity);
+        else
+            xAxis.setGranularity(1);
+
         xAxis.setValueFormatter(new IndexAxisValueFormatter(dates));
 
         YAxis leftAxis = mPainDetailChart.getAxisLeft();
@@ -212,6 +230,9 @@ public class PainDetailFragment extends Fragment {
         mPainDetailChart.invalidate();
     }
 
+    /**
+     * Fetches the user input in locale Db for a given pain.
+     */
     private void getAllUserInputForSelectedPain(){
         mActionList.clear();
         for (Pain pain : mPainList){
@@ -231,14 +252,14 @@ public class PainDetailFragment extends Fragment {
         final String[] symptomListTxt = {""};
         mViewModel.getSymptomByPainId(mPainSelectedId).observe(getViewLifecycleOwner(), symptoms -> {
             for (Symptom symptom : symptoms){
-                symptomListTxt[0] += symptom + ", ";
+                symptomListTxt[0] += symptom.getName() + ", ";
             }
             mSymptomTxt.setText(symptomListTxt[0]);
         });
 
         mViewModel.getActionByPainId(mPainSelectedId).observe(getViewLifecycleOwner(), actions -> {
             mActionList.addAll(actions);
-
+            mActionAdapter.notifyDataSetChanged();
         });
     }
 

@@ -161,6 +161,10 @@
     <string name="pain_value">Pain value</string>
     <string name="pain_location">Pain location</string>
     <string name="symptoms">Symptoms</string>
+    <string name="activity_name">Activity name</string>
+    <string name="activity_duration">Activity duration</string>
+    <string name="activity_intensity">Activity intensity</string>
+    <string name="pain_detail_history">Pain detail history</string>
 
     <string-array name="sport">
         <item>BasketBall</item>

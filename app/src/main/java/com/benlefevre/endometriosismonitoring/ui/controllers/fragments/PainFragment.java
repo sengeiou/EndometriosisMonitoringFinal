@@ -428,19 +428,19 @@ public class PainFragment extends Fragment {
                 break;
             case R.id.pain_card_sleep:
                 openCustomDialog(view.getId());
-                mUserActivityChoice = "Sleep";
+                mUserActivityChoice = getString(R.string.sleep);
                 break;
             case R.id.pain_card_zen:
                 openCustomDialog(view.getId());
-                mUserActivityChoice = "Relaxation";
+                mUserActivityChoice = getString(R.string.relaxation);
                 break;
             case R.id.pain_card_stress:
                 openCustomDialog(view.getId());
-                mUserActivityChoice = "Stress";
+                mUserActivityChoice = getString(R.string.stress);
                 break;
             case R.id.pain_card_sex:
                 openCustomDialog(view.getId());
-                mUserActivityChoice = "Sex";
+                mUserActivityChoice = getString(R.string.sex);
                 break;
             case R.id.pain_save_btn:
                 getUserPainInput();

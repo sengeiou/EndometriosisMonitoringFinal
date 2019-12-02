@@ -203,7 +203,7 @@ public class DashboardFragment extends Fragment {
         List<Mood> moodList = new ArrayList<>();
         for (Pain pain : painList) {
             mViewModel.getMoodByPainId(pain.getId()).observe(getViewLifecycleOwner(), mood -> {
-                if(mood != null)
+                if (mood != null)
                     moodList.add(mood);
                 if (!moodList.isEmpty()) {
                     float[] moods = computePercentMood(moodList);
@@ -215,6 +215,7 @@ public class DashboardFragment extends Fragment {
 
     /**
      * Computes the repartition of user's mood of 7 days
+     *
      * @param moodList the fetched mood in locale DB with ViewModel
      * @return an array of float that contains the computed percent
      */
@@ -247,6 +248,7 @@ public class DashboardFragment extends Fragment {
 
     /**
      * Setup the pie chart that represented the mood repartition for over last 7 days
+     *
      * @param moodList the fetched mood in locale DB with ViewModel
      */
     private void setupMoodChart(float[] moodList) {
@@ -278,7 +280,7 @@ public class DashboardFragment extends Fragment {
             entries.add(new PieEntry(moodList[3], getString(R.string.happy)));
             colorList.add(getResources().getColor(R.color.graph2));
         }
-        if (moodList[4] != 0){
+        if (moodList[4] != 0) {
             entries.add(new PieEntry(moodList[4], getString(R.string.very_happy)));
             colorList.add(getResources().getColor(R.color.graph1));
         }
@@ -534,73 +536,107 @@ public class DashboardFragment extends Fragment {
         YAxis rightAxis = mSymptomsChart.getAxisRight();
         rightAxis.setEnabled(false);
 
-        BarEntry burnsEntry = new BarEntry(0, burns);
-        BarDataSet burnsDataSet = new BarDataSet(Collections.singletonList(burnsEntry), burnsName);
-        burnsDataSet.setColor(getResources().getColor(R.color.colorSecondary));
-        burnsDataSet.setDrawValues(false);
-
-        BarEntry crampsEntry = new BarEntry(1, cramps);
-        BarDataSet crampsDataSet = new BarDataSet(Collections.singletonList(crampsEntry), crampsName);
-        crampsDataSet.setColor(getResources().getColor(R.color.colorPrimary));
-        crampsDataSet.setDrawValues(false);
-
-        BarEntry bleedingEntry = new BarEntry(2, bleeding);
-        BarDataSet bleedingDataSet = new BarDataSet(Collections.singletonList(bleedingEntry), bleedingName);
-        bleedingDataSet.setColor(getResources().getColor(R.color.colorBackground));
-        bleedingDataSet.setDrawValues(false);
-
-        BarEntry feverEntry = new BarEntry(3, fever);
-        BarDataSet feverDataSet = new BarDataSet(Collections.singletonList(feverEntry), feverName);
-        feverDataSet.setColor(getResources().getColor(R.color.colorPrimaryVariant));
-        feverDataSet.setDrawValues(false);
-
-        BarEntry chillsEntry = new BarEntry(4, chills);
-        BarDataSet chillsDataSet = new BarDataSet(Collections.singletonList(chillsEntry), chillsName);
-        chillsDataSet.setColor(getResources().getColor(R.color.graph1));
-        chillsDataSet.setDrawValues(false);
-
-        BarEntry bloatingEntry = new BarEntry(5, bloating);
-        BarDataSet bloatingDataSet = new BarDataSet(Collections.singletonList(bloatingEntry), bloatingName);
-        bloatingDataSet.setColor(getResources().getColor(R.color.graph2));
-        bloatingDataSet.setDrawValues(false);
-
-        BarEntry hotFlushEntry = new BarEntry(6, hotFlush);
-        BarDataSet hotFlushDataSet = new BarDataSet(Collections.singletonList(hotFlushEntry), hotFlushName);
-        hotFlushDataSet.setColor(getResources().getColor(R.color.graph3));
-        hotFlushDataSet.setDrawValues(false);
-
-        BarEntry diarrheaEntry = new BarEntry(7, diarrhea);
-        BarDataSet diarrheaDataSet = new BarDataSet(Collections.singletonList(diarrheaEntry), diarrheaName);
-        diarrheaDataSet.setColor(getResources().getColor(R.color.graph4));
-        diarrheaDataSet.setDrawValues(false);
-
-        BarEntry constipationEntry = new BarEntry(8, constipation);
-        BarDataSet constipationDataSet = new BarDataSet(Collections.singletonList(constipationEntry), constipationName);
-        constipationDataSet.setColor(getResources().getColor(R.color.graph5));
-        constipationDataSet.setDrawValues(false);
-
-        BarEntry nauseaEntry = new BarEntry(9, nausea);
-        BarDataSet nauseaDataSet = new BarDataSet(Collections.singletonList(nauseaEntry), nauseaName);
-        nauseaDataSet.setColor(getResources().getColor(R.color.graph6));
-        nauseaDataSet.setDrawValues(false);
-
-        BarEntry tiredEntry = new BarEntry(10, tired);
-        BarDataSet tiredDataSet = new BarDataSet(Collections.singletonList(tiredEntry), tiredName);
-        tiredDataSet.setColor(getResources().getColor(R.color.graph7));
-        tiredDataSet.setDrawValues(false);
-
         List<IBarDataSet> dataSet = new ArrayList<>();
-        dataSet.add(burnsDataSet);
-        dataSet.add(crampsDataSet);
-        dataSet.add(bleedingDataSet);
-        dataSet.add(feverDataSet);
-        dataSet.add(chillsDataSet);
-        dataSet.add(bloatingDataSet);
-        dataSet.add(hotFlushDataSet);
-        dataSet.add(diarrheaDataSet);
-        dataSet.add(constipationDataSet);
-        dataSet.add(nauseaDataSet);
-        dataSet.add(tiredDataSet);
+        int indexDataSet = 0;
+
+        if (burns != 0) {
+            BarEntry burnsEntry = new BarEntry(indexDataSet, burns);
+            BarDataSet burnsDataSet = new BarDataSet(Collections.singletonList(burnsEntry), burnsName);
+            burnsDataSet.setColor(getResources().getColor(R.color.colorSecondary));
+            burnsDataSet.setDrawValues(false);
+            dataSet.add(burnsDataSet);
+            indexDataSet++;
+        }
+
+        if (cramps != 0) {
+            BarEntry crampsEntry = new BarEntry(indexDataSet, cramps);
+            BarDataSet crampsDataSet = new BarDataSet(Collections.singletonList(crampsEntry), crampsName);
+            crampsDataSet.setColor(getResources().getColor(R.color.colorPrimary));
+            crampsDataSet.setDrawValues(false);
+            dataSet.add(crampsDataSet);
+            indexDataSet++;
+        }
+
+        if (bleeding != 0) {
+            BarEntry bleedingEntry = new BarEntry(indexDataSet, bleeding);
+            BarDataSet bleedingDataSet = new BarDataSet(Collections.singletonList(bleedingEntry), bleedingName);
+            bleedingDataSet.setColor(getResources().getColor(R.color.colorBackground));
+            bleedingDataSet.setDrawValues(false);
+            dataSet.add(bleedingDataSet);
+            indexDataSet++;
+        }
+
+        if (fever != 0) {
+            BarEntry feverEntry = new BarEntry(indexDataSet, fever);
+            BarDataSet feverDataSet = new BarDataSet(Collections.singletonList(feverEntry), feverName);
+            feverDataSet.setColor(getResources().getColor(R.color.colorPrimaryVariant));
+            feverDataSet.setDrawValues(false);
+            dataSet.add(feverDataSet);
+            indexDataSet++;
+        }
+
+        if (chills != 0) {
+            BarEntry chillsEntry = new BarEntry(indexDataSet, chills);
+            BarDataSet chillsDataSet = new BarDataSet(Collections.singletonList(chillsEntry), chillsName);
+            chillsDataSet.setColor(getResources().getColor(R.color.graph1));
+            chillsDataSet.setDrawValues(false);
+            dataSet.add(chillsDataSet);
+            indexDataSet++;
+        }
+
+        if (bloating != 0) {
+            BarEntry bloatingEntry = new BarEntry(indexDataSet, bloating);
+            BarDataSet bloatingDataSet = new BarDataSet(Collections.singletonList(bloatingEntry), bloatingName);
+            bloatingDataSet.setColor(getResources().getColor(R.color.graph2));
+            bloatingDataSet.setDrawValues(false);
+            dataSet.add(bloatingDataSet);
+            indexDataSet++;
+        }
+
+        if (hotFlush != 0) {
+            BarEntry hotFlushEntry = new BarEntry(indexDataSet, hotFlush);
+            BarDataSet hotFlushDataSet = new BarDataSet(Collections.singletonList(hotFlushEntry), hotFlushName);
+            hotFlushDataSet.setColor(getResources().getColor(R.color.graph3));
+            hotFlushDataSet.setDrawValues(false);
+            dataSet.add(hotFlushDataSet);
+            indexDataSet++;
+        }
+
+        if (diarrhea != 0) {
+            BarEntry diarrheaEntry = new BarEntry(indexDataSet, diarrhea);
+            BarDataSet diarrheaDataSet = new BarDataSet(Collections.singletonList(diarrheaEntry), diarrheaName);
+            diarrheaDataSet.setColor(getResources().getColor(R.color.graph4));
+            diarrheaDataSet.setDrawValues(false);
+            dataSet.add(diarrheaDataSet);
+            indexDataSet++;
+        }
+
+        if (constipation != 0) {
+            BarEntry constipationEntry = new BarEntry(indexDataSet, constipation);
+            BarDataSet constipationDataSet = new BarDataSet(Collections.singletonList(constipationEntry), constipationName);
+            constipationDataSet.setColor(getResources().getColor(R.color.graph5));
+            constipationDataSet.setDrawValues(false);
+            dataSet.add(constipationDataSet);
+            indexDataSet++;
+        }
+
+        if (nausea != 0) {
+            BarEntry nauseaEntry = new BarEntry(indexDataSet, nausea);
+            BarDataSet nauseaDataSet = new BarDataSet(Collections.singletonList(nauseaEntry), nauseaName);
+            nauseaDataSet.setColor(getResources().getColor(R.color.graph6));
+            nauseaDataSet.setDrawValues(false);
+            dataSet.add(nauseaDataSet);
+            indexDataSet++;
+        }
+
+        if (tired !=0) {
+            BarEntry tiredEntry = new BarEntry(indexDataSet, tired);
+            BarDataSet tiredDataSet = new BarDataSet(Collections.singletonList(tiredEntry), tiredName);
+            tiredDataSet.setColor(getResources().getColor(R.color.graph7));
+            tiredDataSet.setDrawValues(false);
+            dataSet.add(tiredDataSet);
+        }
+
         BarData barData = new BarData(dataSet);
         mSymptomsChart.setData(barData);
         mSymptomsChart.invalidate();
@@ -657,6 +693,7 @@ public class DashboardFragment extends Fragment {
                 mNavController.navigate(R.id.painFragment);
                 break;
             case R.id.dashboard_card_pain:
+                mNavController.navigate(R.id.painDetailFragment);
                 break;
             case R.id.dashboard_card_symptom:
                 break;
