@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import com.benlefevre.endometriosismonitoring.data.dao.SymptomDao;
 import com.benlefevre.endometriosismonitoring.models.Symptom;
 
+import java.util.Date;
 import java.util.List;
 
 public class SymptomRepository {
@@ -23,4 +24,6 @@ public class SymptomRepository {
     public LiveData<List<Symptom>> getAllSymptoms(){return mSymptomDao.getAllSymptoms();}
 
     public LiveData<List<Symptom>> getPainSymptoms(long painId){return mSymptomDao.getPainSymptoms(painId);}
+
+    public LiveData<List<Symptom>> getSymptomByPeriod(Date begin, Date end){return mSymptomDao.getSymptomsByPeriod(begin, end);}
 }

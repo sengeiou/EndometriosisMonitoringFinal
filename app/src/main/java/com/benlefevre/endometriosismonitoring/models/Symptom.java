@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity(foreignKeys = @ForeignKey(entity = Pain.class, parentColumns = "id", childColumns = "painId"))
 public class Symptom {
 
@@ -12,13 +14,15 @@ public class Symptom {
     private long id;
     private long painId;
     private String name;
+    private Date date;
 
     public Symptom() {
     }
 
-    public Symptom(long painId, String name) {
+    public Symptom(long painId, String name, Date date) {
         this.painId = painId;
         this.name = name;
+        this.date = date;
     }
 
 //    ---------------------------------------Getters------------------------------------------------
@@ -34,7 +38,11 @@ public class Symptom {
         return name;
     }
 
-//    ---------------------------------------Setters------------------------------------------------
+    public Date getDate() {
+        return date;
+    }
+
+    //    ---------------------------------------Setters------------------------------------------------
     public void setId(long id) {
         this.id = id;
     }
@@ -47,6 +55,9 @@ public class Symptom {
         this.name = name;
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     @NonNull
     @Override
@@ -54,6 +65,7 @@ public class Symptom {
         return "Symptoms{" +
                 "painId=" + painId +
                 ", name='" + name + '\'' +
+                ",date='" + date + '\'' +
                 '}';
     }
 }

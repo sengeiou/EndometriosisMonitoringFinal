@@ -165,6 +165,7 @@
     <string name="activity_duration">Activity duration</string>
     <string name="activity_intensity">Activity intensity</string>
     <string name="pain_detail_history">Pain detail history</string>
+    <string name="click_on_chart_to_see_the_symptom_evolution_in_time">Click on chart to see the symptom evolution in time</string>
 
     <string-array name="sport">
         <item>BasketBall</item>
@@ -213,7 +214,6 @@
         <item>15 days</item>
         <item>Permanent</item>
     </string-array>
-
 
 
 

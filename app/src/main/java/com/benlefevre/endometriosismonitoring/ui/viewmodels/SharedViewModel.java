@@ -124,6 +124,8 @@ public class SharedViewModel extends ViewModel {
 
     public LiveData<List<Symptom>> getSymptomByPainId(long painId){return mSymptomRepository.getPainSymptoms(painId);}
 
+    public LiveData<List<Symptom>> getSymptomByPeriod(Date begin, Date end){return mSymptomRepository.getSymptomByPeriod(begin, end);}
+
     public LiveData<List<Action>> getAllAction(){return mActionRepository.getAllActions();}
 
     public LiveData<List<Action>> getActionByPainId(long painId){return mActionRepository.getPainActions(painId);}
