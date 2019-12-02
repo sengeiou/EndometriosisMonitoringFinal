@@ -27,7 +27,7 @@
                 android:layout_height="match_parent">
 
                 <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/symptom_detail_rep_chart"
+                    android:id="@+id/action_detail_rep_chart"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_marginStart="8dp"
@@ -48,7 +48,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/symptom_detail_rep_chart">
+                    app:layout_constraintTop_toBottomOf="@+id/action_detail_rep_chart">
 
                     <com.google.android.material.chip.ChipGroup
                         android:layout_width="match_parent"
@@ -57,28 +57,28 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/symptom_chip_week"
+                            android:id="@+id/action_chip_week"
                             style="@style/CustomChipChoice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/week" />
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/symtom_chip_month"
+                            android:id="@+id/action_chip_month"
                             style="@style/CustomChipChoice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/month" />
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/symtom_chip_6month"
+                            android:id="@+id/action_chip_6month"
                             style="@style/CustomChipChoice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/_6_month" />
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/symtom_chip_year"
+                            android:id="@+id/action_chip_year"
                             style="@style/CustomChipChoice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                 android:layout_height="match_parent">
 
                 <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/symptom_detail_time_chart"
+                    android:id="@+id/action_detail_time_chart"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_marginStart="8dp"
