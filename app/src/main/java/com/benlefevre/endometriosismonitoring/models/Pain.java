@@ -2,6 +2,7 @@ package com.benlefevre.endometriosismonitoring.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
@@ -17,6 +18,7 @@ public class Pain {
     public Pain() {
     }
 
+    @Ignore
     public Pain(Date date, int intensity, String location) {
         this.date = date;
         this.intensity = intensity;

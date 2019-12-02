@@ -52,7 +52,7 @@
     <string name="sport_duration">Durée du  sport</string>
     <string name="sport_intensity">Intensité du sport</string>
     <string name="nb_sport">Nombre d\'activités sportives pratiquées</string>
-    <string name="sad">triste</string>
+    <string name="sad">Triste</string>
     <string name="sick">Malade</string>
     <string name="irritated">Irritable</string>
     <string name="happy">Heureuse</string>
@@ -72,7 +72,7 @@
     <string name="activities">Activités</string>
     <string name="what_have_you_done_today_and_what_are_the_factors_that_can_cause_pain">Qu\'avez-vous fait aujourd\'hui et quels sont les symptômes pouvant engendre de la douleur?</string>
     <string name="with_what_intensity_on_a_scale_to_0_from_10">Avec quelle intensité sur une échelle de 0 à 10 ?</string>
-    <string name="how_long_in_minutes">Combien de termps en minutes</string>
+    <string name="how_long_in_minutes">Combien de temps en minutes</string>
     <string name="what_activities_did_you_practiced">Quelles activités avez-vous pratiquées?</string>
     <string name="some_precisions_please">Quelques précisions</string>
     <string name="stress_intensity_scale">Avec quelle intensité sur une échelle de 0 à 10?</string>

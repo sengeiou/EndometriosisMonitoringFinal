@@ -3,6 +3,7 @@ package com.benlefevre.endometriosismonitoring.models;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
@@ -19,6 +20,7 @@ public class Symptom {
     public Symptom() {
     }
 
+    @Ignore
     public Symptom(long painId, String name, Date date) {
         this.painId = painId;
         this.name = name;

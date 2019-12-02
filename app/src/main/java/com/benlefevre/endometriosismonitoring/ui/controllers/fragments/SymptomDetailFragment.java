@@ -88,8 +88,7 @@ public class SymptomDetailFragment extends Fragment {
         configureViewModel();
         setupChipListener();
         getSymptomAccordingToUserChoice();
-        mSymptomDetailTimeChart.setNoDataTextColor(getResources().getColor(R.color.colorSecondary));
-        mSymptomDetailTimeChart.setNoDataText(getString(R.string.click_on_chart_to_see_the_symptom_evolution_in_time));
+        mSymptomDetailTimeChart.setNoDataText("");
     }
 
     private void configureViewModel() {

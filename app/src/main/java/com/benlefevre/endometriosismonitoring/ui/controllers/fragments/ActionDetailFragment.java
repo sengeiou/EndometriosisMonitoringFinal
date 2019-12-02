@@ -86,8 +86,7 @@ public class ActionDetailFragment extends Fragment {
         configureViewModel();
         setupChipListener();
         getActionAccordingToDuration();
-        mActionDetailTimeChart.setNoDataTextColor(getResources().getColor(R.color.colorSecondary));
-        mActionDetailTimeChart.setNoDataText(getString(R.string.click_on_a_chart_value_to_see_the_evolution_of_pain_and_activities));
+        mActionDetailTimeChart.setNoDataText("");
     }
 
     private void configureViewModel() {

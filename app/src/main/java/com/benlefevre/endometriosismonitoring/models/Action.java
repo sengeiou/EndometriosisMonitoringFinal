@@ -1,8 +1,8 @@
 package com.benlefevre.endometriosismonitoring.models;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +24,7 @@ public class Action {
     public Action() {
     }
 
+    @Ignore
     public Action(long painId, String name, int duration, int intensity, int painValue, Date date) {
         this.painId = painId;
         this.name = name;

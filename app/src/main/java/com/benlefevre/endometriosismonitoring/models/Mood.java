@@ -3,6 +3,7 @@ package com.benlefevre.endometriosismonitoring.models;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = @ForeignKey(entity = Pain.class, parentColumns = "id", childColumns = "painId"))
@@ -16,6 +17,7 @@ public class Mood {
     public Mood() {
     }
 
+    @Ignore
     public Mood(long painId, String value) {
         this.painId = painId;
         this.value = value;
