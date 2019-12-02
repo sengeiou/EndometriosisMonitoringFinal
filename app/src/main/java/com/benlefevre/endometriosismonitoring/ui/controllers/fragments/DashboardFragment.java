@@ -371,68 +371,81 @@ public class DashboardFragment extends Fragment {
             sportDuration = sportDuration / nbSport;
         }
 
-        BarEntry sportDurationEntry = new BarEntry(4, sportDuration);
-        BarEntry sportIntensityEntry = new BarEntry(5, sportIntensity);
-        BarEntry nbSportEntry = new BarEntry(6, nbSport);
-        BarDataSet sportDurationDataSet = new BarDataSet(Collections.singletonList(sportDurationEntry), sportDurationName);
-        sportDurationDataSet.setColor(getResources().getColor(R.color.graph7));
-        sportDurationDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        sportDurationDataSet.setValueTextSize(10);
-        BarDataSet sportIntensityDataSet = new BarDataSet(Collections.singletonList(sportIntensityEntry), sportIntensityName);
-        sportIntensityDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        sportIntensityDataSet.setValueTextSize(10);
-        sportIntensityDataSet.setColor(getResources().getColor(R.color.colorSecondary));
-        BarDataSet nbSportDataSet = new BarDataSet(Collections.singletonList(nbSportEntry), nbSportName);
-        nbSportDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        nbSportDataSet.setValueTextSize(10);
-        nbSportDataSet.setColor(getResources().getColor(R.color.colorPrimary));
-
-        BarEntry sexDurationEntry = new BarEntry(0, sexDuration);
-        BarEntry nbSexEntry = new BarEntry(1, nbSex);
-        BarDataSet sexDurationDataSet = new BarDataSet(Collections.singletonList(sexDurationEntry), sexDurationName);
-        sexDurationDataSet.setColor(getResources().getColor(R.color.graph1));
-        sexDurationDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        sexDurationDataSet.setValueTextSize(10);
-        BarDataSet nbSexDataSet = new BarDataSet(Collections.singletonList(nbSexEntry), nbSexName);
-        nbSexDataSet.setColor(getResources().getColor(R.color.graph2));
-        nbSexDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        nbSexDataSet.setValueTextSize(10);
-
-        BarEntry stressIntensityEntry = new BarEntry(7, stressIntensity);
-        BarEntry nbStressEntry = new BarEntry(8, nbStress);
-        BarDataSet stressDataSet = new BarDataSet(Collections.singletonList(stressIntensityEntry), stressIntensityName);
-        stressDataSet.setColor(getResources().getColor(R.color.graph3));
-        stressDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        stressDataSet.setValueTextSize(10);
-        BarDataSet nbStressDataSet = new BarDataSet(Collections.singletonList(nbStressEntry), nbStressName);
-        nbStressDataSet.setColor(getResources().getColor(R.color.graph4));
-        nbStressDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        nbStressDataSet.setValueTextSize(10);
-
-        BarEntry relaxationDurationEntry = new BarEntry(2, relaxationDuration);
-        BarEntry nbRelaxationEntry = new BarEntry(3, nbRelaxation);
-        BarDataSet relaxationDataSet = new BarDataSet(Collections.singletonList(relaxationDurationEntry), relaxationDurationName);
-        relaxationDataSet.setColor(getResources().getColor(R.color.graph5));
-        relaxationDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        relaxationDataSet.setValueTextSize(10);
-        BarDataSet nbRelaxationDataSet = new BarDataSet(Collections.singletonList(nbRelaxationEntry), nbRelaxationName);
-        nbRelaxationDataSet.setColor(getResources().getColor(R.color.graph6));
-        nbRelaxationDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        nbRelaxationDataSet.setValueTextSize(10);
-
+        int indexCounter = -1;
         List<IBarDataSet> barDataSet = new ArrayList<>();
-        barDataSet.add(sexDurationDataSet);
-        barDataSet.add(nbSexDataSet);
-        barDataSet.add(relaxationDataSet);
-        barDataSet.add(nbRelaxationDataSet);
-        barDataSet.add(sportDurationDataSet);
-        barDataSet.add(sportIntensityDataSet);
-        barDataSet.add(nbSportDataSet);
-        barDataSet.add(stressDataSet);
-        barDataSet.add(nbStressDataSet);
-        BarData barData = new BarData(barDataSet);
-        mActionChart.setData(barData);
-        mActionChart.invalidate();
+
+        if (nbSex != 0) {
+            BarEntry sexDurationEntry = new BarEntry(++indexCounter, sexDuration);
+            BarEntry nbSexEntry = new BarEntry(++indexCounter, nbSex);
+            BarDataSet sexDurationDataSet = new BarDataSet(Collections.singletonList(sexDurationEntry), sexDurationName);
+            sexDurationDataSet.setColor(getResources().getColor(R.color.graph1));
+            sexDurationDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            sexDurationDataSet.setValueTextSize(10);
+            BarDataSet nbSexDataSet = new BarDataSet(Collections.singletonList(nbSexEntry), nbSexName);
+            nbSexDataSet.setColor(getResources().getColor(R.color.graph2));
+            nbSexDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            nbSexDataSet.setValueTextSize(10);
+            barDataSet.add(sexDurationDataSet);
+            barDataSet.add(nbSexDataSet);
+        }
+
+        if (nbRelaxation != 0) {
+            BarEntry relaxationDurationEntry = new BarEntry(++indexCounter, relaxationDuration);
+            BarEntry nbRelaxationEntry = new BarEntry(++indexCounter, nbRelaxation);
+            BarDataSet relaxationDataSet = new BarDataSet(Collections.singletonList(relaxationDurationEntry), relaxationDurationName);
+            relaxationDataSet.setColor(getResources().getColor(R.color.graph5));
+            relaxationDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            relaxationDataSet.setValueTextSize(10);
+            BarDataSet nbRelaxationDataSet = new BarDataSet(Collections.singletonList(nbRelaxationEntry), nbRelaxationName);
+            nbRelaxationDataSet.setColor(getResources().getColor(R.color.graph6));
+            nbRelaxationDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            nbRelaxationDataSet.setValueTextSize(10);
+            barDataSet.add(relaxationDataSet);
+            barDataSet.add(nbRelaxationDataSet);
+        }
+
+        if (nbSport != 0) {
+            BarEntry sportDurationEntry = new BarEntry(++indexCounter, sportDuration);
+            BarEntry sportIntensityEntry = new BarEntry(++indexCounter, sportIntensity);
+            BarEntry nbSportEntry = new BarEntry(++indexCounter, nbSport);
+            BarDataSet sportDurationDataSet = new BarDataSet(Collections.singletonList(sportDurationEntry), sportDurationName);
+            sportDurationDataSet.setColor(getResources().getColor(R.color.graph7));
+            sportDurationDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            sportDurationDataSet.setValueTextSize(10);
+            BarDataSet sportIntensityDataSet = new BarDataSet(Collections.singletonList(sportIntensityEntry), sportIntensityName);
+            sportIntensityDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            sportIntensityDataSet.setValueTextSize(10);
+            sportIntensityDataSet.setColor(getResources().getColor(R.color.colorSecondary));
+            BarDataSet nbSportDataSet = new BarDataSet(Collections.singletonList(nbSportEntry), nbSportName);
+            nbSportDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            nbSportDataSet.setValueTextSize(10);
+            nbSportDataSet.setColor(getResources().getColor(R.color.colorPrimary));
+            barDataSet.add(sportDurationDataSet);
+            barDataSet.add(sportIntensityDataSet);
+            barDataSet.add(nbSportDataSet);
+        }
+
+
+        if (nbStress != 0) {
+            BarEntry stressIntensityEntry = new BarEntry(++indexCounter, stressIntensity);
+            BarEntry nbStressEntry = new BarEntry(++indexCounter, nbStress);
+            BarDataSet stressDataSet = new BarDataSet(Collections.singletonList(stressIntensityEntry), stressIntensityName);
+            stressDataSet.setColor(getResources().getColor(R.color.graph3));
+            stressDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            stressDataSet.setValueTextSize(10);
+            BarDataSet nbStressDataSet = new BarDataSet(Collections.singletonList(nbStressEntry), nbStressName);
+            nbStressDataSet.setColor(getResources().getColor(R.color.graph4));
+            nbStressDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            nbStressDataSet.setValueTextSize(10);
+            barDataSet.add(stressDataSet);
+            barDataSet.add(nbStressDataSet);
+        }
+
+        if (!barDataSet.isEmpty()) {
+            BarData barData = new BarData(barDataSet);
+            mActionChart.setData(barData);
+            mActionChart.invalidate();
+        }
     }
 
     /**
@@ -629,7 +642,7 @@ public class DashboardFragment extends Fragment {
             indexDataSet++;
         }
 
-        if (tired !=0) {
+        if (tired != 0) {
             BarEntry tiredEntry = new BarEntry(indexDataSet, tired);
             BarDataSet tiredDataSet = new BarDataSet(Collections.singletonList(tiredEntry), tiredName);
             tiredDataSet.setColor(getResources().getColor(R.color.graph7));

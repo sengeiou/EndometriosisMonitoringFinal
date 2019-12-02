@@ -7,6 +7,7 @@ import androidx.room.Query;
 
 import com.benlefevre.endometriosismonitoring.models.Action;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -20,4 +21,7 @@ public interface ActionDao {
 
     @Query("SELECT * FROM Action WHERE painId = :painId")
     LiveData<List<Action>> getPainActions(long painId);
+
+    @Query("SELECT * FROM Action WHERE date BETWEEN :begin AND :end")
+    LiveData<List<Action>> getActionsByPeriod(Date begin, Date end);
 }

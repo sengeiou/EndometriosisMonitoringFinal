@@ -67,7 +67,6 @@ public class SymptomDetailFragment extends Fragment {
     private List<Symptom> mSymptomList;
     private SimpleDateFormat mDateFormat;
     private int mDuration = 7;
-    private Calendar mCalendar;
 
     public SymptomDetailFragment() {
         // Required empty public constructor
@@ -103,9 +102,9 @@ public class SymptomDetailFragment extends Fragment {
     private void getSymptomAccordingToUserChoice() {
         mSymptomList = new ArrayList<>();
         Date today = new Date();
-        mCalendar = Calendar.getInstance();
-        mCalendar.add(Calendar.DAY_OF_YEAR, -mDuration);
-        mViewModel.getSymptomByPeriod(mCalendar.getTime(), today).observe(getViewLifecycleOwner(), symptoms -> {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -mDuration);
+        mViewModel.getSymptomByPeriod(calendar.getTime(), today).observe(getViewLifecycleOwner(), symptoms -> {
             mSymptomList.addAll(symptoms);
             setupDivisionSymptomChart();
         });
@@ -144,6 +143,10 @@ public class SymptomDetailFragment extends Fragment {
     }
 
 
+    /**
+     * Configures a LineChart to see the selected symptom evolution in time
+     * @param symptomName the selected symptom name
+     */
     private void setupSymptomTimeChart(String symptomName){
         List<Symptom> symptomsTimeList = new ArrayList<>();
         for (Symptom symptom : mSymptomList){
@@ -172,15 +175,58 @@ public class SymptomDetailFragment extends Fragment {
         leftAxis.setGranularity(1f);
         leftAxis.setDrawZeroLine(true);
         leftAxis.setAxisMinimum(0);
-        leftAxis.setAxisMaximum(1.5f);
+        leftAxis.setAxisMaximum(1.25f);
         leftAxis.setDrawLabels(false);
         YAxis rightY = mSymptomDetailTimeChart.getAxisRight();
         rightY.setEnabled(false);
 
         LineDataSet dataSet = new LineDataSet(entries, symptomName);
         dataSet.setLineWidth(2);
+        if (symptomName.equals(getString(R.string.burns))){
         dataSet.setColor(getResources().getColor(R.color.colorSecondary));
         dataSet.setCircleColor(getResources().getColor(R.color.colorSecondary));
+        }
+        if (symptomName.equals(getString(R.string.cramps))){
+            dataSet.setColor(getResources().getColor(R.color.colorPrimary));
+            dataSet.setCircleColor(getResources().getColor(R.color.colorPrimary));
+        }
+        if (symptomName.equals(getString(R.string.bleeding))){
+            dataSet.setColor(getResources().getColor(R.color.colorBackground));
+            dataSet.setCircleColor(getResources().getColor(R.color.colorBackground));
+        }
+        if (symptomName.equals(getString(R.string.fever))){
+            dataSet.setColor(getResources().getColor(R.color.colorPrimaryVariant));
+            dataSet.setCircleColor(getResources().getColor(R.color.colorPrimaryVariant));
+        }
+        if (symptomName.equals(getString(R.string.chills))){
+            dataSet.setColor(getResources().getColor(R.color.graph1));
+            dataSet.setCircleColor(getResources().getColor(R.color.graph1));
+        }
+        if (symptomName.equals(getString(R.string.bloating))){
+            dataSet.setColor(getResources().getColor(R.color.graph2));
+            dataSet.setCircleColor(getResources().getColor(R.color.graph2));
+        }
+        if (symptomName.equals(getString(R.string.hot_flush))){
+            dataSet.setColor(getResources().getColor(R.color.graph3));
+            dataSet.setCircleColor(getResources().getColor(R.color.graph3));
+        }
+        if (symptomName.equals(getString(R.string.diarrhea))){
+            dataSet.setColor(getResources().getColor(R.color.graph4));
+            dataSet.setCircleColor(getResources().getColor(R.color.graph4));
+        }
+        if (symptomName.equals(getString(R.string.constipation))){
+            dataSet.setColor(getResources().getColor(R.color.graph5));
+            dataSet.setCircleColor(getResources().getColor(R.color.graph5));
+        }
+        if (symptomName.equals(getString(R.string.nausea))){
+            dataSet.setColor(getResources().getColor(R.color.graph6));
+            dataSet.setCircleColor(getResources().getColor(R.color.graph6));
+        }
+        if (symptomName.equals(getString(R.string.tired))){
+            dataSet.setColor(getResources().getColor(R.color.graph7));
+            dataSet.setCircleColor(getResources().getColor(R.color.graph7));
+        }
+
         dataSet.setDrawValues(false);
         LineData lineData = new LineData(dataSet);
         mSymptomDetailTimeChart.setData(lineData);

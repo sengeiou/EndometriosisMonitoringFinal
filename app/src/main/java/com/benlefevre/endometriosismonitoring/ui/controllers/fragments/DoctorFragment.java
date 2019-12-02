@@ -178,9 +178,9 @@ public class DoctorFragment extends Fragment implements OnMapReadyCallback {
             FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(mActivity);
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
                 if (location != null && mGoogleMap != null) {
+                    mGoogleMap.setMyLocationEnabled(true);
                     mLastKnownLocation = location;
                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), 14));
-                    mGoogleMap.setMyLocationEnabled(true);
                     getDoctorFromApi();
                 }
             });

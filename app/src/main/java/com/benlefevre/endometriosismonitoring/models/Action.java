@@ -5,6 +5,10 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Date;
+
 @Entity(foreignKeys = @ForeignKey(entity = Pain.class, parentColumns = "id", childColumns = "painId"))
 public class Action {
 
@@ -15,15 +19,18 @@ public class Action {
     private int duration;
     private int intensity;
     private int painValue;
+    private Date date;
 
     public Action() {
     }
 
-    public Action(long painId, String name, int duration, int intensity) {
+    public Action(long painId, String name, int duration, int intensity, int painValue, Date date) {
         this.painId = painId;
         this.name = name;
         this.duration = duration;
         this.intensity = intensity;
+        this.painValue = painValue;
+        this.date = date;
     }
 
 //    ---------------------------------------Getters------------------------------------------------
@@ -52,6 +59,10 @@ public class Action {
         return painValue;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
 //    ---------------------------------------Setters------------------------------------------------
     public void setId(long id) {
         this.id = id;
@@ -77,14 +88,21 @@ public class Action {
         this.painValue = painValue;
     }
 
-    @NonNull
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    @NotNull
     @Override
     public String toString() {
         return "Action{" +
-                "painId=" + painId +
+                "id=" + id +
+                ", painId=" + painId +
                 ", name='" + name + '\'' +
                 ", duration=" + duration +
                 ", intensity=" + intensity +
+                ", painValue=" + painValue +
+                ", date=" + date +
                 '}';
     }
 }

@@ -359,7 +359,8 @@ public class PainFragment extends Fragment {
                 .setCancelable(false)
                 .setView(mCustomDialog)
                 .setPositiveButton(R.string.save, (dialog, which) -> {
-                    Action action = new Action (0, mUserActivityChoice,(int)mDurationSlider.getValue(),(int)mIntensitySlider.getValue());
+                    Action action = new Action (0, mUserActivityChoice,(int)mDurationSlider.getValue(),
+                            (int)mIntensitySlider.getValue(),(int)mPainSlider.getValue(),new Date());
                     mActionList.add(action);
                 })
                 .setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.cancel())

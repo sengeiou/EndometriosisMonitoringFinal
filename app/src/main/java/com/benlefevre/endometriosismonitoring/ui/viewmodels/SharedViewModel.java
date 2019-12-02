@@ -1,7 +1,5 @@
 package com.benlefevre.endometriosismonitoring.ui.viewmodels;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -24,11 +22,7 @@ import com.benlefevre.endometriosismonitoring.models.Result;
 import com.benlefevre.endometriosismonitoring.models.Symptom;
 import com.benlefevre.endometriosismonitoring.models.Temperature;
 import com.benlefevre.endometriosismonitoring.models.User;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -129,6 +123,8 @@ public class SharedViewModel extends ViewModel {
     public LiveData<List<Action>> getAllAction(){return mActionRepository.getAllActions();}
 
     public LiveData<List<Action>> getActionByPainId(long painId){return mActionRepository.getPainActions(painId);}
+
+    public LiveData<List<Action>> getActionsByPeriod(Date begin, Date end){ return mActionRepository.getActionsByPeriod(begin, end);}
 
     public LiveData<List<Mood>> getAllMood(){return mMoodRepository.getAllMood();}
 
