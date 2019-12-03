@@ -4,7 +4,6 @@ android {
     signingConfigs {
     }
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.benlefevre.endometriosismonitoring"
         minSdkVersion 19
@@ -16,6 +15,8 @@ android {
     }
     buildTypes {
         debug {
+            signingConfig signingConfigs.debug
+            multiDexEnabled = true
             buildConfigField("String", "google_maps_key", GOOGLE_MAPS_API_KEY)
             resValue("string", "google_maps_key", GOOGLE_MAPS_API_KEY)
         }

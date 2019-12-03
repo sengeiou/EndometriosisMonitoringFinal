@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
                     mToolbar.setTitle(getString(R.string.action_detail_history));
                     break;
                 case R.id.sleepDetailFragment:
-
                     mBottomNav.setVisibility(View.GONE);
                     mToolbar.setTitle(getString(R.string.sleep_quality_detail_history));
                     break;
@@ -182,6 +181,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        this.finish();
     }
 }
