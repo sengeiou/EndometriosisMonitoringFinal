@@ -24,4 +24,8 @@ public class ActionRepository {
     public LiveData<List<Action>> getPainActions(long painId){return mActionDao.getPainActions(painId);}
 
     public LiveData<List<Action>> getActionsByPeriod(Date begin, Date end){ return mActionDao.getActionsByPeriod(begin, end);}
+
+    public void deleteAllSleep(String name){mActionDao.deleteSleepData(name);}
+
+    public void deleteAllActions(String name){mActionDao.deleteAllActions(name);}
 }

@@ -25,5 +25,7 @@ public class PainRepository {
     }
 
     public LiveData<List<Pain>> getPainByPeriod(Date begin, Date end){return mPainDao.getPainsByPeriod(begin, end);}
+
+    public void deleteAllPain(){mPainDao.deleteAllPain();}
 }
 

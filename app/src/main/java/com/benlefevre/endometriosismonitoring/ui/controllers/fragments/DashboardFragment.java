@@ -24,6 +24,7 @@ import com.benlefevre.endometriosismonitoring.models.Mood;
 import com.benlefevre.endometriosismonitoring.models.Pain;
 import com.benlefevre.endometriosismonitoring.models.Symptom;
 import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
+import com.benlefevre.endometriosismonitoring.utils.Utils;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -86,7 +87,6 @@ public class DashboardFragment extends Fragment {
     private NavController mNavController;
     private Activity mActivity;
     private SharedViewModel mViewModel;
-    private SimpleDateFormat mDateFormat;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -105,8 +105,8 @@ public class DashboardFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         mActivity = getActivity();
-        mDateFormat = new SimpleDateFormat("dd/MM", Locale.getDefault());
-        mNavController = Navigation.findNavController(mActivity, R.id.nav_host_fragment);
+        if (mActivity != null)
+            mNavController = Navigation.findNavController(mActivity, R.id.nav_host_fragment);
         configureViewModel();
         initializeChart();
         getUserPainForLast7Days();
@@ -466,7 +466,7 @@ public class DashboardFragment extends Fragment {
             entries.add(new Entry(i, action.getIntensity()));
             for (Pain pain : painList) {
                 if (pain.getId() == action.getPainId()) {
-                    dates.add(mDateFormat.format(pain.getDate()));
+                    dates.add(Utils.formatDate(pain.getDate()));
                 }
             }
             i++;
@@ -672,7 +672,7 @@ public class DashboardFragment extends Fragment {
 //        creates a list with formatted dates to bind them in x axis
         for (Pain pain : painList) {
             entries.add(new Entry(i, pain.getIntensity()));
-            dates.add(mDateFormat.format(pain.getDate()));
+            dates.add(Utils.formatDate(pain.getDate()));
             i++;
         }
 

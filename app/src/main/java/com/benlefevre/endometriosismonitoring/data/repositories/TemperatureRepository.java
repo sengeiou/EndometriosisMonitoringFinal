@@ -27,4 +27,6 @@ public class TemperatureRepository {
     public LiveData<List<Temperature>> getTempForPeriod(Date begin, Date end) {
         return mTemperatureDao.getTempForPeriod(begin, end);
     }
+
+    public void deleteAllTemp(){mTemperatureDao.deleteAllTemp();}
 }

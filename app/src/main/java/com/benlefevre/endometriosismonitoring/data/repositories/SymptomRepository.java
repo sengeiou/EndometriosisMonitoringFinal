@@ -26,4 +26,6 @@ public class SymptomRepository {
     public LiveData<List<Symptom>> getPainSymptoms(long painId){return mSymptomDao.getPainSymptoms(painId);}
 
     public LiveData<List<Symptom>> getSymptomByPeriod(Date begin, Date end){return mSymptomDao.getSymptomsByPeriod(begin, end);}
+
+    public void deleteAllSymptom(){mSymptomDao.deleteAllSymptom();}
 }

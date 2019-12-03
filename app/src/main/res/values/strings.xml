@@ -219,4 +219,26 @@
     </string-array>
 
     <string name="sleep_quality_detail_history">Sleep quality detail history</string>
+    <string name="verify_network">Network access is necessary to locate you and display doctor. Please verify your network access</string>
+    <string name="need_logged">You must be logged to write a commentary</string>
+    <string name="network_commentary">Network access is necessary to save your commentary</string>
+    <string name="click_here_to_reset_all_the_notification_this_action_delete_all_your_treatment_input_and_your_cycle_input">Click here to reset all the notification. This action delete all your treatment input and your cycle input</string>
+    <string name="reset_notification">Reset notification</string>
+    <string name="reset_notif">Reset Notification</string>
+    <string name="sure">Are your sure?</string>
+    <string name="sure_all">You are about to delete all your data. Are you sure?</string>
+    <string name="reset">Reset</string>
+    <string name="reset_pain_values">Reset all values</string>
+    <string name="clear_here_to_reset_all_pain_values">Clear here to reset all pain values</string>
+    <string name="click_here_to_reset_all_sleep_values">Click here to reset all sleep values</string>
+    <string name="reset_sleep_values">Reset Sleep values</string>
+    <string name="reset_symptoms_values">Reset symptoms values</string>
+    <string name="click_here_to_reset_all_the_symptoms_values">Click here to reset all the symptoms values</string>
+    <string name="reset_activities_values">Reset activities values</string>
+    <string name="click_here_to_reset_all_activities_values">Click here to reset all activities values</string>
+    <string name="click_here_to_reset_all_mood_values">Click here to reset all mood values</string>
+    <string name="reset_mood_values">Reset mood values</string>
+    <string name="reset_temperature_values">Reset temperature values</string>
+    <string name="click_here_to_reset_all_temperatures_values">Click here to reset all temperatures values</string>
+    <string name="clear_data">Clear data</string>
 </resources>

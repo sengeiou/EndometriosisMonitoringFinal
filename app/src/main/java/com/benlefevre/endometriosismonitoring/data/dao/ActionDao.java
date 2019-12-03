@@ -24,4 +24,10 @@ public interface ActionDao {
 
     @Query("SELECT * FROM Action WHERE date BETWEEN :begin AND :end")
     LiveData<List<Action>> getActionsByPeriod(Date begin, Date end);
+
+    @Query("DELETE FROM Action WHERE name =:name")
+    void deleteSleepData(String name);
+
+    @Query("DELETE FROM Action WHERE NOT name =:name")
+    void deleteAllActions(String name);
 }

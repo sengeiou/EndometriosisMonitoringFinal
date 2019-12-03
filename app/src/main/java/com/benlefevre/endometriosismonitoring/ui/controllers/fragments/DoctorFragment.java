@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +34,7 @@ import com.benlefevre.endometriosismonitoring.models.Result;
 import com.benlefevre.endometriosismonitoring.ui.adapters.DoctorAdapter;
 import com.benlefevre.endometriosismonitoring.ui.viewholders.DoctorViewHolder;
 import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
+import com.benlefevre.endometriosismonitoring.utils.Utils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -137,7 +139,7 @@ public class DoctorFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults,this);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     private void configureViewModel() {
@@ -174,19 +176,22 @@ public class DoctorFragment extends Fragment implements OnMapReadyCallback {
      * user location.
      */
     private void getLastKnownLocation() {
-        try {
-            FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(mActivity);
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
-                if (location != null && mGoogleMap != null) {
-                    mGoogleMap.setMyLocationEnabled(true);
-                    mLastKnownLocation = location;
-                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), 14));
-                    getDoctorFromApi();
-                }
-            });
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
+        if (Utils.isNetworkAccessEnabled(mActivity)) {
+            try {
+                FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(mActivity);
+                fusedLocationProviderClient.getLastLocation().addOnSuccessListener(location -> {
+                    if (location != null && mGoogleMap != null) {
+                        mGoogleMap.setMyLocationEnabled(true);
+                        mLastKnownLocation = location;
+                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), 14));
+                        getDoctorFromApi();
+                    }
+                });
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+        }else
+            Toast.makeText(mActivity, R.string.verify_network,Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -222,37 +227,37 @@ public class DoctorFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap.clear();
         configureQueryMap();
         mViewModel.getDoctor(mQueryMap).observe(getViewLifecycleOwner(), result -> {
-            if (result != null && !result.getRecords().isEmpty()){
+            if (result != null && !result.getRecords().isEmpty()) {
                 List<Result.Record> records = result.getRecords();
                 List<Double> latLngList = new ArrayList<>();
                 String docName;
                 int counter = 0;
-                for (Result.Record record : records){
+                for (Result.Record record : records) {
                     docName = record.getFields().getNom();
                     double currentLat = record.getFields().getCoordonnees().get(0);
                     double currentLng = record.getFields().getCoordonnees().get(1);
 //                        Checks if different Doctor have the same location and if it is the case add their markers
 //                        in a Cluster
-                    if (!latLngList.contains(currentLat) && !latLngList.contains(currentLng)){
+                    if (!latLngList.contains(currentLat) && !latLngList.contains(currentLng)) {
                         latLngList.add(currentLat);
                         latLngList.add(currentLng);
                         lat[0] = currentLat;
                         lng[0] = currentLng;
                         mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(lat[0], lng[0])).title(docName));
-                    }else {
-                        double offset = counter/100000d;
+                    } else {
+                        double offset = counter / 100000d;
                         lat[0] = currentLat + offset;
                         lng[0] = currentLng + offset;
-                        ClusterMarker clusterMarker = new ClusterMarker(lat[0], lng[0],docName);
+                        ClusterMarker clusterMarker = new ClusterMarker(lat[0], lng[0], docName);
                         mClusterManager.addItem(clusterMarker);
                         counter++;
                     }
 //                        Creates a Doctor object to add it in the mDoctorList and bind it in the RecyclerView
                     Doctor doctor = new Doctor(record.getRecordid(), record.getFields().getNom(),
-                            record.getFields().getCivilite(),record.getFields().getAdresse(),
+                            record.getFields().getCivilite(), record.getFields().getAdresse(),
                             record.getFields().getLibelleProfession(), record.getFields().getConvention(),
                             record.getFields().getTelephone(), record.getFields().getActes(),
-                            record.getFields().getTypesActes(),record.getFields().getCoordonnees());
+                            record.getFields().getTypesActes(), record.getFields().getCoordonnees());
                     mDoctorList.add(doctor);
                 }
 //                Creates subCollections to query FireStore
@@ -260,9 +265,9 @@ public class DoctorFragment extends Fragment implements OnMapReadyCallback {
 //                    Move the camera on the user location or on the city location according to mGeoFilter
                 if (mGeoFilter)
                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(),
-                            mLastKnownLocation.getLongitude()),14));
+                            mLastKnownLocation.getLongitude()), 14));
                 else
-                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat[0],lng[0]),13));
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat[0], lng[0]), 13));
             }
             mDoctorAdapter.notifyDataSetChanged();
         });
@@ -272,7 +277,7 @@ public class DoctorFragment extends Fragment implements OnMapReadyCallback {
      * Checks the mDoctorList size to create sub collection of 10 Strings because FireStore doesn't
      * accept Query with more of 10 values for 1 field.
      */
-    private void get10DoctorIdToQuery(){
+    private void get10DoctorIdToQuery() {
         List<String> doctorIdList = new ArrayList<>();
         int repeatMax = mDoctorList.size() / 10;
         int moduloRepeat = mDoctorList.size() % 10;
@@ -310,20 +315,21 @@ public class DoctorFragment extends Fragment implements OnMapReadyCallback {
 
     /**
      * Fetches the DoctorCommentaryCounter in FireStore and adds it's values into the corresponding Doctor
+     *
      * @param doctorIdList the needed 10 doctorId to request FireStore
      */
-    private void getDoctorCommentaryCounter(List<String> doctorIdList){
+    private void getDoctorCommentaryCounter(List<String> doctorIdList) {
         mViewModel.getDoctorCommentaryCounter(doctorIdList).observe(getViewLifecycleOwner(), doctorCommentaryCounters -> {
-            for (DoctorCommentaryCounter counter : doctorCommentaryCounters){
-                for(Doctor doctor : mDoctorList){
-                    if (doctor.getId().equals(counter.getDoctorId())){
+            for (DoctorCommentaryCounter counter : doctorCommentaryCounters) {
+                for (Doctor doctor : mDoctorList) {
+                    if (doctor.getId().equals(counter.getDoctorId())) {
                         doctor.setCommentaries(counter.getNbCommentaries());
                         doctor.setRating(counter.getRating());
                     }
                 }
             }
             Comparator<Doctor> comparator = (Doctor doctor1, Doctor doctor2) -> doctor2.getCommentaries() - doctor1.getCommentaries();
-            Collections.sort(mDoctorList,comparator);
+            Collections.sort(mDoctorList, comparator);
             mDoctorAdapter.notifyDataSetChanged();
         });
     }
@@ -359,25 +365,26 @@ public class DoctorFragment extends Fragment implements OnMapReadyCallback {
 
     /**
      * Get a GoogleMap object and set different listeners with the ClusterManager
+     *
      * @param googleMap the needed GoogleMap object return by Google Services to handle the map
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
-        mClusterManager = new ClusterManager<>(mActivity,mGoogleMap);
+        mClusterManager = new ClusterManager<>(mActivity, mGoogleMap);
         mGoogleMap.setOnCameraIdleListener(mClusterManager);
         mGoogleMap.setOnMarkerClickListener(mClusterManager);
         mClusterManager.setOnClusterClickListener(cluster -> {
             LatLngBounds.Builder bounds = LatLngBounds.builder();
-            for (ClusterMarker marker : cluster.getItems()){
+            for (ClusterMarker marker : cluster.getItems()) {
                 bounds.include(marker.getPosition());
             }
-            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(),100));
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100));
             return true;
         });
         mGoogleMap.setOnInfoWindowClickListener(marker -> {
-            for (Doctor doctor : mDoctorList){
-                if (marker.getTitle().equals(doctor.getName())){
+            for (Doctor doctor : mDoctorList) {
+                if (marker.getTitle().equals(doctor.getName())) {
                     mViewModel.setSelectedDoctor(doctor);
                     mNavController.navigate(R.id.doctorDetailsFragment);
                 }
@@ -387,7 +394,10 @@ public class DoctorFragment extends Fragment implements OnMapReadyCallback {
 
     @OnClick(R.id.doctor_search_btn)
     public void onViewClicked() {
-        getDoctorFromApi();
+        if (Utils.isNetworkAccessEnabled(mActivity))
+            getDoctorFromApi();
+        else
+            Toast.makeText(mActivity,getString(R.string.verify_network),Toast.LENGTH_SHORT).show();
     }
 
     @Override

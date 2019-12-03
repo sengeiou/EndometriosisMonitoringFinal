@@ -20,4 +20,7 @@ public interface MoodDao {
 
     @Query("SELECT * FROM Mood WHERE painId = :painId")
     LiveData<Mood> getPainMood(long painId);
+
+    @Query("DELETE FROM mood")
+    void deleteAllMood();
 }

@@ -2,6 +2,7 @@ package com.benlefevre.endometriosismonitoring.data.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -25,4 +26,7 @@ public interface PainDao {
 
     @Update
     int updatePain(Pain pain);
+
+    @Query("DELETE FROM Pain")
+    void deleteAllPain();
 }

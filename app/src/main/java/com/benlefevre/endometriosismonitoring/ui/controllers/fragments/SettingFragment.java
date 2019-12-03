@@ -10,12 +10,17 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.work.WorkManager;
 
 import com.benlefevre.endometriosismonitoring.R;
+import com.benlefevre.endometriosismonitoring.injection.Injection;
+import com.benlefevre.endometriosismonitoring.injection.ViewModelFactory;
+import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textview.MaterialTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,17 +32,28 @@ import static com.benlefevre.endometriosismonitoring.utils.Constants.PILL_HOUR;
 import static com.benlefevre.endometriosismonitoring.utils.Constants.PREFERENCES;
 import static com.benlefevre.endometriosismonitoring.utils.Constants.TREATMENT_LIST;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class SettingFragment extends Fragment {
 
 
     @BindView(R.id.setting_reset_notification)
-    MaterialTextView mSettingResetNotification;
+    CardView mSettingResetNotification;
+    @BindView(R.id.setting_reset_pain)
+    CardView mSettingResetPain;
+    @BindView(R.id.setting_reset_sleep)
+    CardView mSettingResetSleep;
+    @BindView(R.id.setting_reset_Symptom)
+    CardView mSettingResetSymptom;
+    @BindView(R.id.setting_reset_action)
+    CardView mSettingResetAction;
+    @BindView(R.id.setting_reset_mood)
+    CardView mSettingResetMood;
+    @BindView(R.id.setting_reset_temp)
+    CardView mSettingResetTemp;
 
     private Activity mActivity;
     private SharedPreferences mSharedPreferences;
+    private SharedViewModel mViewModel;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -57,20 +73,65 @@ public class SettingFragment extends Fragment {
         mActivity = getActivity();
         if (mActivity != null)
             mSharedPreferences = mActivity.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+        configureViewModel();
     }
 
-    @OnClick(R.id.setting_reset_notification)
-    public void onViewClicked() {
-        openDialog();
+    private void configureViewModel() {
+        ViewModelFactory viewModelFactory = Injection.providerViewModelFactory(mActivity);
+        mViewModel = ViewModelProviders.of((FragmentActivity) mActivity, viewModelFactory).get(SharedViewModel.class);
     }
 
-    private void openDialog() {
+    @OnClick({R.id.setting_reset_notification, R.id.setting_reset_pain, R.id.setting_reset_sleep,
+            R.id.setting_reset_Symptom, R.id.setting_reset_action, R.id.setting_reset_mood, R.id.setting_reset_temp})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.setting_reset_notification:
+                openNotificationDialog();
+                break;
+            case R.id.setting_reset_pain:
+                openPainDialog();
+                break;
+            case R.id.setting_reset_sleep:
+            case R.id.setting_reset_Symptom:
+            case R.id.setting_reset_action:
+            case R.id.setting_reset_mood:
+            case R.id.setting_reset_temp:
+                openCustomDialog(view.getId());
+                break;
+        }
+    }
+
+    private void openCustomDialog(int viewId) {
         new MaterialAlertDialogBuilder(mActivity)
                 .setCancelable(false)
-                .setTitle("Reset Notification")
-                .setMessage("Are your sure?")
+                .setTitle(getString(R.string.clear_data))
+                .setMessage(getString(R.string.sure))
                 .setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.cancel())
-                .setPositiveButton("Reset", (dialog, which) -> {
+                .setPositiveButton(getString(R.string.reset), (dialog, which) -> configureDialog(viewId))
+                .show();
+    }
+
+
+    private void openPainDialog() {
+        new MaterialAlertDialogBuilder(mActivity)
+                .setCancelable(false)
+                .setTitle(getString(R.string.clear_data))
+                .setMessage(getString(R.string.sure_all))
+                .setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.cancel())
+                .setPositiveButton(getString(R.string.reset), (dialog, which) -> {
+                    mViewModel.deleteAllPains();
+                    mViewModel.deleteAllTemp();
+                })
+                .show();
+    }
+
+    private void openNotificationDialog() {
+        new MaterialAlertDialogBuilder(mActivity)
+                .setCancelable(false)
+                .setTitle(getString(R.string.reset_notif))
+                .setMessage(getString(R.string.sure))
+                .setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.cancel())
+                .setPositiveButton(getString(R.string.reset), (dialog, which) -> {
                     WorkManager.getInstance(mActivity).cancelAllWork();
                     mSharedPreferences.edit().remove(TREATMENT_LIST).apply();
                     mSharedPreferences.edit().remove(PILL_HOUR).apply();
@@ -78,5 +139,25 @@ public class SettingFragment extends Fragment {
                     mSharedPreferences.edit().remove(NEXT_CYCLE_DAY).apply();
                 })
                 .show();
+    }
+
+    private void configureDialog(int viewId) {
+        switch (viewId) {
+            case R.id.setting_reset_action:
+                mViewModel.deleteAllActions(getString(R.string.sleep));
+                break;
+            case R.id.setting_reset_sleep:
+                mViewModel.deleteAllSleep(getString(R.string.sleep));
+                break;
+            case R.id.setting_reset_mood:
+                mViewModel.deleteAllMood();
+                break;
+            case R.id.setting_reset_Symptom:
+                mViewModel.deleteAllSymptom();
+                break;
+            case R.id.setting_reset_temp:
+                mViewModel.deleteAllTemp();
+                break;
+        }
     }
 }

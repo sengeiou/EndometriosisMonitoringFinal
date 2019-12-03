@@ -18,6 +18,7 @@ import com.benlefevre.endometriosismonitoring.injection.Injection;
 import com.benlefevre.endometriosismonitoring.injection.ViewModelFactory;
 import com.benlefevre.endometriosismonitoring.models.Action;
 import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
+import com.benlefevre.endometriosismonitoring.utils.Utils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -109,7 +110,6 @@ public class SleepDetailFragment extends Fragment {
                 sleepList.add(action);
             }
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM", Locale.getDefault());
 
         List<String> dates = new ArrayList<>();
         int i = 0;
@@ -124,7 +124,7 @@ public class SleepDetailFragment extends Fragment {
                 sleepEntries.add(new Entry(i, 0));
                 painEntries.add(new Entry(i, action.getPainValue()));
             }
-            dates.add(dateFormat.format(action.getDate()));
+            dates.add(Utils.formatDate(action.getDate()));
             i++;
         }
 

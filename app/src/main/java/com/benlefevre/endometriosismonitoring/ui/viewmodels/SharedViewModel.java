@@ -134,9 +134,28 @@ public class SharedViewModel extends ViewModel {
 
     public LiveData<List<Temperature>> getTemperatureByPeriod(Date begin, Date end){return mTemperatureRepository.getTempForPeriod(begin, end);}
 
+//    ----------------------------------------DELETE------------------------------------------------
+    public void deleteAllPains() {
+        mExecutor.execute(mPainRepository::deleteAllPain);
+    }
 
+    public void deleteAllTemp(){
+        mExecutor.execute(mTemperatureRepository::deleteAllTemp);
+    }
 
+    public void deleteAllSleep(String name){
+        mExecutor.execute(() -> mActionRepository.deleteAllSleep(name));
+    }
 
+    public void deleteAllActions(String name){
+        mExecutor.execute(() -> mActionRepository.deleteAllActions(name));
+    }
+
+    public void deleteAllMood(){
+        mExecutor.execute(mMoodRepository::deleteAllMood);}
+
+    public void deleteAllSymptom(){
+        mExecutor.execute(mSymptomRepository::deleteAllSymptom);}
 
 //    --------------------------------------FireStore-----------------------------------------------
 

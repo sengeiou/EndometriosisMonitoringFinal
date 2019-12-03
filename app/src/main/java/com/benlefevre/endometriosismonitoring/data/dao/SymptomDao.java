@@ -24,4 +24,7 @@ public interface SymptomDao {
 
     @Query("SELECT * FROM Symptom WHERE date BETWEEN :begin AND :end")
     LiveData<List<Symptom>> getSymptomsByPeriod(Date begin, Date end);
+
+    @Query("DELETE FROM Symptom")
+    void deleteAllSymptom();
 }

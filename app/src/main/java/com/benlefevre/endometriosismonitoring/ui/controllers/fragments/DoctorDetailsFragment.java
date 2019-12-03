@@ -28,6 +28,7 @@ import com.benlefevre.endometriosismonitoring.models.Doctor;
 import com.benlefevre.endometriosismonitoring.models.User;
 import com.benlefevre.endometriosismonitoring.ui.adapters.CommentaryAdapter;
 import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
+import com.benlefevre.endometriosismonitoring.utils.Utils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.slider.Slider;
@@ -148,10 +149,13 @@ public class DoctorDetailsFragment extends Fragment {
                     Toast.makeText(mActivity, R.string.no_phone_doctor, Toast.LENGTH_SHORT).show();
             }else{
                 Log.i("info", "initDoctorNavigationBar: " + mCurrentUser.toString());
-                if (!mCurrentUser.getName().equals(getString(R.string.anonymous)))
+                if (!mCurrentUser.getName().equals(getString(R.string.anonymous)) && Utils.isNetworkAccessEnabled(mActivity))
                     openCommentaryDialog();
-                else
-                    Toast.makeText(mActivity,"You must be logged to write a commentary",Toast.LENGTH_SHORT).show();
+                else if ((mCurrentUser.getName().equals(getString(R.string.anonymous))))
+                    Toast.makeText(mActivity, R.string.need_logged,Toast.LENGTH_SHORT).show();
+                else if (!Utils.isNetworkAccessEnabled(mActivity))
+                    Toast.makeText(mActivity, R.string.network_commentary,Toast.LENGTH_SHORT).show();
+
             }
             return true;
         });

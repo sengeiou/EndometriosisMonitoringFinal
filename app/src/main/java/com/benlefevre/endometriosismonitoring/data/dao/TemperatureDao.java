@@ -21,4 +21,7 @@ public interface TemperatureDao {
 
     @Query("SELECT * FROM Temperature WHERE mDate BETWEEN :begin AND :end")
     LiveData<List<Temperature>> getTempForPeriod(Date begin, Date end);
+
+    @Query("DELETE FROM Temperature")
+    void deleteAllTemp();
 }

@@ -19,6 +19,7 @@ import com.benlefevre.endometriosismonitoring.injection.Injection;
 import com.benlefevre.endometriosismonitoring.injection.ViewModelFactory;
 import com.benlefevre.endometriosismonitoring.models.Symptom;
 import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
+import com.benlefevre.endometriosismonitoring.utils.Utils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -65,7 +66,6 @@ public class SymptomDetailFragment extends Fragment {
     private Activity mActivity;
     private SharedViewModel mViewModel;
     private List<Symptom> mSymptomList;
-    private SimpleDateFormat mDateFormat;
     private int mDuration = 7;
 
     public SymptomDetailFragment() {
@@ -84,7 +84,6 @@ public class SymptomDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         mActivity = getActivity();
-        mDateFormat = new SimpleDateFormat("dd/MM", Locale.getDefault());
         configureViewModel();
         setupChipListener();
         getSymptomAccordingToUserChoice();
@@ -163,7 +162,7 @@ public class SymptomDetailFragment extends Fragment {
                 entries.add(new Entry(i,1));
             else
                 entries.add(new Entry(i,0));
-            dates.add(mDateFormat.format(symptoms.getDate()));
+            dates.add(Utils.formatDate(symptoms.getDate()));
             i++;
         }
 

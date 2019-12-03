@@ -18,6 +18,7 @@ import com.benlefevre.endometriosismonitoring.injection.Injection;
 import com.benlefevre.endometriosismonitoring.injection.ViewModelFactory;
 import com.benlefevre.endometriosismonitoring.models.Action;
 import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
+import com.benlefevre.endometriosismonitoring.utils.Utils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -174,7 +175,6 @@ public class ActionDetailFragment extends Fragment {
      */
     private void setupActionTimeChart(String actionName) {
         String[] sportNameList = getResources().getStringArray(R.array.sport);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM", Locale.getDefault());
         mActionDetailTimeChart.setDescription(null);
         List<Action> actionTimeList = new ArrayList<>();
         for (Action action : mActionList) {
@@ -202,7 +202,7 @@ public class ActionDetailFragment extends Fragment {
                 actionEntries.add(new Entry(i, 0));
                 painEntries.add(new Entry(i, action.getPainValue()));
             }
-            dates.add(dateFormat.format(action.getDate()));
+            dates.add(Utils.formatDate(action.getDate()));
             i++;
         }
 

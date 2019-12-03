@@ -108,13 +108,13 @@
     <string name="picking_hours">Heures de prises</string>
     <string name="dosage_condi">%1$s %2$s</string>
     <string name="until_the">Jusqu\'au %1$s</string>
-    <string name="monday">Mon</string>
-    <string name="tuesday">Tue</string>
-    <string name="wednesday">Wed</string>
-    <string name="thurday">Thu</string>
-    <string name="friday">Fri</string>
-    <string name="saturday">Sat</string>
-    <string name="sunday">Sun</string>
+    <string name="monday">Lun</string>
+    <string name="tuesday">Mar</string>
+    <string name="wednesday">Mer</string>
+    <string name="thurday">Jeu</string>
+    <string name="friday">Ven</string>
+    <string name="saturday">Sam</string>
+    <string name="sunday">Dim</string>
     <string name="menstruation">Menstruation</string>
     <string name="ovulation">Ovulation</string>
     <string name="optimal_fertilization">Fécondité optimale</string>
@@ -166,57 +166,79 @@
     <string name="pain_detail_history">Historique détaillé des douleurs</string>
     <string name="click_on_chart_to_see_the_symptom_evolution_in_time">Cliquez sur une valeur du diagramme ci-dessus pour voir l\'évolution des symptômes dans le temps</string>
     <string name="symptom_detail_history">Historique détaillé des symptômes</string>
-    <string name="click_on_a_chart_value_to_see_the_evolution_of_pain_and_activities">Cliquez sur une valuer du diagramme ci-dessus pour voir l\'évolution de la douleur en fonction des activités</string>
+    <string name="click_on_a_chart_value_to_see_the_evolution_of_pain_and_activities">Cliquez sur une valeur du diagramme ci-dessus pour voir l\'évolution de la douleur en fonction des activités</string>
     <string name="action_detail_history">Historique détaillé des activités</string>
 
     <string-array name="sport">
         <item>BasketBall</item>
-        <item>Bike</item>
-        <item>Climbing</item>
-        <item>Combat sport</item>
-        <item>Dance</item>
-        <item>Fencing</item>
+        <item>Course</item>
+        <item>Danse</item>
+        <item>Equitation</item>
+        <item>Escalade</item>
+        <item>Escrime</item>
         <item>Fitness</item>
         <item>Football</item>
-        <item>Gymnastic</item>
+        <item>Gymnastique</item>
         <item>HandBall</item>
-        <item>Horse riding</item>
+        <item>Marche</item>
+        <item>Natation</item>
         <item>Rugby</item>
-        <item>Running</item>
-        <item>Swimming</item>
+        <item>Sport de combat</item>
         <item>Tennis</item>
+        <item>Vélo</item>
         <item>Volleyball</item>
-        <item>Walking</item>
         <item>Yoga</item>
     </string-array>
 
     <string-array name="conditioning">
-        <item>tablets</item>
-        <item>spoon</item>
-        <item>milliliters</item>
-        <item>milligrams</item>
+        <item>comprimés</item>
+        <item>cuillères</item>
+        <item>millilitres</item>
+        <item>milligrammes</item>
     </string-array>
 
     <string-array name="duration">
         <item>Permanent</item>
-        <item>1 day</item>
-        <item>2 days</item>
-        <item>3 days</item>
-        <item>4 days</item>
-        <item>5 days</item>
-        <item>6 days</item>
-        <item>7 days</item>
-        <item>8 days</item>
-        <item>9 days</item>
-        <item>10 days</item>
-        <item>11 days</item>
-        <item>12 days</item>
-        <item>13 days</item>
-        <item>14 days</item>
-        <item>15 days</item>
+        <item>1 jour</item>
+        <item>2 jours</item>
+        <item>3 jours</item>
+        <item>4 jours</item>
+        <item>5 jours</item>
+        <item>6 jours</item>
+        <item>7 jours</item>
+        <item>8 jours</item>
+        <item>9 jours</item>
+        <item>10 jours</item>
+        <item>11 jours</item>
+        <item>12 jours</item>
+        <item>13 jours</item>
+        <item>14 jours</item>
+        <item>15 jours</item>
         <item>Permanent</item>
     </string-array>
 
     <string name="sleep_quality_detail_history">Historique de la qualité du sommeil</string>
     <string name="doctor">Médecins</string>
+    <string name="verify_network">Un accès réseau est nécessaire pour vous localiser et afficher les médecins autour de vous. Merci de vérifier votre accès réseau</string>
+    <string name="need_logged">Vous devez être identifié pour laisser un commentaire</string>
+    <string name="network_commentary">Un accès réseau est nécessaire pour laisser un avis</string>
+    <string name="click_here_to_reset_all_the_notification_this_action_delete_all_your_treatment_input_and_your_cycle_input">Cliquez ici pour supprimer toutes les notifications programmées. Cela a pour conséquence de supprimer l\'enregistrement de vos traitement et données de cycle</string>
+    <string name="reset_notification">Supprimer les notifications</string>
+    <string name="reset_notif">Supprimer les notifications</string>
+    <string name="sure">Êtes-vous sûre?</string>
+    <string name="sure_all">Vous vous appretez à supprimer toutes vos données. Êtes vous bien sûre?</string>
+    <string name="reset">Supprimer</string>
+    <string name="reset_pain_values">Supprimer tous enregistrements</string>
+    <string name="clear_here_to_reset_all_pain_values">Cliquez ici pour supprimer tous vos enregistrements</string>
+    <string name="click_here_to_reset_all_sleep_values">Cliquez ici pour supprimer tous les enregistrements liés au sommeil</string>
+    <string name="reset_sleep_values">Supprimer les enregistrements liés au sommeil</string>
+    <string name="reset_symptoms_values">Supprimer les enregistrements liés aux symptômes</string>
+    <string name="click_here_to_reset_all_the_symptoms_values">Cliquez ici pour supprimer tous les symtômes</string>
+    <string name="reset_activities_values">Supprimer les enregistrements liés aux activités</string>
+    <string name="click_here_to_reset_all_activities_values">Cliquez ici pour supprimer toutes les activités</string>
+    <string name="click_here_to_reset_all_mood_values">Cliquez ici pour supprimer toutes les humeurs</string>
+    <string name="reset_mood_values">Supprimer les enregistrements liés aux humeurs</string>
+    <string name="reset_temperature_values">Supprimer les enregistrements liés aux températures </string>
+    <string name="click_here_to_reset_all_temperatures_values">Cliquez ici pour supprimer toutes les températures</string>
+    <string name="clear_data">Effacement de données</string>
 </resources>

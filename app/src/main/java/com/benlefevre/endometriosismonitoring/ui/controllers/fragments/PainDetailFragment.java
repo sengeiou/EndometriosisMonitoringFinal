@@ -26,6 +26,7 @@ import com.benlefevre.endometriosismonitoring.models.Pain;
 import com.benlefevre.endometriosismonitoring.models.Symptom;
 import com.benlefevre.endometriosismonitoring.ui.adapters.ActionAdapter;
 import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
+import com.benlefevre.endometriosismonitoring.utils.Utils;
 import com.facebook.share.Share;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -81,7 +82,6 @@ public class PainDetailFragment extends Fragment {
     private Calendar mCalendar;
     private List<Pain> mPainList;
     private List<Action> mActionList;
-    private SimpleDateFormat mDateFormat;
     private Date mToday;
     private long mPainSelectedId = 0;
     private ActionAdapter mActionAdapter;
@@ -105,7 +105,6 @@ public class PainDetailFragment extends Fragment {
         mActivity = getActivity();
         mToday = new Date();
         mCalendar = Calendar.getInstance();
-        mDateFormat = new SimpleDateFormat("dd/MM", Locale.getDefault());
         mActionList = new ArrayList<>();
         configureViewModel();
         setupChipListener();
@@ -199,7 +198,7 @@ public class PainDetailFragment extends Fragment {
             Entry entry = new Entry(i, pain.getIntensity());
             entry.setData(pain.getId());
             entries.add(entry);
-            dates.add(mDateFormat.format(pain.getDate()));
+            dates.add(Utils.formatDate(pain.getDate()));
             i++;
         }
 
@@ -238,7 +237,7 @@ public class PainDetailFragment extends Fragment {
         for (Pain pain : mPainList){
             if (pain.getId() == mPainSelectedId){
                 mLocationTxt.setText(pain.getLocation());
-                mDateTxt.setText(mDateFormat.format(pain.getDate()));
+                mDateTxt.setText(Utils.formatDate(pain.getDate()));
                 mValue.setText(String.valueOf(pain.getIntensity()));
             }
         }

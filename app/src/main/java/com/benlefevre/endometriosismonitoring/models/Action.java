@@ -9,7 +9,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
-@Entity(foreignKeys = @ForeignKey(entity = Pain.class, parentColumns = "id", childColumns = "painId"))
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = @ForeignKey(entity = Pain.class, parentColumns = "id", childColumns = "painId", onDelete = CASCADE))
 public class Action {
 
     @PrimaryKey(autoGenerate = true)

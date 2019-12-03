@@ -20,4 +20,6 @@ public class MoodRepository {
     public LiveData<List<Mood>> getAllMood(){return mMoodDao.getAllMood();}
 
     public LiveData<Mood> getPainMood(long painId){return mMoodDao.getPainMood(painId);}
+
+    public void deleteAllMood(){mMoodDao.deleteAllMood();}
 }
