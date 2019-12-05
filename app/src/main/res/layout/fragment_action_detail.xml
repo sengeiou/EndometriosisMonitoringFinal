@@ -120,7 +120,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.github.mikephil.charting.charts.LineChart
+                <com.github.mikephil.charting.charts.CombinedChart
                     android:id="@+id/action_detail_time_chart"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"

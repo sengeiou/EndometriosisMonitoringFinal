@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.benlefevre.endometriosismonitoring.utils.Constants.DURATION_CYCLE;
 import static com.benlefevre.endometriosismonitoring.utils.Constants.LAST_CYCLE_DAY;
 import static com.benlefevre.endometriosismonitoring.utils.Constants.NEXT_CYCLE_DAY;
 import static com.benlefevre.endometriosismonitoring.utils.Constants.PILL_HOUR;
@@ -137,6 +138,7 @@ public class SettingFragment extends Fragment {
                     mSharedPreferences.edit().remove(PILL_HOUR).apply();
                     mSharedPreferences.edit().remove(LAST_CYCLE_DAY).apply();
                     mSharedPreferences.edit().remove(NEXT_CYCLE_DAY).apply();
+                    mSharedPreferences.edit().remove(DURATION_CYCLE).apply();
                 })
                 .show();
     }

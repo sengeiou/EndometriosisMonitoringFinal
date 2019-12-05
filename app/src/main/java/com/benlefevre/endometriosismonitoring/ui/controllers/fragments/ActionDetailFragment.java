@@ -19,11 +19,15 @@ import com.benlefevre.endometriosismonitoring.injection.ViewModelFactory;
 import com.benlefevre.endometriosismonitoring.models.Action;
 import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
 import com.benlefevre.endometriosismonitoring.utils.Utils;
-import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -37,12 +41,10 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.chip.Chip;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +63,7 @@ public class ActionDetailFragment extends Fragment {
     @BindView(R.id.action_chip_year)
     Chip mActionChipYear;
     @BindView(R.id.action_detail_time_chart)
-    LineChart mActionDetailTimeChart;
+    CombinedChart mActionDetailTimeChart;
 
     private Activity mActivity;
     private SharedViewModel mViewModel;
@@ -175,6 +177,16 @@ public class ActionDetailFragment extends Fragment {
      */
     private void setupActionTimeChart(String actionName) {
         String[] sportNameList = getResources().getStringArray(R.array.sport);
+        String actionLabelName = "";
+        if (actionName.equals(getString(R.string.sex)))
+            actionLabelName = getString(R.string.sex_duration);
+        if (actionName.equals(getString(R.string.relaxation)))
+            actionLabelName = getString(R.string.relax_duration);
+        if (actionName.equals(getString(R.string.stress)))
+            actionLabelName = getString(R.string.stress_intensity);
+        if (actionName.equals(getString(R.string.sport)))
+            actionLabelName = getString(R.string.sport_intensity);
+
         mActionDetailTimeChart.setDescription(null);
         List<Action> actionTimeList = new ArrayList<>();
         for (Action action : mActionList) {
@@ -183,23 +195,27 @@ public class ActionDetailFragment extends Fragment {
                     actionTimeList.add(action);
             } else {
                 for (String s : sportNameList) {
-                    if (action.getName().equals(s))
+                    if (action.getName().equals(s)) {
                         actionTimeList.add(action);
+                    }
                 }
             }
         }
 
         List<String> dates = new ArrayList<>();
         int i = 0;
-        List<Entry> actionEntries = new ArrayList<>();
+        List<BarEntry> actionBarEntries = new ArrayList<>();
         List<Entry> painEntries = new ArrayList<>();
 
         for (Action action : mActionList) {
             if (actionTimeList.contains(action)) {
-                actionEntries.add(new Entry(i, 4.5f));
+                if (actionName.equals(getString(R.string.sex)) || actionName.equals(getString(R.string.relaxation)))
+                    actionBarEntries.add(new BarEntry(i, action.getDuration()));
+                else
+                    actionBarEntries.add(new BarEntry(i, action.getIntensity()));
                 painEntries.add(new Entry(i, action.getPainValue()));
             } else {
-                actionEntries.add(new Entry(i, 0));
+                actionBarEntries.add(new BarEntry(i, 0));
                 painEntries.add(new Entry(i, action.getPainValue()));
             }
             dates.add(Utils.formatDate(action.getDate()));
@@ -215,41 +231,58 @@ public class ActionDetailFragment extends Fragment {
         leftAxis.setDrawZeroLine(true);
         leftAxis.setAxisMinimum(0);
         leftAxis.setAxisMaximum(10);
+
         YAxis rightY = mActionDetailTimeChart.getAxisRight();
-        rightY.setEnabled(false);
+        rightY.setGranularity(15);
+        rightY.setAxisMinimum(0);
+        rightY.setDrawZeroLine(true);
+        rightY.setAxisMaximum(120);
 
         List<ILineDataSet> dataSet = new ArrayList<>();
 
-        LineDataSet actionsDataSet = new LineDataSet(actionEntries, actionName);
-        actionsDataSet.setDrawValues(false);
-        actionsDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        BarDataSet actionBarDataSet = new BarDataSet(actionBarEntries, actionLabelName);
+        actionBarDataSet.setDrawValues(false);
+
         if (actionName.equals(getString(R.string.sex))) {
-            actionsDataSet.setCircleColor(getResources().getColor(R.color.graph1));
-            actionsDataSet.setColor(getResources().getColor(R.color.graph1));
+            actionBarDataSet.setColor(getResources().getColor(R.color.graph1));
+            actionBarDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            rightY.setEnabled(true);
+            leftAxis.setEnabled(false);
         }
         if (actionName.equals(getString(R.string.relaxation))) {
-            actionsDataSet.setColor(getResources().getColor(R.color.graph6));
-            actionsDataSet.setCircleColor(getResources().getColor(R.color.graph6));
+            actionBarDataSet.setColor(getResources().getColor(R.color.graph6));
+            actionBarDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            rightY.setEnabled(true);
+            leftAxis.setEnabled(false);
         }
         if (actionName.equals(getString(R.string.stress))) {
-            actionsDataSet.setCircleColor(getResources().getColor(R.color.graph3));
-            actionsDataSet.setColor(getResources().getColor(R.color.graph3));
+            actionBarDataSet.setColor(getResources().getColor(R.color.graph3));
+            actionBarDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            rightY.setEnabled(false);
+            leftAxis.setEnabled(true);
         }
         if (actionName.equals(getString(R.string.sport))) {
-            actionsDataSet.setColor(getResources().getColor(R.color.graph7));
-            actionsDataSet.setCircleColor(getResources().getColor(R.color.graph7));
+            actionBarDataSet.setColor(getResources().getColor(R.color.graph7));
+            actionBarDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+            rightY.setEnabled(false);
+            leftAxis.setEnabled(true);
         }
-        dataSet.add(actionsDataSet);
 
         LineDataSet painDataSet = new LineDataSet(painEntries, getString(R.string.pain_value));
         painDataSet.setDrawValues(false);
-        painDataSet.setColor(getResources().getColor(R.color.colorSecondary));
-        painDataSet.setCircleColor(getResources().getColor(R.color.colorSecondary));
+        painDataSet.setColor(getResources().getColor(R.color.graph2));
+        painDataSet.setCircleColor(getResources().getColor(R.color.graph2));
         painDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        painDataSet.setLineWidth(3);
         dataSet.add(painDataSet);
 
         LineData data = new LineData(dataSet);
-        mActionDetailTimeChart.setData(data);
+        BarData barData = new BarData(actionBarDataSet);
+        CombinedData combinedData = new CombinedData();
+        combinedData.setData(data);
+        combinedData.setData(barData);
+
+        mActionDetailTimeChart.setData(combinedData);
         mActionDetailTimeChart.invalidate();
     }
 

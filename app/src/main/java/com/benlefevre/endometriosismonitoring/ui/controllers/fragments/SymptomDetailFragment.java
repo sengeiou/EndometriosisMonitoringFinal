@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.benlefevre.endometriosismonitoring.R;
@@ -20,14 +19,15 @@ import com.benlefevre.endometriosismonitoring.injection.ViewModelFactory;
 import com.benlefevre.endometriosismonitoring.models.Symptom;
 import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
 import com.benlefevre.endometriosismonitoring.utils.Utils;
-import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -37,12 +37,10 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.chip.Chip;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +59,7 @@ public class SymptomDetailFragment extends Fragment {
     @BindView(R.id.symtom_chip_year)
     Chip mSymtomChipYear;
     @BindView(R.id.symptom_detail_time_chart)
-    LineChart mSymptomDetailTimeChart;
+    BarChart mSymptomDetailTimeChart;
 
     private Activity mActivity;
     private SharedViewModel mViewModel;
@@ -144,24 +142,25 @@ public class SymptomDetailFragment extends Fragment {
 
     /**
      * Configures a LineChart to see the selected symptom evolution in time
+     *
      * @param symptomName the selected symptom name
      */
-    private void setupSymptomTimeChart(String symptomName){
+    private void setupSymptomTimeChart(String symptomName) {
         List<Symptom> symptomsTimeList = new ArrayList<>();
-        for (Symptom symptom : mSymptomList){
+        for (Symptom symptom : mSymptomList) {
             if (symptom.getName().equals(symptomName))
                 symptomsTimeList.add(symptom);
         }
         mSymptomDetailTimeChart.setDescription(null);
         List<String> dates = new ArrayList<>();
         int i = 0;
-        List<Entry> entries = new ArrayList<>();
+        List<BarEntry> entries = new ArrayList<>();
 
-        for (Symptom symptoms : mSymptomList){
+        for (Symptom symptoms : mSymptomList) {
             if (symptomsTimeList.contains(symptoms))
-                entries.add(new Entry(i,1));
+                entries.add(new BarEntry(i, 1));
             else
-                entries.add(new Entry(i,0));
+                entries.add(new BarEntry(i, 0));
             dates.add(Utils.formatDate(symptoms.getDate()));
             i++;
         }
@@ -179,55 +178,43 @@ public class SymptomDetailFragment extends Fragment {
         YAxis rightY = mSymptomDetailTimeChart.getAxisRight();
         rightY.setEnabled(false);
 
-        LineDataSet dataSet = new LineDataSet(entries, symptomName);
-        dataSet.setLineWidth(2);
-        if (symptomName.equals(getString(R.string.burns))){
-        dataSet.setColor(getResources().getColor(R.color.colorSecondary));
-        dataSet.setCircleColor(getResources().getColor(R.color.colorSecondary));
+        BarDataSet dataSet = new BarDataSet(entries, symptomName);
+        if (symptomName.equals(getString(R.string.burns))) {
+            dataSet.setColor(getResources().getColor(R.color.colorSecondary));
         }
-        if (symptomName.equals(getString(R.string.cramps))){
+        if (symptomName.equals(getString(R.string.cramps))) {
             dataSet.setColor(getResources().getColor(R.color.colorPrimary));
-            dataSet.setCircleColor(getResources().getColor(R.color.colorPrimary));
         }
-        if (symptomName.equals(getString(R.string.bleeding))){
+        if (symptomName.equals(getString(R.string.bleeding))) {
             dataSet.setColor(getResources().getColor(R.color.colorBackground));
-            dataSet.setCircleColor(getResources().getColor(R.color.colorBackground));
         }
-        if (symptomName.equals(getString(R.string.fever))){
+        if (symptomName.equals(getString(R.string.fever))) {
             dataSet.setColor(getResources().getColor(R.color.colorPrimaryVariant));
-            dataSet.setCircleColor(getResources().getColor(R.color.colorPrimaryVariant));
         }
-        if (symptomName.equals(getString(R.string.chills))){
+        if (symptomName.equals(getString(R.string.chills))) {
             dataSet.setColor(getResources().getColor(R.color.graph1));
-            dataSet.setCircleColor(getResources().getColor(R.color.graph1));
         }
-        if (symptomName.equals(getString(R.string.bloating))){
+        if (symptomName.equals(getString(R.string.bloating))) {
             dataSet.setColor(getResources().getColor(R.color.graph2));
-            dataSet.setCircleColor(getResources().getColor(R.color.graph2));
         }
-        if (symptomName.equals(getString(R.string.hot_flush))){
+        if (symptomName.equals(getString(R.string.hot_flush))) {
             dataSet.setColor(getResources().getColor(R.color.graph3));
-            dataSet.setCircleColor(getResources().getColor(R.color.graph3));
         }
-        if (symptomName.equals(getString(R.string.diarrhea))){
+        if (symptomName.equals(getString(R.string.diarrhea))) {
             dataSet.setColor(getResources().getColor(R.color.graph4));
-            dataSet.setCircleColor(getResources().getColor(R.color.graph4));
         }
-        if (symptomName.equals(getString(R.string.constipation))){
+        if (symptomName.equals(getString(R.string.constipation))) {
             dataSet.setColor(getResources().getColor(R.color.graph5));
-            dataSet.setCircleColor(getResources().getColor(R.color.graph5));
         }
-        if (symptomName.equals(getString(R.string.nausea))){
+        if (symptomName.equals(getString(R.string.nausea))) {
             dataSet.setColor(getResources().getColor(R.color.graph6));
-            dataSet.setCircleColor(getResources().getColor(R.color.graph6));
         }
-        if (symptomName.equals(getString(R.string.tired))){
+        if (symptomName.equals(getString(R.string.tired))) {
             dataSet.setColor(getResources().getColor(R.color.graph7));
-            dataSet.setCircleColor(getResources().getColor(R.color.graph7));
         }
 
         dataSet.setDrawValues(false);
-        LineData lineData = new LineData(dataSet);
+        BarData lineData = new BarData(dataSet);
         mSymptomDetailTimeChart.setData(lineData);
         mSymptomDetailTimeChart.invalidate();
     }
@@ -327,6 +314,7 @@ public class SymptomDetailFragment extends Fragment {
 
     /**
      * Computes the division in percents of each symptom vs the number of symptoms
+     *
      * @return a float[] that contains the percent values
      */
     private float[] computeSymptomDivisionPercent() {

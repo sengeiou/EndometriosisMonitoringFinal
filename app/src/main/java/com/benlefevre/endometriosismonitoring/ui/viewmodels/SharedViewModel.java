@@ -157,6 +157,9 @@ public class SharedViewModel extends ViewModel {
     public void deleteAllSymptom(){
         mExecutor.execute(mSymptomRepository::deleteAllSymptom);}
 
+
+
+
 //    --------------------------------------FireStore-----------------------------------------------
 
 //    ---------------------------------------CREATE-------------------------------------------------

@@ -550,6 +550,12 @@ public class FertilityFragment extends Fragment {
                     drawFertilization(i);
                 }
                 drawOvulation(lastIndex + 4);
+            }else{
+                for (int i = 0;i <= lastIndex + 4;i++){
+                    drawFertilization(i);
+                }
+                if (lastIndex + 4 >= 0)
+                    drawOvulation(lastIndex+4);
             }
 
 //            -------------------------Draw next cycle----------------------------------------------
@@ -559,6 +565,13 @@ public class FertilityFragment extends Fragment {
                 }
             } else {
                 for (int i = nextMens; i < mTextViewList.size(); i++) {
+                    drawMenstruation(i);
+                }
+            }
+//            -----------------------Draw previous cycle--------------------------------------------
+            int previousCycle = lastMens - mLastDayCycle;
+            if (previousCycle >= 0){
+                for (int i = previousCycle; i< previousCycle + 5; i++){
                     drawMenstruation(i);
                 }
             }

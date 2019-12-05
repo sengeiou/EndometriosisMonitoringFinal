@@ -20,7 +20,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.controllers.activities.LoginActivity"/>
         <activity android:name=".ui.controllers.activities.MainActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

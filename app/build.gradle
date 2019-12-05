@@ -72,7 +72,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     androidTestImplementation "androidx.arch.core:core-testing:$lifecycle_version"
 
-//    WorkManager
+    //    WorkManager
     def work_version = "2.2.0"
     implementation "androidx.work:work-runtime:$work_version"
     androidTestImplementation "androidx.work:work-testing:$work_version"
@@ -98,7 +98,7 @@ dependencies {
     //    GoogleMap
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
-//    GoogleMapUtils
+    //    GoogleMapUtils
     implementation 'com.google.maps.android:android-maps-utils:0.6.2'
 
     //    GooglePlay Location
@@ -107,13 +107,13 @@ dependencies {
     //    EasyPermissions
     implementation 'pub.devrel:easypermissions:3.0.0'
 
-//    Facebook
+    //    Facebook
     implementation 'com.facebook.android:facebook-android-sdk:5.9.0'
 
-//    Google Auth
+    //    Google Auth
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
-//    Glide
+    //    Glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 

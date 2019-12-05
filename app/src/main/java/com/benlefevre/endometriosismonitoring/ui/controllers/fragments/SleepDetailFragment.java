@@ -19,22 +19,23 @@ import com.benlefevre.endometriosismonitoring.injection.ViewModelFactory;
 import com.benlefevre.endometriosismonitoring.models.Action;
 import com.benlefevre.endometriosismonitoring.ui.viewmodels.SharedViewModel;
 import com.benlefevre.endometriosismonitoring.utils.Utils;
-import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.chip.Chip;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +44,7 @@ public class SleepDetailFragment extends Fragment {
 
 
     @BindView(R.id.sleep_detail_chart)
-    LineChart mSleepDetailChart;
+    CombinedChart mSleepDetailChart;
     @BindView(R.id.sleep_chip_week)
     Chip mSleepChipWeek;
     @BindView(R.id.sleep_chip_month)
@@ -113,15 +114,15 @@ public class SleepDetailFragment extends Fragment {
 
         List<String> dates = new ArrayList<>();
         int i = 0;
-        List<Entry> sleepEntries = new ArrayList<>();
+        List<BarEntry> sleepBarEntries = new ArrayList<>();
         List<Entry> painEntries = new ArrayList<>();
 
         for (Action action : mSleepList) {
             if (sleepList.contains(action)) {
-                sleepEntries.add(new Entry(i, action.getIntensity()));
+                sleepBarEntries.add(new BarEntry(i, action.getIntensity()));
                 painEntries.add(new Entry(i, action.getPainValue()));
             } else {
-                sleepEntries.add(new Entry(i, 0));
+                sleepBarEntries.add(new BarEntry(i, 0));
                 painEntries.add(new Entry(i, action.getPainValue()));
             }
             dates.add(Utils.formatDate(action.getDate()));
@@ -140,20 +141,24 @@ public class SleepDetailFragment extends Fragment {
         YAxis rightY = mSleepDetailChart.getAxisRight();
         rightY.setEnabled(false);
 
-        List<ILineDataSet> dataSet = new ArrayList<>();
-        LineDataSet sleepDataSet = new LineDataSet(sleepEntries,getString(R.string.sleep_quality));
-        sleepDataSet.setColor(getResources().getColor(R.color.graph2));
-        sleepDataSet.setCircleColor(getResources().getColor(R.color.graph2));
-        sleepDataSet.setDrawValues(false);
-        dataSet.add(sleepDataSet);
-        LineDataSet painDataSet = new LineDataSet(painEntries,getString(R.string.my_pain));
+        BarDataSet sleepBarDataSet = new BarDataSet(sleepBarEntries, getString(R.string.sleep_quality));
+        sleepBarDataSet.setColor(getResources().getColor(R.color.graph2));
+        sleepBarDataSet.setDrawValues(false);
+
+        LineDataSet painDataSet = new LineDataSet(painEntries, getString(R.string.my_pain));
         painDataSet.setCircleColor(getResources().getColor(R.color.colorSecondary));
         painDataSet.setColor(getResources().getColor(R.color.colorSecondary));
+        painDataSet.setLineWidth(3);
         painDataSet.setDrawValues(false);
-        dataSet.add(painDataSet);
 
-        LineData data = new LineData(dataSet);
-        mSleepDetailChart.setData(data);
+        LineData lineData = new LineData(painDataSet);
+        BarData barData = new BarData(sleepBarDataSet);
+
+        CombinedData combinedData = new CombinedData();
+        combinedData.setData(lineData);
+        combinedData.setData(barData);
+
+        mSleepDetailChart.setData(combinedData);
         mSleepDetailChart.invalidate();
     }
 
